@@ -16,3 +16,7 @@ def apply_view(request):
 @login_required
 def home_view(request):
     return TemplateResponse(request, 'home.html', {})
+
+
+def submit_view(request):
+    return TemplateResponse(request, 'submit.html', {})
