@@ -17,6 +17,15 @@ gender = {
 	8: "Client doesn’t know",
 	9: "Client refused",
 	99: "Data not collected"
+
+war_participated = {
+    "WorldWarII":1,
+    "KoreanWar":2,
+    "VietnamWar":3,
+    "DesertStorm":4,
+    "AfghanistanOEF":5,
+    "IraqOIF":6,
+    "IraqOND":7,
 }
 
 domestic_violenceVictim = {

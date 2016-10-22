@@ -63,31 +63,4 @@ def mark_reviewed(request):
     except:
         return JsonResponse({'status': 'error'})
 
-def get_applicants(request):
-    app_list = Applicant.objects.all()
 
-    applicant = [{
-        "first_name": c.first_name,
-        "last_name": c.last_name,
-        "why": c.why,
-        "phone": c.phone,
-        "email": c.emial,
-        "address": c.address,
-        "birthday": c.birthday,
-        "ethnicity": ethnicity[c.ethnicity],
-        "gender": gender[c.gender],
-        "veteran": veteran[c.veteran],
-        "family": c.family,
-        "domestic_violence": domestic_violence[c.domestic_violence],
-        "pregnancy": c.pregnancy,
-        "drug": c.drug,
-        "urgency": c.urgency,
-        "created": c.created,
-        "reviewed": c.reviewed
-
-        } for c in app_list]
-
-    return JsonResponse(applicant, safe=False)
-
-def search_clients(request):
-    pass
