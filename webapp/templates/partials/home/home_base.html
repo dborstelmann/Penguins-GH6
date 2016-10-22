@@ -6,9 +6,18 @@
         </div>
         <div class="col s12 m6">
             <div class="new-applications">
+                <div class="title">
+                    <h5>New Applications</h5>
+                </div>
                 <ul class="collapsible" data-collapsible="accordion">
+                    {{# _.each(new_applications, function (a) { }}
+                        <li>
+                            <div class="collapsible-header"><i class="material-icons">person</i>{{a.first_name}} {{a.middle_name}} {{a.last_name}}</div>
+                            <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+                        </li>
+                    {{# }); }}
                     <li>
-                        <div class="collapsible-header"><i class="material-icons">filter_drama</i>First</div>
+                        <div class="collapsible-header"><i class="material-icons">person</i>flkdjg</div>
                         <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
                     </li>
                     <li>

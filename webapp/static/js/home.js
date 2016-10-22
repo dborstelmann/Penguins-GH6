@@ -9,7 +9,7 @@ hk.HomeView = BB.View.extend({
     },
 
     render: function () {
-        this.$el.empty().append(this.template());
+        this.$el.empty().append(this.template({new_applications: []}));
     },
 
     events: {
