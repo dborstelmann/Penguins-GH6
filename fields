@@ -1,18 +1,22 @@
-First name
-Last name
-Date of birth
-Race/Ethnicity
-Gender
-Veteran
-Disability (code)
-Education Level (code)
-Employment Status (code)
-Residential Status (code)
-Have you been enrolled in a program before?
-Domestic Violence involvement?
-Health Status?
-Pregnancy status?
-Drugs?
+First name -text
+Last name -text
+Why are you seeking help? -text
+Phone number -text
+Email -text
+Address -text
+Date of birth -date picker
+Race/Ethnicity -select
+Gender -select
+Veteran -yes/no
+Disability (code) -rating
+Education Level (code) -rating
+Employment Status (code) -rating
+Residential Status (code) -rating
+Have you been enrolled in a program before? -yes/no
+Domestic Violence involvement? -yes/no
+Health Status? -rating
+Pregnancy status? -yes/no
+Are you seeking drug rehab? -yes/no
 	- Have you or an immediate family member used one of the following drugs
 // Date Created
 // User ID
