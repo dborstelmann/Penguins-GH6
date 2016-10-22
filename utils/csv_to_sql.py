@@ -335,91 +335,93 @@ def sync_health_and_dv():
             }
             bulk_create.append()
 
-def income_benefits():
+def sync_income_benefits():
     with open('sample_data/income_benefits') as csvfile:
         reader = csv.DictReader(csvfile)
         bulk_create = []
 
         fmt_date = lambda k: parse(k).date()
         fmt_datetime = lambda k: parse(k)
+        cast_int = lambda k: int(k) if k else None
+        cast_bool = lambda k : bool(k) if k else None
         for row in reader:
             for key in row:
                 if row[key] == 'NULL':
                     row[key] = None
 
             csv2db_client = {
-                "":row["IncomeBenefitsID"]
-                "":row["ProjectEntryID"]
-                "":row["PersonalID"]
-                "":row["InformationDate"]
-                "":row["IncomeFromAnySource"]
-                "":row["TotalMonthlyIncome"]
-                "":row["Earned"]
-                "":row["EarnedAmount"]
-                "":row["Unemployment"]
-                "":row["UnemploymentAmount"]
-                "":row["SSI"]
-                "":row["SSIAmount"]
-                "":row["SSDI"]
-                "":row["SSDIAmount"]
-                "":row["VADisabilityService"]
-                "":row["VADisabilityServiceAmount"]
-                "":row["VADisabilityNonService"]
-                "":row["VADisabilityNonServiceAmount"]
-                "":row["PrivateDisability"]
-                "":row["PrivateDisabilityAmount"]
-                "":row["WorkersComp"]
-                "":row["WorkersCompAmount"]
-                "":row["TANF"]
-                "":row["TANFAmount"]
-                "":row["GA"]
-                "":row["GAAmount"]
-                "":row["SocSecRetirement"]
-                "":row["SocSecRetirementAmount"]
-                "":row["Pension"]
-                "":row["PensionAmount"]
-                "":row["ChildSupport"]
-                "":row["ChildSupportAmount"]
-                "":row["Alimony"]
-                "":row["AlimonyAmount"]
-                "":row["OtherIncomeSource"]
-                "":row["OtherIncomeAmount"]
-                "":row["OtherIncomeSourceIdentify"]
-                "":row["BenefitsFromAnySource"]
-                "":row["SNAP"]
-                "":row["WIC"]
-                "":row["TANFChildCare"]
-                "":row["TANFTransportation"]
-                "":row["OtherTANF"]
-                "":row["RentalAssistanceOngoing"]
-                "":row["RentalAssistanceTemp"]
-                "":row["OtherBenefitsSource"]
-                "":row["OtherBenefitsSourceIdentify"]
-                "":row["InsuranceFromAnySource"]
-                "":row["Medicaid"]
-                "":row["NoMedicaidReason"]
-                "":row["Medicare"]
-                "":row["NoMedicareReason"]
-                "":row["SCHIP"]
-                "":row["NoSCHIPReason"]
-                "":row["VAMedicalServices"]
-                "":row["NoVAMedReason"]
-                "":row["EmployerProvided"]
-                "":row["NoEmployerProvidedReason"]
-                "":row["COBRA"]
-                "":row["NoCOBRAReason"]
-                "":row["PrivatePay"]
-                "":row["NoPrivatePayReason"]
-                "":row["StateHealthIns"]
-                "":row["NoStateHealthInsReason"]
-                "":row["HIVAIDSAssistance"]
-                "":row["NoHIVAIDSAssistanceReason"]
-                "":row["ADAP"]
-                "":row["NoADAPReason"]
-                "":row["DataCollectionStage"]
-                "":row["DateCreated"]
-                "":row["DateUpdated"]
-                "":row["UserID"]
+                "income_benefits_id":row["IncomeBenefitsID"],
+                "project_entry_id":row["ProjectEntryID"],
+                "personal_id":row["PersonalID"],
+                "information_date":fmt_date(row["InformationDate"],)
+                "income_from_any_source":cast_int(row["IncomeFromAnySource"]),
+                "total_monthly_income":cast_int(row["TotalMonthlyIncome"]),
+                "earned":cast_bool(row["Earned"]),
+                "earned_amount":cast_int(row["EarnedAmount"]),
+                "unemployment":cast_bool(row["Unemployment"]),
+                "unemployment_amount":cast_int(row["UnemploymentAmount"]),
+                "ssi":cast_bool(row["SSI"]),
+                "ssi_amount":cast_int(row["SSIAmount"]),
+                "ssdi":cast_bool(row["SSDI"]),
+                "ssdi_amont":cast_bool(row["SSDIAmount"]),
+                "va_disability_service":cast_bool(row["VADisabilityService"]),
+                "va_disability_service_amount":cast_int(row["VADisabilityServiceAmount"]),
+                "va_disability_non_service":cast_bool(row["VADisabilityNonService"]),
+                "va_disability_non_service_amount":cast_int(row["VADisabilityNonServiceAmount"]),
+                "private_disability":cast_bool(row["PrivateDisability"]),
+                "private_disability_amount":cast_int(row["PrivateDisabilityAmount"]),
+                "workers_comp":cast_bool(row["WorkersComp"]),
+                "workers_comp_amount":cast_int(row["WorkersCompAmount"]),
+                "tanf":cast_bool(row["TANF"]),
+                "tanf_amount":cast_int(row["TANFAmount"]),
+                "ga":cast_bool(row["GA"]),
+                "ga_amount":cast_int(row["GAAmount"]),
+                "soc_sec_retirement":cast_bool(row["SocSecRetirement"]),
+                "soc_sec_retirement_amount":cast_int(row["SocSecRetirementAmount"]),
+                "pension":cast_bool(row["Pension"]),
+                "pension_amount":cast_int(row["PensionAmount"]),
+                "child_support":cast_bool(row["ChildSupport"]),
+                "child_support_amount":cast_int(row["ChildSupportAmount"]),
+                "alimony":cast_bool(row["Alimony"])
+                "alimony_amount":cast_int(row["AlimonyAmount"])
+                "other_income_source":cast_bool(row["OtherIncomeSource"]),
+                "other_income_source_amount":cast_int(row["OtherIncomeAmount"]),
+                "other_income_source_identify":row["OtherIncomeSourceIdentify"],
+                "benefits_from_any_source":cast_bool(row["BenefitsFromAnySource"]),
+                "snap":cast_bool(row["SNAP"]),
+                "wic":cast_bool(row["WIC"]),
+                "tanf_child_care":cast_bool(row["TANFChildCare"]),
+                "tanf_transportation":cast_bool(row["TANFTransportation"]),
+                "other_tanf":cast_bool(row["OtherTANF"]),
+                "rental_assistance_ongoing":cast_bool(row["RentalAssistanceOngoing"]),
+                "rental_assistance_temp":cast_bool(row["RentalAssistanceTemp"]),
+                "other_benefits_source":cast_bool(row["OtherBenefitsSource"]),
+                "other_benefits_source_identify":row["OtherBenefitsSourceIdentify"],
+                "insurance_from_any_source":cast_bool(row["InsuranceFromAnySource"]),
+                "medicaid":cast_bool(row["Medicaid"]),
+                "no_medicaid_reason":cast_int(row["NoMedicaidReason"]),
+                "medicare":cast_bool(row["Medicare"])
+                "no_medicare_reason":cast_int(row["NoMedicareReason"]),
+                "schip":cast_bool(row["SCHIP"]),
+                "no_schip_reason":row["NoSCHIPReason"],
+                "va_medical_services":cast_bool(row["VAMedicalServices"]),
+                "no_va_med_reason":row["NoVAMedReason"],
+                "employer_provided":cast_bool(row["EmployerProvided"]),
+                "no_employer_provided_reason":row["NoEmployerProvidedReason"],
+                "cobra":cast_bool(row["COBRA"]),
+                "no_cobra_reason":row["NoCOBRAReason"],
+                "private_pay":cast_bool(row["PrivatePay"]),
+                "no_private_pay_reason":row["NoPrivatePayReason"],
+                "state_health_ins":row["StateHealthIns"],
+                "no_state_health_ins_reason":row["NoStateHealthInsReason"],
+                "hiv_aids_assistance":cast_bool(row["HIVAIDSAssistance"]),
+                "no_hiv_aids_assistance_reason":row["NoHIVAIDSAssistanceReason"],
+                "adap":cast_bool(row["ADAP"]),
+                "no_adap_reason":row["NoADAPReason"],
+                "data_collection_stage":cast_int(row["DataCollectionStage"]),
+                "date_created":fmt_datetime(row["DateCreated"]),
+                "date_updated":fmt_datetime(row["DateUpdated"]),
+                "associate_id":row["UserID"]
             }
 
             bulk_create.append(Client(**csv2db_client))
