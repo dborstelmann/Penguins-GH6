@@ -7,8 +7,8 @@ _.templateSettings = {
     escape: /\{\{(?!#|=)(.+?)\}\}/g
 };
 
-hk.underscorePartial = function (templateSelector, data) {
-    return _.template($('#' + templateSelector).html())(data);
+hk.underscorePartial = function (templateSelector, data, options) {
+    return _.template($('#' + templateSelector).html())(_.extend(data, options));
 };
 
 hk.checkForEnter = function (e) {

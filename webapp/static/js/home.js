@@ -65,7 +65,7 @@ hk.HomeView = BB.View.extend({
         });
     },
 
-    searchClients: function () {
+    searchClients: function (searchString) {
         this.clientSearchView.show();
     },
 
@@ -91,10 +91,16 @@ hk.HomeView = BB.View.extend({
     },
 
     searchStart: function (e) {
+        var $val = $(e.target).val();
+
+        if ($val === '') {
+            return;
+        }
+
         if (e.which == 13 && !e.shiftKey) {
             e.preventDefault();
             $(e.target).blur();
-            this.searchClients();
+            this.searchClients($val);
         }
     }
 });
@@ -141,6 +147,11 @@ hk.ProfileView = BB.View.extend({
     render: function () {
         this.$el.empty().append(this.template(this.model.toJSON()));
 
+        this.$('.datepicker').pickadate({
+            selectMonths: true, // Creates a dropdown to control month
+            selectYears: 100 // Creates a dropdown of 15 years to control year
+        });
+        
         hk.materializeShit();
     },
 

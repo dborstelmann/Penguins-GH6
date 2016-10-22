@@ -10,14 +10,17 @@
                 <div class="collapse-container">
                     <div class="row">
                         <div class="col s9">
+                            <div class="why">
+                                <div class="title">
+                                    Reason for application:
+                                </div>
+                                <div class="left-box">
+                                    {{a.why}}
+                                </div>
+                            </div>
                             <div class="contact left-box">
                                 <span class="title">Phone:</span> {{a.phone}} &nbsp; <span class="title">Email:</span> {{a.email}}
                             </div>
-                            {{# if (opensProfile) { }}
-                                <div class="go-to-profile">
-                                    <button class="waves-effect waves-light btn profile-link" type="button">Open Profile</button>
-                                </div>
-                            {{# } }}
                         </div>
                         <div class="col s3">
                             <div class="dob right-box">
