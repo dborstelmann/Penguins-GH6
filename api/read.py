@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from dateutil.parser import parse
 from django.contrib.auth.decorators import login_required
 from api.models import ( Applicant, Client, Disabilities, EmploymentEducation,
-    Enrollment, HealthAndDV, IncomeBenefits, Services, ContinuumServices )
+    Enrollment, HealthAndDV, IncomeBenefits, Services, ContinuumServices, Shelters )
 
 from utils import value_maps
 
@@ -63,6 +63,21 @@ def get_applicants(request):
         } for c in app_list]
 
     return JsonResponse(applicant, safe=False)
+
+def get_shelters(request):
+    shelter_list = Shelters.objects.all()
+
+    shelters = [{
+        "id": c.id,
+        "name": c.name,
+        "address": c.address,
+        "max_occupancy": c.max_occupancy,
+        "occupancy": c.occupancy,
+        "last_updated": c.last_updated
+        } for c in shelter_list]
+
+    return JsonResponse(shelters, safe=False)
+
 
 def profile(request):
     client_uuid = request.POST['id']
