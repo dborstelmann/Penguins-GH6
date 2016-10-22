@@ -84,24 +84,85 @@ def profile(request):
     cl = Client.objects.filter(uuid=client_uuid).first()
     if c is None:
         return {"status": "error", "message": "member not found"}
+    profile = {}
+    profile['client_info'] = [
+        {
+            "name": "first_name",
+            "type": "text",
+            "value": cl.first_name,
+            "options": None
+        },
+        {
+            "name": "last_name",
+            "type": "text",
+            "value": cl.last_name,
+            "options": None
+        },
+        {
+            "name": "middle_name",
+            "type": "text",
+            "value": cl.middle_name,
+            "options": None
+        },
+        {
+            "name": "social_security",
+            "type": "text",
+            "value": cl.social_security,
+            "options": None
+        },
+        {
+            "name": "date_of_birth",
+            "type": "date",
+            "value": cl.date_of_birth,
+            "options": None
+        },
+        {
+            "name": "ethnicity",
+            "type": "select",
+            "value": cl.ethnicity,
+            "options": value_maps.race
+        },
+        {
+            "name": "gender",
+            "type": "select",
+            "value": cl.gender,
+            "options": value_maps.gender
+        },
+        {
+            "name": "veteran",
+            "type": "select",
+            "value": cl.veteran,
+            "options": value_maps.veteran
+        }
+    ]
 
-    profile['client_info'] = {
-        "first_name": cl.first_name,
-        "last_name": cl.last_name,
-        "middle_name": cl.middle_name,
-        "social_security": cl.social_security,
-        "date_of_birth": cl.date_of_birth,
-        "ethnicity": cl.ethnicity,
-        "gender": cl.gender,
-        "veteran": cl.veteran
-    }
 
     e = EmploymentEducation.objects.filter(personal_id=client_uuid).first()
-    profile['employment_education'] = {
-        "emplyed": {
-            "value": "",
-            "options": ""
+    profile['employment_education'] = [
+        {
+            "name":"employed",
+            "type": "select",
+            "value": e.employed,
+            "options": value_maps.general_boolean_numbers
+        },
+        {
+            "name":"employment_type",
+            "type": "select",
+            "value": e.employment_type,
+            "options": value_maps.employment_type
+        },
+        {
+            "name":"not_employed_reason",
+            "type": "select",
+            "value": e.not_employed_reason,
+            "options": value_maps.not_employed_reason
+        },
+        {
+            "name":"last_grade_completed",
+            "type": "select",
+            "value": e.last_grade_completed,
+            "options": value_maps.last_grade_completed
         }
-    }
+    ]
 
-    pass
+    return JsonResponse(profile)
