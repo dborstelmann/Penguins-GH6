@@ -29,7 +29,7 @@ war_participated = {
     "IraqOND":7,
 }
 
-domestic_violence = {
+general_boolean_numbers = {
 	0: "No",
 	1: "Yes",
 	8: "Client does not know",
@@ -37,10 +37,14 @@ domestic_violence = {
 	99: "Data not collected"
 }
 
-veteran = {
-	0: "No",
-	1: "Yes",
-	8: "Client does not know",
-	9: "Client refused",
-	99: "Data not collected"
+type_of_employment = {
+	1: "Full-time",
+	2: "Part-time",
+	3: "Seasonal / sporadic (including day labor)"
+}
+
+reason_not_employed = {
+	1: "Looking For Work",
+	2: "Unable to Work",
+	3: "Not Looking for Work"
 }

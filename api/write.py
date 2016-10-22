@@ -74,7 +74,7 @@ def update_shelters(request):
     try:
         shelters = shelters.objects.get(pk=request.POST['id'])
         shelters.occupancy = request.POST['occupancy']
-        shelters.last_updated = datetime.datetime.now()
+        shelters.date_updated = datetime.datetime.now()
         shelters.save()
         return JsonResponse({'status': 'success'})
 

@@ -30,7 +30,7 @@ def search_clients(request):
         "date_of_birth": datetime.datetime.strftime(c.date_of_birth, '%m/%d/%Y'),
         "ethnicity":  value_maps.ethnicity[c.ethnicity],
         "gender": value_maps.gender[c.gender],
-        "veteran": value_maps.veteran[c.veteran],
+        "veteran": value_maps.general_boolean_numbers[c.veteran],
         "year_entered": c.year_entered,
         "year_exited": c.year_exited,
         "date_created": c.date_created,
@@ -51,9 +51,9 @@ def get_applicants(request):
         "birthday": c.birthday,
         "ethnicity": value_maps.ethnicity[c.ethnicity],
         "gender": value_maps.gender[c.gender],
-        "veteran": value_maps.veteran[c.veteran],
+        "veteran": value_maps.general_boolean_numbers[c.veteran],
         "family": c.family,
-        "domestic_violence": value_maps.domestic_violence[c.domestic_violence],
+        "domestic_violence": value_maps.general_boolean_numbers[c.domestic_violence],
         "pregnancy": c.pregnancy,
         "drug": c.drug,
         "urgency": c.urgency,
@@ -84,7 +84,10 @@ def profile(request):
 
     e = EmploymentEducation.objects.filter(personal_id=client_uuid).first()
     profile['employment_education'] = {
-
+        "emplyed": {
+            "value": "",
+            "options": ""
+        }
     }
 
     pass
