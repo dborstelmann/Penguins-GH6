@@ -49,19 +49,45 @@ def apply(request):
 
     return JsonResponse({'status': 'success'})
 
-def mark_reviewed(request):
+def mark_reviewed(request): 
     '''
         request.POST =
             applicant_id
     '''
+    try:
+        applicant = Applicant.objects.get(pk=request.POST['id'])
+        applicant.reviewed = True
+        applicant.save()
+        return JsonResponse({'status': 'success'})
 
-    return JsonResponse({'status': 'success'})
+    except:
+        return JsonResponse({'status': 'error'})
 
 def get_applicants(request):
+    app_list = Applicant.objects.all()
 
-    applicant = {}
+    applicant = [{
+        "first_name": c.first_name,
+        "last_name": c.last_name,
+        "why": c.why,
+        "phone": c.phone,
+        "email": c.emial,
+        "address": c.address,
+        "birthday": c.birthday,
+        "ethnicity": ethnicity[c.ethnicity],
+        "gender": gender[c.gender],
+        "veteran": veteran[c.veteran],
+        "family": c.family,
+        "domestic_violence": domestic_violence[c.domestic_violence],
+        "pregnancy": c.pregnancy,
+        "drug": c.drug,
+        "urgency": c.urgency,
+        "created": c.created,
+        "reviewed": c.reviewed
 
-    return JsonResponse(applicant)
+        } for c in app_list]
+
+    return JsonResponse(applicant, safe=False)
 
 def search_clients(request):
     pass
