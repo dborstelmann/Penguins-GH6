@@ -16,7 +16,7 @@ class HealthAndDV(models.Model):
     dental_health_status = models.IntegerField(null=True)
     mental_health_status = models.IntegerField(null=True)
     pregnancy_status = models.IntegerField(null=True)
-    due_date = models.IntegerField(null=True)
+    due_date = models.DateField(null=True)
     data_collection_stage = models.IntegerField(null=True)
     date_created = models.DateTimeField(null=False)
     date_updated = models.DateTimeField(null=False)
