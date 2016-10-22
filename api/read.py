@@ -66,5 +66,3 @@ def get_applicants(request):
         } for c in app_list]
 
     return JsonResponse(applicant, safe=False)
-
-def get_profile(request):

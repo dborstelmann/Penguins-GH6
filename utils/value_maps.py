@@ -29,7 +29,7 @@ war_participated = {
     "IraqOND":7,
 }
 
-domestic_violenceVictim = {
+domestic_violence = {
 	0: "No",
 	1: "Yes",
 	8: "Client doesn’t know",
