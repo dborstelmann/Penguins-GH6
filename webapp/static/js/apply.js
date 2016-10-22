@@ -63,7 +63,7 @@ hk.ApplyView = BB.View.extend({
             drug) {
 
             $.ajax({
-                url: '/api/login/',
+                url: '/api/apply/',
                 type: 'POST',
                 data: {
                     firstName: firstName,
