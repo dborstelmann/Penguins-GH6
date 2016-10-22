@@ -63,3 +63,20 @@ def mark_reviewed(request):
 
     except:
         return JsonResponse({'status': 'error'})
+
+def update_shelters(request):
+    '''
+        request.POST =
+            id
+            occupency
+    '''
+    try:
+        shelters = shelters.objects.get(pk=request.POST['id'])
+        shelters.occupancy = request.POST['occupancy']
+        shelters.save()
+        return JsonResponse({'status': 'success'})
+
+    except:
+        return JsonResponse({'status': 'error'})
+
+

@@ -73,3 +73,40 @@ html {
 .input-field textarea:focus + label {
     color: @green !important;
 }
+
+.nice-scroll {
+    overflow-y: scroll;
+    overflow-x: scroll;
+
+    -webkit-transform: translate3d(0,0,0);
+    -moz-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+
+    &::-webkit-scrollbar {
+        width: 12px;
+        height: 12px;
+    }
+    &::-webkit-scrollbar-track {
+        border-radius: 6px;
+        background: #e7e7e7;
+    }
+    &::-webkit-scrollbar-thumb {
+        border-radius: 6px;
+        background: #cacaca;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+        background: #aaa;
+    }
+    &::-webkit-scrollbar-thumb:active {
+        background: #666;
+    }
+    &.nice-scroll-no-x {
+        overflow-x: hidden;
+    }
+    &.nice-scroll-no-y {
+        overflow-y: hidden;
+    }
+    &.nice-scroll-off-right-edge {
+        margin-right: 5px;
+    }
+}
