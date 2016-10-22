@@ -1,3 +1,4 @@
+import datetime
 from django.http import JsonResponse
 from dateutil.parser import parse
 from utils import value_maps
@@ -73,10 +74,9 @@ def update_shelters(request):
     try:
         shelters = shelters.objects.get(pk=request.POST['id'])
         shelters.occupancy = request.POST['occupancy']
+        shelters.last_updated = datetime.datetime.now()
         shelters.save()
         return JsonResponse({'status': 'success'})
 
     except:
         return JsonResponse({'status': 'error'})
-
-

@@ -64,20 +64,6 @@ def get_applicants(request):
 
     return JsonResponse(applicant, safe=False)
 
-def get_shelters(request):
-    shelter_list = Shelters.objects.all()
-
-    shelters = [{
-        "name": c.name,
-        "address": c.address,
-        "max_occupancy": c.max_occupancy,
-        "occupancy": c.occupancy,
-        "last_updated": c.last_updated
-        } for c in shelter_list]
-
-    return JsonResponse(shelters, safe=False)
-
-
 def profile(request):
     client_uuid = request.POST['id']
     cl = Client.objects.filter(uuid=client_uuid).first()
@@ -96,4 +82,9 @@ def profile(request):
         "veteran": cl.veteran
     }
 
-    dis = Disabilities.objects.filter(personal_id=client_uuid).first()
+    e = EmploymentEducation.objects.filter(personal_id=client_uuid).first()
+    profile['employment_education'] = {
+
+    }
+
+    pass
