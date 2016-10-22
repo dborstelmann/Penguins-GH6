@@ -19,19 +19,24 @@ class SheltersManager(models.Manager):
     def get_availability(c):
         return c.max_occupancy - c.occupancy
 
-
 class Shelters(models.Model):
     objects = SheltersManager()
-    name = models.CharField(max_length=31)
+    name = models.CharField(max_length=63)
     address = models.CharField(max_length=63)
     max_occupancy = models.IntegerField()
     occupancy = models.IntegerField()
-    last_updated = models.DateTimeField()
+    last_updated = models.DateTimeField(null=True)
+
+class ContinuumServicesManager(models.Manager):
+
+    def recomendations(a): #accept applications
+        pass
 
 class ContinuumServices(models.Model):
     tag = models.CharField(max_length=10) # shortend name
-    name = models.CharField(max_length=31)
-    description = models.CharField(max_length=255)
+    name = models.CharField(max_length=63)
+    description = models.TextField(null=True)
+
 
 class ContinuumMembers(models.Model):
     name = models.CharField(max_length=31)

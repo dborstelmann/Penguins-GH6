@@ -3,15 +3,9 @@ from django.http import JsonResponse
 from dateutil.parser import parse
 from django.contrib.auth.decorators import login_required
 from api.models import ( Applicant, Client, Disabilities, EmploymentEducation,
-    Enrollment, HealthAndDV, IncomeBenefits, Services )
+    Enrollment, HealthAndDV, IncomeBenefits, Services, ContinuumServices )
 
 from utils import value_maps
-
-def get_applicants(request):
-
-    applicant = {}
-
-    return JsonResponse(applicant)
 
 def search_clients(request):
 
@@ -65,6 +59,13 @@ def get_applicants(request):
         "urgency": c.urgency,
         "created": c.created,
         "reviewed": c.reviewed,
+        "recomendations": ContinuumServices.objects.reccomendations(c)
         } for c in app_list]
 
     return JsonResponse(applicant, safe=False)
+
+def profile(request):
+    client_uuid = request.POST['id']
+    cl = Client.objects.filter(uuid=client_uuid).first()
+    if c is None:
+        return {"status": "error", "message": "member not found"}
