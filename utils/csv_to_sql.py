@@ -1,10 +1,29 @@
 import csv
 import datetime
 from dateutil.parser import parse
-from value_maps import ethnicity, war_participated
 from api.models import ( Client, Disabilities, EmploymentEducation, Enrollment, Exit,
     HealthAndDV, IncomeBenefits, Services )
 from api.models import Services
+
+ethnicity = {
+  "AmIndAKNative":1,
+  "Asian":2,
+  "Black":3,
+  "NativeHIOtherPacific":4,
+  "White":5,
+  "RaceNone":0,
+  "Hispanic":6
+}
+
+war_participated = {
+    "WorldWarII":1,
+    "KoreanWar":2,
+    "VietnamWar":3,
+    "DesertStorm":4,
+    "AfghanistanOEF":5,
+    "IraqOIF":6,
+    "IraqOND":7,
+}
 
 def sync_client():
     with open('sample_data/client.csv') as csvfile:
