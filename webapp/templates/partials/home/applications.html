@@ -1,10 +1,10 @@
 {% verbatim %}
 <ul class="collapsible" data-collapsible="accordion">
-    {{# _.each(applicants, function (a) { }}
+    {{# _.each(_.sortBy(applicants, 'created').reverse(), function (a) { }}
         <li>
             <div class="collapsible-header">
                 <i class="material-icons">person</i><span>{{a.first_name}} {{a.last_name}}</span>
-                <span class="title right">Applied: {{a.created}}</span>
+                <span class="title right">Applied: {{new Date(a.created).toDateString()}}</span>
             </div>
             <div class="collapsible-body">
                 <div class="collapse-container">
