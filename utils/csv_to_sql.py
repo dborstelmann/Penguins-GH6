@@ -53,29 +53,29 @@ def sync_disabilities():
                     row[key] = None
 
             csv2db_client = {
-                "DisabilitiesID":"",
-                "ProjectEntryID":"",
-                "PersonalID":"",
-                "InformationDate":"",
-                "DisabilityType":"",
-                "DisabilityResponse":"",
-                "IndefiniteAndImpairs":"",
-                "DocumentationOnFile":"",
-                "ReceivingServices":"",
-                "PATHHowConfirmed":"",
-                "PATHSMIInformation":"",
-                "TCellCountAvailable":"",
-                "TCellCount":"",
-                "TCellSource":"",
-                "ViralLoadAvailable":"",
-                "ViralLoad":"",
-                "ViralLoadSource":"",
-                "DataCollectionStage":"",
-                "DateCreated":"",
-                "DateUpdated":"",
-                "UserID":"",
-                "DateDeleted":"",
-                "ExportID":""
+                "":row["DisabilitiesID"],
+                "":row["ProjectEntryID"],
+                "":row["PersonalID"],
+                "":row["InformationDate"],
+                "":row["DisabilityType"],
+                "":row["DisabilityResponse"],
+                "":row["IndefiniteAndImpairs"],
+                "":row["DocumentationOnFile"],
+                "":row["ReceivingServices"],
+                "":row["PATHHowConfirmed"],
+                "":row["PATHSMIInformation"],
+                "":row["TCellCountAvailable"],
+                "":row["TCellCount"],
+                "":row["TCellSource"],
+                "":row["ViralLoadAvailable"],
+                "":row["ViralLoad"],
+                "":row["ViralLoadSource"],
+                "":row["DataCollectionStage"],
+                "":row["DateCreated"],
+                "":row["DateUpdated"],
+                "":row["UserID"],
+                "":row["DateDeleted"],
+                "":row["ExportID"]
             }
             bulk_create.append(Client(**csv2db_client))
 
@@ -92,21 +92,20 @@ def sync_employmenteducation():
                     row[key] = None
 
             csv2db_client = {
-                "EmploymentEducationID":"",
-                "ProjectEntryID":"",
-                "PersonalID":"",
-                "InformationDate":"",
-                "LastGradeCompleted":"",
-                "SchoolStatus":"",
-                "Employed":"",
-                "EmploymentType":"",
-                "NotEmployedReason":"",
-                "DataCollectionStage":"",
-                "DateCreated":"",
-                "DateUpdated":"",
-                "UserID":"",
-                "DateDeleted":"",
-                "ExportID":""
+                "":row["EmploymentEducationID"],
+                "":row["ProjectEntryID"],
+                "":row["PersonalID"],
+                "":row["InformationDate"],
+                "":row["LastGradeCompleted"],
+                "":row["SchoolStatus"],
+                "":row["Employed"],
+                "":row["EmploymentType"],
+                "":row["NotEmployedReason"],
+                "":row["DataCollectionStage"],
+                "":row["DateCreated"],
+                "":row["DateUpdated"],
+                "":row["UserID"],
+                "":row["DateDeleted"]
             }
             bulk_create.append(Client(**csv2db_client))
 
@@ -123,87 +122,208 @@ def sync_enrollment():
                     row[key] = None
 
             csv2db_client = {
-                "ProjectEntryID":"",
-                "PersonalID":"",
-                "ProjectID":"",
-                "EntryDate":"",
-                "HouseholdID":"",
-                "RelationshipToHoH":"",
-                "ResidencePrior":"",
-                "OtherResidencePrior":"",
-                "ResidencePriorLengthOfStay":"",
-                "DisablingCondition":"",
-                "EntryFromStreetESSH":"",
-                "DateToStreetESSH":"",
-                "TimesHomelessPastThreeYears":"",
-                "MonthsHomelessPastThreeYears":"",
-                "HousingStatus":"",
-                "DateOfEngagement":"",
-                "InPermanentHousing":"",
-                "ResidentialMoveInDate":"",
-                "DateOfPATHStatus":"",
-                "ClientEnrolledInPATH":"",
-                "ReasonNotEnrolled":"",
-                "WorstHousingSituation":"",
-                "PercentAMI":"",
-                "LastPermanentStreet":"",
-                "LastPermanentCity":"",
-                "LastPermanentState":"",
-                "LastPermanentZIP":"",
-                "AddressDataQuality":"",
-                "DateOfBCPStatus":"",
-                "FYSBYouth":"",
-                "ReasonNoServices":"",
-                "SexualOrientation":"",
-                "FormerWardChildWelfare":"",
-                "ChildWelfareYears":"",
-                "ChildWelfareMonths":"",
-                "FormerWardJuvenileJustice":"",
-                "JuvenileJusticeYears":"",
-                "JuvenileJusticeMonths":"",
-                "HouseholdDynamics":"",
-                "SexualOrientationGenderIDYouth":"",
-                "SexualOrientationGenderIDFam":"",
-                "HousingIssuesYouth":"",
-                "HousingIssuesFam":"",
-                "SchoolEducationalIssuesYouth":"",
-                "SchoolEducationalIssuesFam":"",
-                "UnemploymentYouth":"",
-                "UnemploymentFam":"",
-                "MentalHealthIssuesYouth":"",
-                "MentalHealthIssuesFam":"",
-                "HealthIssuesYouth":"",
-                "HealthIssuesFam":"",
-                "PhysicalDisabilityYouth":"",
-                "PhysicalDisabilityFam":"",
-                "MentalDisabilityYouth":"",
-                "MentalDisabilityFam":"",
-                "AbuseAndNeglectYouth":"",
-                "AbuseAndNeglectFam":"",
-                "AlcoholDrugAbuseYouth":"",
-                "AlcoholDrugAbuseFam":"",
-                "InsufficientIncome":"",
-                "ActiveMilitaryParent":"",
-                "IncarceratedParent":"",
-                "IncarceratedParentStatus":"",
-                "ReferralSource":"",
-                "CountOutreachReferralApproaches":"",
-                "ExchangeForSex":"",
-                "ExchangeForSexPastThreeMonths":"",
-                "CountOfExchangeForSex":"",
-                "AskedOrForcedToExchangeForSex":"",
-                "AskedOrForcedToExchangeForSexPastThreeMonths":"",
-                "WorkPlaceViolenceThreats":"",
-                "WorkplacePromiseDifference":"",
-                "CoercedToContinueWork":"",
-                "LaborExploitPastThreeMonths":"",
-                "HPScreeningScore":"",
-                "VAMCStation":"",
-                "DateCreated":"",
-                "DateUpdated":"",
-                "UserID":"",
-                "DateDeleted":""
+                "":row["ProjectEntryID"],
+                "":row["PersonalID"],
+                "":row["ProjectID"],
+                "":row["EntryDate"],
+                "":row["HouseholdID"],
+                "":row["RelationshipToHoH"],
+                "":row["ResidencePrior"],
+                "":row["OtherResidencePrior"],
+                "":row["ResidencePriorLengthOfStay"],
+                "":row["DisablingCondition"],
+                "":row["EntryFromStreetESSH"],
+                "":row["DateToStreetESSH"],
+                "":row["TimesHomelessPastThreeYears"],
+                "":row["MonthsHomelessPastThreeYears"],
+                "":row["HousingStatus"],
+                "":row["DateOfEngagement"],
+                "":row["InPermanentHousing"],
+                "":row["ResidentialMoveInDate"],
+                "":row["DateOfPATHStatus"],
+                "":row["ClientEnrolledInPATH"],
+                "":row["ReasonNotEnrolled"],
+                "":row["WorstHousingSituation"],
+                "":row["PercentAMI"],
+                "":row["LastPermanentStreet"],
+                "":row["LastPermanentCity"],
+                "":row["LastPermanentState"],
+                "":row["LastPermanentZIP"],
+                "":row["AddressDataQuality"],
+                "":row["DateOfBCPStatus"],
+                "":row["FYSBYouth"],
+                "":row["ReasonNoServices"],
+                "":row["SexualOrientation"],
+                "":row["FormerWardChildWelfare"],
+                "":row["ChildWelfareYears"],
+                "":row["ChildWelfareMonths"],
+                "":row["FormerWardJuvenileJustice"],
+                "":row["JuvenileJusticeYears"],
+                "":row["JuvenileJusticeMonths"],
+                "":row["HouseholdDynamics"],
+                "":row["SexualOrientationGenderIDYouth"],
+                "":row["SexualOrientationGenderIDFam"],
+                "":row["HousingIssuesYouth"],
+                "":row["HousingIssuesFam"],
+                "":row["SchoolEducationalIssuesYouth"],
+                "":row["SchoolEducationalIssuesFam"],
+                "":row["UnemploymentYouth"],
+                "":row["UnemploymentFam"],
+                "":row["MentalHealthIssuesYouth"],
+                "":row["MentalHealthIssuesFam"],
+                "":row["HealthIssuesYouth"],
+                "":row["HealthIssuesFam"],
+                "":row["PhysicalDisabilityYouth"],
+                "":row["PhysicalDisabilityFam"],
+                "":row["MentalDisabilityYouth"],
+                "":row["MentalDisabilityFam"],
+                "":row["AbuseAndNeglectYouth"],
+                "":row["AbuseAndNeglectFam"],
+                "":row["AlcoholDrugAbuseYouth"],
+                "":row["AlcoholDrugAbuseFam"],
+                "":row["InsufficientIncome"],
+                "":row["ActiveMilitaryParent"],
+                "":row["IncarceratedParent"],
+                "":row["IncarceratedParentStatus"],
+                "":row["ReferralSource"],
+                "":row["CountOutreachReferralApproaches"],
+                "":row["ExchangeForSex"],
+                "":row["ExchangeForSexPastThreeMonths"],
+                "":row["CountOfExchangeForSex"],
+                "":row["AskedOrForcedToExchangeForSex"],
+                "":row["AskedOrForcedToExchangeForSexPastThreeMonths"],
+                "":row["WorkPlaceViolenceThreats"],
+                "":row["WorkplacePromiseDifference"],
+                "":row["CoercedToContinueWork"],
+                "":row["LaborExploitPastThreeMonths"],
+                "":row["HPScreeningScore"],
+                "":row["VAMCStation"],
+                "":row["DateCreated"],
+                "":row["DateUpdated"],
+                "":row["UserID"],
+                "":row["DateDeleted"]
             }
             bulk_create.append(Client(**csv2db_client))
+
+def sync_exit():
+    with open('sample_data/exit.csv') as csvfile:
+        reader = csv.DictReader(csvfile)
+        bulk_create  = []
+        fmt_date = lambda k: parse(k).date()
+        fmt_datetime = lambda k: parse(k)
+
+        for row in reader:
+            for key in row:
+                if row[key] == 'NULL':
+                    row[key] = None
+
+            csv2db_client = {
+                "ExitID"":row[""],
+                "":row["ProjectEntryID"],
+                "":row["PersonalID"],
+                "":row["ExitDate"],
+                "":row["Destination"],
+                "":row["OtherDestination"],
+                "":row["AssessmentDisposition"],
+                "":row["OtherDisposition"],
+                "":row["HousingAssessment"],
+                "":row["SubsidyInformation"],
+                "":row["ConnectionWithSOAR"],
+                "":row["WrittenAftercarePlan"],
+                "":row["AssistanceMainstreamBenefits"],
+                "":row["PermanentHousingPlacement"],
+                "":row["TemporaryShelterPlacement"],
+                "":row["ExitCounseling"],
+                "":row["FurtherFollowUpServices"],
+                "":row["ScheduledFollowUpContacts"],
+                "":row["ResourcePackage"],
+                "":row["OtherAftercarePlanOrAction"],
+                "":row["ProjectCompletionStatus"],
+                "":row["EarlyExitReason"],
+                "":row["FamilyReunificationAchieved"],
+                "":row["DateCreated"],
+                "":row["DateUpdated"],
+                "":row["UserID"],
+                "":row["DateDeleted"]
+            }
+            bulk_create.append()
+
+def sync_funder():
+    with open('sample_data/funder.csv') as csvfile:
+        reader = csv.DictReader(csvfile)
+        bulk_create  = []
+        fmt_date = lambda k: parse(k).date()
+        fmt_datetime = lambda k: parse(k)
+
+        for row in reader:
+            for key in row:
+                if row[key] == 'NULL':
+                    row[key] = None
+
+            csv2db_client = {
+                "":row["ExitID"],
+                "":row["ProjectEntryID"],
+                "":row["PersonalID"],
+                "":row["ExitDate"],
+                "":row["Destination"],
+                "":row["OtherDestination"],
+                "":row["AssessmentDisposition"],
+                "":row["OtherDisposition"],
+                "":row["HousingAssessment"],
+                "":row["SubsidyInformation"],
+                "":row["ConnectionWithSOAR"],
+                "":row["WrittenAftercarePlan"],
+                "":row["AssistanceMainstreamBenefits"],
+                "":row["PermanentHousingPlacement"],
+                "":row["TemporaryShelterPlacement"],
+                "":row["ExitCounseling"],
+                "":row["FurtherFollowUpServices"],
+                "":row["ScheduledFollowUpContacts"],
+                "":row["ResourcePackage"],
+                "":row["OtherAftercarePlanOrAction"],
+                "":row["ProjectCompletionStatus"],
+                "":row["EarlyExitReason"],
+                "":row["FamilyReunificationAchieved"],
+                "":row["DateCreated"],
+                "":row["DateUpdated"],
+                "":row["UserID"],
+                "":row["DateDeleted"]
+            }
+            bulk_create.append()
+
+def sync_health_and_dv():
+    with open('sample_data/healthanddv.csv') as csvfile:
+        reader = csv.DictReader(csvfile)
+        bulk_create  = []
+        fmt_date = lambda k: parse(k).date()
+        fmt_datetime = lambda k: parse(k)
+
+        for row in reader:
+            for key in row:
+                if row[key] == 'NULL':
+                    row[key] = None
+
+            csv2db_client = {
+                "":row["HealthAndDVID"],
+                "":row["ProjectEntryID"],
+                "":row["PersonalID"],
+                "":row["InformationDate"],
+                "":row["DomesticViolenceVictim"],
+                "":row["WhenOccurred"],
+                "":row["CurrentlyFleeing"],
+                "":row["GeneralHealthStatus"],
+                "":row["DentalHealthStatus"],
+                "":row["MentalHealthStatus"],
+                "":row["PregnancyStatus"],
+                "":row["DueDate"],
+                "":row["DataCollectionStage"],
+                "":row["DateCreated"],
+                "":row["DateUpdated"],
+                "":row["UserID"],
+                "":row["DateDeleted"]
+            }
+            bulk_create.append()
+
+
 
     import pdb; pdb.set_trace()
