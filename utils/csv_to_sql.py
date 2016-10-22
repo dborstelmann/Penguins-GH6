@@ -46,6 +46,7 @@ def sync_disabilities():
         bulk_create  = []
         fmt_date = lambda k: parse(k).date()
         fmt_datetime = lambda k: parse(k)
+        cast_int = lambda k: int(k) if k else None
 
         for row in reader:
             for key in row:
@@ -53,27 +54,19 @@ def sync_disabilities():
                     row[key] = None
 
             csv2db_client = {
-                "":row["DisabilitiesID"],
-                "":row["ProjectEntryID"],
-                "":row["PersonalID"],
-                "":row["InformationDate"],
-                "":row["DisabilityType"],
-                "":row["DisabilityResponse"],
-                "":row["IndefiniteAndImpairs"],
-                "":row["DocumentationOnFile"],
-                "":row["ReceivingServices"],
-                "":row["PATHHowConfirmed"],
-                "":row["PATHSMIInformation"],
-                "":row["TCellCountAvailable"],
-                "":row["TCellCount"],
-                "":row["TCellSource"],
-                "":row["ViralLoadAvailable"],
-                "":row["ViralLoad"],
-                "":row["ViralLoadSource"],
-                "":row["DataCollectionStage"],
-                "":row["DateCreated"],
-                "":row["DateUpdated"],
-                "":row["UserID"],
+                "disabilities_id":row["DisabilitiesID"],
+                "project_entry_id":row["ProjectEntryID"],
+                "personal_id":row["PersonalID"],
+                "information_date":fmt_date(row["InformationDate"]),
+                "disability_type":cast_int(row["DisabilityType"]),
+                "indefinite_and_impairs":cast_int(row["IndefiniteAndImpairs"]),
+                "documentation_on_file":cast_int(row["DocumentationOnFile"]),
+                "receiving_services":cast_int(row["ReceivingServices"]),
+                "path_how_confirmed":cast_int(row["PATHHowConfirmed"]),
+                "data_collection_stage":cast_int(row["DataCollectionStage"]),
+                "date_created":cast_int(row["DateCreated"]),
+                "date_updated":cast_int(row["DateUpdated"]),
+                "associate_id":cast_int(row["UserID"]),
                 "":row["DateDeleted"],
                 "":row["ExportID"]
             }
@@ -342,9 +335,96 @@ def sync_health_and_dv():
             }
             bulk_create.append()
 
+def income_benefits():
+    with open('sample_data/income_benefits') as csvfile:
+        reader = csv.DictReader(csvfile)
+        bulk_create = []
+
+        fmt_date = lambda k: parse(k).date()
+        fmt_datetime = lambda k: parse(k)
+        for row in reader:
+            for key in row:
+                if row[key] == 'NULL':
+                    row[key] = None
+
+            csv2db_client = {
+                "":row["IncomeBenefitsID"]
+                "":row["ProjectEntryID"]
+                "":row["PersonalID"]
+                "":row["InformationDate"]
+                "":row["IncomeFromAnySource"]
+                "":row["TotalMonthlyIncome"]
+                "":row["Earned"]
+                "":row["EarnedAmount"]
+                "":row["Unemployment"]
+                "":row["UnemploymentAmount"]
+                "":row["SSI"]
+                "":row["SSIAmount"]
+                "":row["SSDI"]
+                "":row["SSDIAmount"]
+                "":row["VADisabilityService"]
+                "":row["VADisabilityServiceAmount"]
+                "":row["VADisabilityNonService"]
+                "":row["VADisabilityNonServiceAmount"]
+                "":row["PrivateDisability"]
+                "":row["PrivateDisabilityAmount"]
+                "":row["WorkersComp"]
+                "":row["WorkersCompAmount"]
+                "":row["TANF"]
+                "":row["TANFAmount"]
+                "":row["GA"]
+                "":row["GAAmount"]
+                "":row["SocSecRetirement"]
+                "":row["SocSecRetirementAmount"]
+                "":row["Pension"]
+                "":row["PensionAmount"]
+                "":row["ChildSupport"]
+                "":row["ChildSupportAmount"]
+                "":row["Alimony"]
+                "":row["AlimonyAmount"]
+                "":row["OtherIncomeSource"]
+                "":row["OtherIncomeAmount"]
+                "":row["OtherIncomeSourceIdentify"]
+                "":row["BenefitsFromAnySource"]
+                "":row["SNAP"]
+                "":row["WIC"]
+                "":row["TANFChildCare"]
+                "":row["TANFTransportation"]
+                "":row["OtherTANF"]
+                "":row["RentalAssistanceOngoing"]
+                "":row["RentalAssistanceTemp"]
+                "":row["OtherBenefitsSource"]
+                "":row["OtherBenefitsSourceIdentify"]
+                "":row["InsuranceFromAnySource"]
+                "":row["Medicaid"]
+                "":row["NoMedicaidReason"]
+                "":row["Medicare"]
+                "":row["NoMedicareReason"]
+                "":row["SCHIP"]
+                "":row["NoSCHIPReason"]
+                "":row["VAMedicalServices"]
+                "":row["NoVAMedReason"]
+                "":row["EmployerProvided"]
+                "":row["NoEmployerProvidedReason"]
+                "":row["COBRA"]
+                "":row["NoCOBRAReason"]
+                "":row["PrivatePay"]
+                "":row["NoPrivatePayReason"]
+                "":row["StateHealthIns"]
+                "":row["NoStateHealthInsReason"]
+                "":row["HIVAIDSAssistance"]
+                "":row["NoHIVAIDSAssistanceReason"]
+                "":row["ADAP"]
+                "":row["NoADAPReason"]
+                "":row["DataCollectionStage"]
+                "":row["DateCreated"]
+                "":row["DateUpdated"]
+                "":row["UserID"]
+            }
+
+            bulk_create.append(Client(**csv2db_client))
 
 
-    import pdb; pdb.set_trace()
 def sync_services():
     with open('sample_data/services.csv') as csvfile:
         reader = csv.DictReader(csvfile)
@@ -357,20 +437,20 @@ def sync_services():
                 if row[key] == 'NULL':
                     row[key] = None
 
-                csv2db_client = {
-                    "personal_id" : row["PersonalID"],
-                    "project_entry_id" : row["ProjectEntryID"],
-                    "services_id" : row["ServicesID"],
-                    "date_provided" : fmt_date(row["DateProvided"]),
-                    "record_type" : int(row["RecordType"]) if row['RecordType'] else None,
-                    "type_provided" : int(row["TypeProvided"]) if row['TypeProvided'] else None,
-                    "other_type_provided" : int(row["OtherTypeProvided"]) if row['OtherTypeProvided'] else None,
-                    "sub_type_provided" = int(row["SubTypeProvided"]) if row['SubTypeProvided'] else None,
-                    "fa_amount" : int(row["FAAmount"]) if row['FAAmount'] else None,
-                    "referral_outcome" = row["ReferralOutcome"],
-                    "date_created" : fmt_datetime(row["DateCreated"]),
-                    "date_updated" : fmt_datetime(row["DateUpdated"]),
-                    "associate_id" : row["UserID"]
-                }
+            csv2db_client = {
+                "personal_id" : row["PersonalID"],
+                "project_entry_id" : row["ProjectEntryID"],
+                "services_id" : row["ServicesID"],
+                "date_provided" : fmt_date(row["DateProvided"]),
+                "record_type" : int(row["RecordType"]) if row['RecordType'] else None,
+                "type_provided" : int(row["TypeProvided"]) if row['TypeProvided'] else None,
+                "other_type_provided" : int(row["OtherTypeProvided"]) if row['OtherTypeProvided'] else None,
+                "sub_type_provided" = int(row["SubTypeProvided"]) if row['SubTypeProvided'] else None,
+                "fa_amount" : int(row["FAAmount"]) if row['FAAmount'] else None,
+                "referral_outcome" = row["ReferralOutcome"],
+                "date_created" : fmt_datetime(row["DateCreated"]),
+                "date_updated" : fmt_datetime(row["DateUpdated"]),
+                "associate_id" : row["UserID"]
+            }
 
-                bulk_create.append(Client(**csv2db_client))
+            bulk_create.append(Client(**csv2db_client))
