@@ -1,61 +1,52 @@
 {% verbatim %}
 <ul class="collapsible" data-collapsible="accordion">
-    {{# debugger; if (users.length === 0) { }}
+    {{# if (users.length === 0) { }}
         No matching users.
     {{# } }}
     {{# _.each(users, function (a) { }}
         <li>
             <div class="collapsible-header">
                 <i class="material-icons">person</i><span>{{a.first_name}} {{a.middle_name}} {{a.last_name}}</span>
-                <span class="title right">Applied: {{a.date_created}}</span>
+                <button style="margin-top: 5px;" class="waves-effect waves-light btn btn-sm profile-link right" data-id="{{a.sid}}" type="button">Open Profile</button>
             </div>
             <div class="collapsible-body">
                 <div class="collapse-container">
                     <div class="row">
-                        <div class="col s9">
-                            {{# if (opensProfile) { }}
-                                <div class="go-to-profile">
-                                    <button class="waves-effect waves-light btn profile-link" type="button">Open Profile</button>
-                                </div>
-                            {{# } }}
+                        <div class="col s3 dob right-box">
+                            <div class="title">
+                                Date of birth:
+                            </div>
+                            {{a.date_of_birth}}
                         </div>
-                        <div class="col s3">
-                            <div class="dob right-box">
-                                <div class="title">
-                                    Date of birth:
-                                </div>
-                                {{a.date_of_birth}}
+                        <div class="col s3 gender right-box">
+                            <div class="title">
+                                Gender:
                             </div>
-                            <div class="gender right-box">
-                                <div class="title">
-                                    Gender:
-                                </div>
-                                {{a.gender}}
+                            {{a.gender}}
+                        </div>
+                        <div class="col s3 veteran right-box">
+                            <div class="title">
+                                Veteran:
                             </div>
-                            <div class="veteran right-box">
-                                <div class="title">
-                                    Veteran:
-                                </div>
-                                {{a.veteran}}
+                            {{a.veteran}}
+                        </div>
+                        <div class="col s3 ethnicity right-box">
+                            <div class="title">
+                                Ethnicity:
                             </div>
-                            <div class="ethnicity right-box">
-                                <div class="title">
-                                    Ethnicity:
-                                </div>
-                                {{a.ethnicity}}
+                            {{a.ethnicity}}
+                        </div>
+                        <div class="col s3 year-in right-box">
+                            <div class="title">
+                                Year Entered:
                             </div>
-                            <div class="year-in right-box">
-                                <div class="title">
-                                    Year Entered:
-                                </div>
-                                {{a.year_entered}}
+                            {{a.year_entered}}
+                        </div>
+                        <div class="col s3 year-out right-box">
+                            <div class="title">
+                                Year Exited:
                             </div>
-                            <div class="year-out right-box">
-                                <div class="title">
-                                    Year Exited:
-                                </div>
-                                {{a.year_exited}}
-                            </div>
+                            {{a.year_exited}}
                         </div>
                     </div>
                 </div>

@@ -1,7 +1,14 @@
 hk = hk || {};
 
 hk.ClientCollection = BB.Collection.extend({
-    url: '/api/get_clients/'
+    url: '/api/get_clients/',
+    modelId: function(attrs) {
+        return attrs.id;
+    }
+});
+
+hk.ProfileModel = BB.Model.extend({
+    url: '/api/get_user/'
 });
 
 hk.HomeView = BB.View.extend({
@@ -65,8 +72,9 @@ hk.HomeView = BB.View.extend({
             collection: this.clientList
         });
 
+        this.profileModel = new hk.ProfileModel();
         this.profileView = new hk.ProfileView({
-            model: this.model
+            model: this.profileModel
         });
     },
 
@@ -88,11 +96,14 @@ hk.HomeView = BB.View.extend({
 
     openProfile: function (e) {
         this.clientSearchView.hide();
-        this.profileView.show();
+        var $id = $(e.target).attr('data-id');
 
-        setTimeout(function () {
-            hk.materializeShit();
-        }, 500);
+        this.profileModel.fetch({
+            type: 'POST',
+            data: {
+                id: $id
+            }
+        });
     },
 
     markReviewed: function (e) {
@@ -160,7 +171,7 @@ hk.ProfileView = BB.View.extend({
     template: _.template($('#profile-template').html()),
 
     initialize: function (options) {
-        this.render();
+        this.listenTo(this.model, 'sync', this.render);
     },
 
     render: function () {
