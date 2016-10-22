@@ -123,8 +123,7 @@ class ContinuumServicesManager(models.Manager):
         clist = ContinuumMembers.objects.filter(services_offered__contains=tag)
         return [{
             "name": m.name,
-            "website": m.website,
-            "service": tag
+            "website": m.website
         } for m in clist]
 
 

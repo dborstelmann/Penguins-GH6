@@ -3,7 +3,7 @@ from dateutil.parser import parse
 from utils import value_maps
 from django.contrib.auth.decorators import login_required
 from api.models import ( Applicant, Client, Disabilities, EmploymentEducation,
-    Enrollment, HealthAndDV, IncomeBenefits, Services )
+    Enrollment, HealthAndDV, IncomeBenefits, Services, ContinuumServices )
 
 
 def apply(request):
@@ -48,7 +48,7 @@ def apply(request):
     a_dict['urgency'] = app.urgency
     app.save()
 
-    return JsonResponse({'status': 'success'})
+    return JsonResponse(ContinuumServices.objects.recomendations(c), safe=True)
 
 def mark_reviewed(request):
     '''

@@ -69,3 +69,17 @@ def profile(request):
     cl = Client.objects.filter(uuid=client_uuid).first()
     if c is None:
         return {"status": "error", "message": "member not found"}
+
+    profile = {}
+    profile['client_info'] = {
+        "first_name": cl.first_name,
+        "last_name": cl.last_name,
+        "middle_name": cl.middle_name,
+        "social_security": cl.social_security,
+        "date_of_birth": cl.date_of_birth,
+        "ethnicity": cl.ethnicity,
+        "gender": cl.gender,
+        "veteran": cl.veteran
+    }
+
+    dis = Disabilities.objects.filter(personal_id=client_uuid).first()
