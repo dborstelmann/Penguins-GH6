@@ -39,7 +39,6 @@ def search_clients(request):
         "year_exited": c.year_exited,
         "date_created": c.date_created
     } for c in clients], safe=False)
-<<<<<<< Updated upstream
 
 def get_applicants(request):
     app_list = Applicant.objects.all()
