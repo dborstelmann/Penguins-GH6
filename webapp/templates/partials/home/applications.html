@@ -24,6 +24,18 @@
                             <div class="review-marking">
                                 <button class="waves-effect waves-light btn mark-reviewed" type="button" data-id="{{a.id}}">Mark Reviewed</button>
                             </div>
+                            <div class="recommendations" style="margin-top:10px;">
+                                <div class="title">
+                                    Recommended Resources:
+                                </div>
+                                <div class="resources">
+                                    {{# _.each(a.recommendations, function (r) { }}
+                                        <div class="">
+                                            <a href="{{r.website}}">{{r.name}}</a>
+                                        </div>
+                                    {{# }); }}
+                                </div>
+                            </div>
                         </div>
                         <div class="col s3">
                             <div class="dob right-box">

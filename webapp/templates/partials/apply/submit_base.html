@@ -1,0 +1,14 @@
+{% verbatim %}
+<div class="container">
+    <h5 style="margin-bottom: 20px;">Thanks for submitting your application.  A St. Patrick's Center representative will contact you soon.</h5>
+    <h6>In the meantime, here are some good resources to look into:</h6>
+    <div class="resources" style="margin-bottom: 20px;">
+        {{# _.each(recommendations, function (r) { }}
+            <div class="">
+                <a href="{{r.website}}">{{r.name}}</a>
+            </div>
+        {{# }); }}
+    </div>
+    <button class="waves-effect waves-light btn home-link" type="button" style="margin-top:30px;margin-bottom:20px;">Back to Home</button>
+</div>
+{% endverbatim %}
