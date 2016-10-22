@@ -1,0 +1,28 @@
+<!doctype html>
+
+<head>
+    {% load staticfiles %}
+    {% include "base/links.html" %}
+    {% include "base/less_headers/home_less.html" %}
+</head>
+	<script id="map-template" type="text/template">
+	    {% include "partials/map/map_base.html" %}
+	</script>
+
+	<script src="https://code.highcharts.com/maps/highmaps.js"></script>
+	<script src="https://code.highcharts.com/maps/modules/data.js"></script>
+	<script src="https://code.highcharts.com/mapdata/custom/world.js"></script>
+<body>
+
+<div id="map">
+</div>
+
+</body>
+
+	<script type="text/javascript" src="{% static "js/map.js" %}"></script>
+	<script type="text/javascript">
+	    var mapView = new hk.MapView();
+	</script>
+
+
+</html>

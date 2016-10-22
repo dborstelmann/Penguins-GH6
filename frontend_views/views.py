@@ -20,3 +20,6 @@ def home_view(request):
 
 def submit_view(request):
     return TemplateResponse(request, 'submit.html', {})
+
+def map_view(request):
+	return TemplateResponse(request, 'map.html', {})
