@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from dateutil.parser import parse
 from django.contrib.auth.decorators import login_required
 from api.models import ( Applicant, Client, Disabilities, EmploymentEducation,
-    Enrollment, HealthAndDV, IncomeBenefits, Services, ContinuumServices )
+    Enrollment, HealthAndDV, IncomeBenefits, Services, ContinuumServices, Shelters )
 
 from utils import value_maps
 
@@ -30,7 +30,7 @@ def search_clients(request):
         "date_of_birth": datetime.datetime.strftime(c.date_of_birth, '%m/%d/%Y'),
         "ethnicity":  value_maps.ethnicity[c.ethnicity],
         "gender": value_maps.gender[c.gender],
-        "veteran": value_maps.veteran[c.veteran],
+        "veteran": value_maps.general_boolean_numbers[c.veteran],
         "year_entered": c.year_entered,
         "year_exited": c.year_exited,
         "date_created": c.date_created,
@@ -51,9 +51,9 @@ def get_applicants(request):
         "birthday": c.birthday,
         "ethnicity": value_maps.ethnicity[c.ethnicity],
         "gender": value_maps.gender[c.gender],
-        "veteran": value_maps.veteran[c.veteran],
+        "veteran": value_maps.general_boolean_numbers[c.veteran],
         "family": c.family,
-        "domestic_violence": value_maps.domestic_violence[c.domestic_violence],
+        "domestic_violence": value_maps.general_boolean_numbers[c.domestic_violence],
         "pregnancy": c.pregnancy,
         "drug": c.drug,
         "urgency": c.urgency,
@@ -68,6 +68,7 @@ def get_shelters(request):
     shelter_list = Shelters.objects.all()
 
     shelters = [{
+        "id": c.id,
         "name": c.name,
         "address": c.address,
         "max_occupancy": c.max_occupancy,
@@ -83,3 +84,24 @@ def profile(request):
     cl = Client.objects.filter(uuid=client_uuid).first()
     if c is None:
         return {"status": "error", "message": "member not found"}
+
+    profile['client_info'] = {
+        "first_name": cl.first_name,
+        "last_name": cl.last_name,
+        "middle_name": cl.middle_name,
+        "social_security": cl.social_security,
+        "date_of_birth": cl.date_of_birth,
+        "ethnicity": cl.ethnicity,
+        "gender": cl.gender,
+        "veteran": cl.veteran
+    }
+
+    e = EmploymentEducation.objects.filter(personal_id=client_uuid).first()
+    profile['employment_education'] = {
+        "emplyed": {
+            "value": "",
+            "options": ""
+        }
+    }
+
+    pass

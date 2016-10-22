@@ -1,6 +1,6 @@
 {% verbatim %}
 <ul class="collapsible" data-collapsible="accordion">
-    {{# _.each(_.sortBy(applicants, 'created').reverse(), function (a) { }}
+    {{# _.each(_.sortBy(applicants, 'urgency').reverse(), function (a) { }}
         <li>
             <div class="collapsible-header">
                 <i class="material-icons">person</i><span>{{a.first_name}} {{a.last_name}}</span>
@@ -49,6 +49,12 @@
                                     Individual/Family:
                                 </div>
                                 {{a.family}}
+                            </div>
+                            <div class="urgency right-box">
+                                <div class="title">
+                                    Urgency:
+                                </div>
+                                {{a.urgency / 40 * 100}}%
                             </div>
                         </div>
                     </div>

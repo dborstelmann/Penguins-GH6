@@ -1,9 +1,10 @@
+import datetime
 from django.http import JsonResponse
 from dateutil.parser import parse
 from utils import value_maps
 from django.contrib.auth.decorators import login_required
 from api.models import ( Applicant, Client, Disabilities, EmploymentEducation,
-    Enrollment, HealthAndDV, IncomeBenefits, Services )
+    Enrollment, HealthAndDV, IncomeBenefits, Services, ContinuumServices, Shelters )
 
 
 def apply(request):
@@ -48,7 +49,7 @@ def apply(request):
     a_dict['urgency'] = app.urgency
     app.save()
 
-    return JsonResponse({'status': 'success'})
+    return JsonResponse(ContinuumServices.objects.recomendations(c), safe=True)
 
 def mark_reviewed(request):
     '''
@@ -64,15 +65,16 @@ def mark_reviewed(request):
     except:
         return JsonResponse({'status': 'error'})
 
-def update_shelters(request):
+def update_shelter(request):
     '''
         request.POST =
             id
-            occupency
+            occupancy
     '''
     try:
-        shelters = shelters.objects.get(pk=request.POST['id'])
+        shelters = Shelters.objects.get(pk=request.POST['id'])
         shelters.occupancy = request.POST['occupancy']
+        shelters.last_updated = datetime.datetime.now()
         shelters.save()
         return JsonResponse({'status': 'success'})
 

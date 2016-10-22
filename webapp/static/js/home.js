@@ -18,6 +18,13 @@ hk.ApplicationsCollection = BB.Collection.extend({
     }
 });
 
+hk.SheltersCollection = BB.Collection.extend({
+    url: '/api/get_shelters/',
+    modelId: function(attrs) {
+        return attrs.id;
+    }
+});
+
 hk.HomeView = BB.View.extend({
     el: '#home',
     template: _.template($('#home-template').html()),
@@ -26,73 +33,18 @@ hk.HomeView = BB.View.extend({
         this.applicationsCollection = new hk.ApplicationsCollection();
         this.applicationsCollection.fetch();
 
+        this.sheltersCollection = new hk.SheltersCollection();
+        this.sheltersCollection.fetch();
+
         this.listenTo(this.applicationsCollection, 'sync', this.render);
+        this.listenTo(this.sheltersCollection, 'sync', this.render);
     },
 
     render: function () {
-        // this.model = new BB.Model({
-        //     users: [
-        //         {
-        //             first_name: 'Dan',
-        //             last_name: 'Borstelmann',
-        //             date_created: 'October 20 2016',
-        //             why: 'About to become homesless need help now, to become homesless need help now, to become homesless need help now',
-        //             date_of_birth: 'May 20 1972',
-        //             gender: 'Male',
-        //             veteran: 'No',
-        //             phone: '456-879-9760',
-        //             email: 'test@test.com',
-        //             family: 'Individual'
-        //         },
-        //         {
-        //             first_name: 'Dan',
-        //             last_name: 'Borstelmann',
-        //             date_created: 'October 20 2016',
-        //             why: 'About to become homesless need help now',
-        //             date_of_birth: 'May 20 1972',
-        //             gender: 'Male',
-        //             veteran: 'No',
-        //             phone: '456-879-9760',
-        //             email: 'test@test.com',
-        //             family: 'Family'
-        //         },
-        //     ],
-        //     shelters: [
-        //         {
-        //             name: 'Homeless Shelter',
-        //             address: '234 N 19th St.',
-        //             max_occupancy: '25',
-        //             occupancy: '20',
-        //             last_updated: '10 minutes ago'
-        //         },
-        //         {
-        //             name: 'Emergency Center',
-        //             address: '6794 Olive Ave.',
-        //             max_occupancy: '72',
-        //             occupancy: '37',
-        //             last_updated: '2 minutes ago'
-        //         }
-        //     ]
-        // });
 
         this.$el.empty().append(this.template({
             applicants: this.applicationsCollection.toJSON(),
-            shelters: [
-                {
-                    name: 'Homeless Shelter',
-                    address: '234 N 19th St.',
-                    max_occupancy: '25',
-                    occupancy: '20',
-                    last_updated: '10 minutes ago'
-                },
-                {
-                    name: 'Emergency Center',
-                    address: '6794 Olive Ave.',
-                    max_occupancy: '72',
-                    occupancy: '37',
-                    last_updated: '2 minutes ago'
-                }
-            ]
+            shelters: this.sheltersCollection.toJSON()
         }));
         hk.materializeShit();
 
@@ -120,6 +72,7 @@ hk.HomeView = BB.View.extend({
         'click .logout': 'goHome',
         'click .profile-link': 'openProfile',
         'click .mark-reviewed': 'markReviewed',
+        'keyup #available': 'updateOccupancy',
         'keyup #client-search': 'searchStart'
     },
 
@@ -133,6 +86,31 @@ hk.HomeView = BB.View.extend({
                 id: $id
             }
         });
+    },
+
+    updateOccupancy: function (e) {
+        var $id = $(e.target).attr('data-id'),
+            $val = $(e.target).val();
+
+        if ($val === '') {
+            return;
+        }
+
+        if (e.which == 13) {
+            $(e.target).blur();
+
+            $.ajax({
+                url: '/api/update_shelter/',
+                type: 'POST',
+                data: {
+                    id: $id,
+                    occupancy: $val
+                },
+                success: function () {
+                    Materialize.toast('Occupancy updated.', 2000);
+                }
+            });
+        }
     },
 
     markReviewed: function (e) {
@@ -168,7 +146,7 @@ hk.HomeView = BB.View.extend({
             return;
         }
 
-        if (e.which == 13 && !e.shiftKey) {
+        if (e.which == 13) {
             e.preventDefault();
             $(e.target).blur();
             this.searchClients($val);
