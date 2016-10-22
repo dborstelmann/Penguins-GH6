@@ -60,12 +60,14 @@ hk.AdminLoginView = BB.View.extend({
     },
 
     loginClick: function () {
+
         var _this = this;
 
         var username = this.$el.find('#username').val(),
             password = this.$el.find('#password').val();
 
         if (username && password) {
+            window.location.href = '/home';
             $.ajax({
                 url: '/auth/login/',
                 type: 'POST',

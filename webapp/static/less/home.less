@@ -13,6 +13,11 @@
                 color: #fff;
                 border-color: #fff;
             }
+
+            .input-field input:focus {
+                border-bottom: 1px solid @white !important;
+                box-shadow: 0 1px 0 0 @white !important;
+            }
         }
 
         .logout {
@@ -62,6 +67,12 @@
         .user-list {
             max-height: 50vh;
             overflow: scroll;
+        }
+    }
+
+    .profile-modal {
+        .input-field input, .input-field label {
+            left: 0;
         }
     }
 }
