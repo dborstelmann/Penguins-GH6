@@ -1,8 +1,10 @@
 ### SETUP FOR GH6
 
 These need to be exported in terminal:
+```
 export DATABASE_URL='postgres://ghaowqkqgrirrb:VOAfTr2PzdevJaxAZG9VpisjgG@ec2-23-23-225-98.compute-1.amazonaws.com:5432/dfn9c1oe9abha3'
 export DJANGO_HACKATHON_KIT_SECRET_KEY='penguins'
+```
 
 We are all connected to a shared Heroku DB, so don't mess with that.
 All you gotta do is run:
