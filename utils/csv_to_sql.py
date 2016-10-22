@@ -67,8 +67,6 @@ def sync_disabilities():
                 "date_created":cast_int(row["DateCreated"]),
                 "date_updated":cast_int(row["DateUpdated"]),
                 "associate_id":cast_int(row["UserID"]),
-                "":row["DateDeleted"],
-                "":row["ExportID"]
             }
             bulk_create.append(Client(**csv2db_client))
 
@@ -78,45 +76,27 @@ def sync_employmenteducation():
         bulk_create  = []
         fmt_date = lambda k: parse(k).date()
         fmt_datetime = lambda k: parse(k)
+        cast_int = lambda k: int(k) if k else None
 
         for row in reader:
             for key in row:
                 if row[key] == 'NULL':
                     row[key] = None
 
-                csv2db_client = {
-                    "personal_id" : row["PersonalID"],
-                    "project_entry_id" : row["ProjectEntryID"],
-                    "services_id" : row["ServicesID"],
-                    "date_provided" : fmt_date(row["DateProvided"]),
-                    "record_type" : int(row["RecordType"]) if row['RecordType'] else None,
-                    "type_provided" : int(row["TypeProvided"]) if row['TypeProvided'] else None,
-                    "other_type_provided" : int(row["OtherTypeProvided"]) if row['OtherTypeProvided'] else None,
-                    "sub_type_provided" = int(row["SubTypeProvided"]) if row['SubTypeProvided'] else None,
-                    "fa_amount" : int(row["FAAmount"]) if row['FAAmount'] else None,
-                    "referral_outcome" = row["ReferralOutcome"],
-                    "date_created" : fmt_datetime(row["DateCreated"]),
-                    "date_updated" : fmt_datetime(row["DateUpdated"]),
-                    "associate_id" : row["UserID"]
-                }
-
-                bulk_create.append(Client(**csv2db_client))
-
             csv2db_client = {
-                "":row["EmploymentEducationID"],
-                "":row["ProjectEntryID"],
-                "":row["PersonalID"],
-                "":row["InformationDate"],
-                "":row["LastGradeCompleted"],
-                "":row["SchoolStatus"],
-                "":row["Employed"],
-                "":row["EmploymentType"],
-                "":row["NotEmployedReason"],
-                "":row["DataCollectionStage"],
-                "":row["DateCreated"],
-                "":row["DateUpdated"],
-                "":row["UserID"],
-                "":row["DateDeleted"]
+                "employment_education_id":row["EmploymentEducationID"],
+                "project_entry_id":row["ProjectEntryID"],
+                "personal_id":row["PersonalID"],
+                "information_date":fmt_date(row["InformationDate"]),
+                "last_grade_completed": cast_int(row["LastGradeCompleted"]),
+                "school_status":cast_int(row["SchoolStatus"]),
+                "employed":cast_int(row["Employed"]),
+                "employment_type": cast_int(row["EmploymentType"]),
+                "not_employed_reason": cast_int(row["NotEmployedReason"]),
+                "data_collection_stage": cast_int(row["DataCollectionStage"]),
+                "date_created": fmt_date(row["DateCreated"]),
+                "date_updated": fmt_date(row["DateUpdated"]),
+                "associate_id": row["UserID"],
             }
             bulk_create.append(Client(**csv2db_client))
 
@@ -229,33 +209,32 @@ def sync_exit():
                     row[key] = None
 
             csv2db_client = {
-                "ExitID"":row[""],
-                "":row["ProjectEntryID"],
-                "":row["PersonalID"],
-                "":row["ExitDate"],
-                "":row["Destination"],
-                "":row["OtherDestination"],
-                "":row["AssessmentDisposition"],
-                "":row["OtherDisposition"],
-                "":row["HousingAssessment"],
-                "":row["SubsidyInformation"],
-                "":row["ConnectionWithSOAR"],
-                "":row["WrittenAftercarePlan"],
-                "":row["AssistanceMainstreamBenefits"],
-                "":row["PermanentHousingPlacement"],
-                "":row["TemporaryShelterPlacement"],
-                "":row["ExitCounseling"],
-                "":row["FurtherFollowUpServices"],
-                "":row["ScheduledFollowUpContacts"],
-                "":row["ResourcePackage"],
-                "":row["OtherAftercarePlanOrAction"],
-                "":row["ProjectCompletionStatus"],
-                "":row["EarlyExitReason"],
-                "":row["FamilyReunificationAchieved"],
-                "":row["DateCreated"],
-                "":row["DateUpdated"],
-                "":row["UserID"],
-                "":row["DateDeleted"]
+                "exit_id":row["ExitID"],
+                "project_entry_id":row["ProjectEntryID"],
+                "personal_id":row["PersonalID"],
+                "exit_date":row["ExitDate"],
+                "destination":row["Destination"],
+                "other_destination":row["OtherDestination"],
+                "assessment_disposition":row["AssessmentDisposition"],
+                "other_disposition":row["OtherDisposition"],
+                "housing_assessment":row["HousingAssessment"],
+                "subsidy_information":row["SubsidyInformation"],
+                "connection_with_soar":row["ConnectionWithSOAR"],
+                "written_after_care_plan":row["WrittenAftercarePlan"],
+                "assistance_mainstream_benefits":row["AssistanceMainstreamBenefits"],
+                "permanent_housing_placement":row["PermanentHousingPlacement"],
+                "temporary_shelter_placement":row["TemporaryShelterPlacement"],
+                "exit_counseling":row["ExitCounseling"],
+                "further_follow_up_services":row["FurtherFollowUpServices"],
+                "scheduled_follow_up_contact":row["ScheduledFollowUpContacts"],
+                "resource_package":row["ResourcePackage"],
+                "other_aftercare_plan_or_action":row["OtherAftercarePlanOrAction"],
+                "project_completion_status":row["ProjectCompletionStatus"],
+                "early_exit_reason":row["EarlyExitReason"],
+                "family_reunification_achieved":row["FamilyReunificationAchieved"],
+                "date_created":row["DateCreated"],
+                "date_updated":row["DateUpdated"],
+                "associate_id":row["UserID"]
             }
             bulk_create.append()
 
