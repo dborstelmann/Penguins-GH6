@@ -11,42 +11,72 @@ hk.ProfileModel = BB.Model.extend({
     url: '/api/get_user/'
 });
 
+hk.ApplicationsCollection = BB.Collection.extend({
+    url: '/api/get_applicants/',
+    modelId: function(attrs) {
+        return attrs.id;
+    }
+});
+
 hk.HomeView = BB.View.extend({
     el: '#home',
     template: _.template($('#home-template').html()),
 
     initialize: function (options) {
-        this.render();
+        this.applicationsCollection = new hk.ApplicationsCollection();
+        this.applicationsCollection.fetch();
+
+        this.listenTo(this.applicationsCollection, 'sync', this.render);
     },
 
     render: function () {
-        this.model = new BB.Model({
-            users: [
-                {
-                    first_name: 'Dan',
-                    last_name: 'Borstelmann',
-                    date_created: 'October 20 2016',
-                    why: 'About to become homesless need help now, to become homesless need help now, to become homesless need help now',
-                    date_of_birth: 'May 20 1972',
-                    gender: 'Male',
-                    veteran: 'No',
-                    phone: '456-879-9760',
-                    email: 'test@test.com',
-                    family: 'Individual'
-                },
-                {
-                    first_name: 'Dan',
-                    last_name: 'Borstelmann',
-                    date_created: 'October 20 2016',
-                    why: 'About to become homesless need help now',
-                    date_of_birth: 'May 20 1972',
-                    gender: 'Male',
-                    veteran: 'No',
-                    phone: '456-879-9760',
-                    email: 'test@test.com',
-                    family: 'Family'
-                },
-            ],
+        // this.model = new BB.Model({
+        //     users: [
+        //         {
+        //             first_name: 'Dan',
+        //             last_name: 'Borstelmann',
+        //             date_created: 'October 20 2016',
+        //             why: 'About to become homesless need help now, to become homesless need help now, to become homesless need help now',
+        //             date_of_birth: 'May 20 1972',
+        //             gender: 'Male',
+        //             veteran: 'No',
+        //             phone: '456-879-9760',
+        //             email: 'test@test.com',
+        //             family: 'Individual'
+        //         },
+        //         {
+        //             first_name: 'Dan',
+        //             last_name: 'Borstelmann',
+        //             date_created: 'October 20 2016',
+        //             why: 'About to become homesless need help now',
+        //             date_of_birth: 'May 20 1972',
+        //             gender: 'Male',
+        //             veteran: 'No',
+        //             phone: '456-879-9760',
+        //             email: 'test@test.com',
+        //             family: 'Family'
+        //         },
+        //     ],
+        //     shelters: [
+        //         {
+        //             name: 'Homeless Shelter',
+        //             address: '234 N 19th St.',
+        //             max_occupancy: '25',
+        //             occupancy: '20',
+        //             last_updated: '10 minutes ago'
+        //         },
+        //         {
+        //             name: 'Emergency Center',
+        //             address: '6794 Olive Ave.',
+        //             max_occupancy: '72',
+        //             occupancy: '37',
+        //             last_updated: '2 minutes ago'
+        //         }
+        //     ]
+        // });
+
+        this.$el.empty().append(this.template({
+            applicants: this.applicationsCollection.toJSON(),
             shelters: [
                 {
                     name: 'Homeless Shelter',
@@ -63,9 +93,8 @@ hk.HomeView = BB.View.extend({
                     last_updated: '2 minutes ago'
                 }
             ]
-        });
-
-        this.$el.empty().append(this.template(this.model.toJSON()));
+        }));
+        hk.materializeShit();
 
         this.clientList = new hk.ClientCollection();
         this.clientSearchView = new hk.ClientSearchView({
@@ -107,7 +136,19 @@ hk.HomeView = BB.View.extend({
     },
 
     markReviewed: function (e) {
-        //Mark as reviewed
+        var _this = this,
+            $id = $(e.target).attr('data-id');
+
+        $.ajax({
+            url: '/api/mark_reviewed/',
+            type: 'POST',
+            data: {
+                id: $id
+            },
+            success: function () {
+                _this.applicationsCollection.fetch();
+            }
+        });
     },
 
     goHome: function () {

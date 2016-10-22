@@ -38,7 +38,7 @@ def search_clients(request):
     } for c in clients], safe=False)
 
 def get_applicants(request):
-    app_list = Applicant.objects.all()
+    app_list = Applicant.objects.filter(reviewed=False)
 
     applicant = [{
         "id": c.id,
@@ -46,7 +46,7 @@ def get_applicants(request):
         "last_name": c.last_name,
         "why": c.why,
         "phone": c.phone,
-        "email": c.emial,
+        "email": c.email,
         "address": c.address,
         "birthday": c.birthday,
         "ethnicity": value_maps.ethnicity[c.ethnicity],
@@ -59,7 +59,7 @@ def get_applicants(request):
         "urgency": c.urgency,
         "created": c.created,
         "reviewed": c.reviewed,
-        "recomendations": ContinuumServices.objects.reccomendations(c)
+        # "recommendations": ContinuumServices.objects.recommendations(c)
         } for c in app_list]
 
     return JsonResponse(applicant, safe=False)

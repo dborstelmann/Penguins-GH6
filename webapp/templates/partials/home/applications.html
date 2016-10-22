@@ -1,10 +1,10 @@
 {% verbatim %}
 <ul class="collapsible" data-collapsible="accordion">
-    {{# _.each(users, function (a) { }}
+    {{# _.each(applicants, function (a) { }}
         <li>
             <div class="collapsible-header">
                 <i class="material-icons">person</i><span>{{a.first_name}} {{a.last_name}}</span>
-                <span class="title right">Applied: {{a.date_created}}</span>
+                <span class="title right">Applied: {{a.created}}</span>
             </div>
             <div class="collapsible-body">
                 <div class="collapse-container">
@@ -22,7 +22,7 @@
                                 <span class="title">Phone:</span> {{a.phone}} &nbsp; <span class="title">Email:</span> {{a.email}}
                             </div>
                             <div class="review-marking">
-                                <button class="waves-effect waves-light btn mark-reviewed" type="button">Mark Reviewed</button>
+                                <button class="waves-effect waves-light btn mark-reviewed" type="button" data-id="{{a.id}}">Mark Reviewed</button>
                             </div>
                         </div>
                         <div class="col s3">
