@@ -82,20 +82,19 @@ def update_shelter(request):
     except:
         return JsonResponse({'status': 'error'})
 
+
 def new_client(request):
     '''
         new client
     '''
+    number = (random.random()*1000000)
+    while Client.objects.filter(uuid=number).exist():
         number = (random.random()*1000000)
-        while client.objects.filter(uuid=number).exist():
-            number = (random.random()*1000000)
 
-        new_client = Client(uuid = number)
-        new_client.save()
-        
-        return JsonResponse({
-            'status': 'success', 
-            'id': number
-            })
+    new_client = Client(uuid=number)
+    new_client.save()
 
-   
+    return JsonResponse({
+        'status': 'success',
+        'id': number
+    })

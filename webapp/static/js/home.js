@@ -70,10 +70,28 @@ hk.HomeView = BB.View.extend({
 
     events: {
         'click .logout': 'goHome',
+        'click .new-user': 'newUser',
         'click .profile-link': 'openProfile',
         'click .mark-reviewed': 'markReviewed',
         'keyup #available': 'updateOccupancy',
         'keyup #client-search': 'searchStart'
+    },
+
+    newUser: function () {
+        var _this = this;
+
+        $.ajax({
+            url: '/api/new_client',
+            type: 'GET',
+            success: function (data) {
+                _this.profileModel.fetch({
+                    type: 'POST',
+                    data: {
+                        id: data.id
+                    }
+                });
+            }
+        });
     },
 
     openProfile: function (e) {
