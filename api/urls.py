@@ -3,8 +3,8 @@ import read, write
 
 urlpatterns = [
     url(r'^apply/$', write.apply, name='apply'),
-    url(r'^get_clients/$', write.search_clients, name='get_clients'),
-    url(r'^get_applicants/$', write.get_applicants, name='get_applicants'),
+    url(r'^get_clients/$', read.search_clients, name='get_clients'),
+    url(r'^get_applicants/$', read.get_applicants, name='get_applicants'),
     url(r'^mark_reviewed/$', write.mark_reviewed, name='mark_reviewed')
 
 ]
