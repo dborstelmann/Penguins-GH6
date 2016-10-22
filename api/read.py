@@ -85,7 +85,6 @@ def profile(request):
     if c is None:
         return {"status": "error", "message": "member not found"}
 
-    profile = {}
     profile['client_info'] = {
         "first_name": cl.first_name,
         "last_name": cl.last_name,
