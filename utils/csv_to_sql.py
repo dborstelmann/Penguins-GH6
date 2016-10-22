@@ -106,6 +106,8 @@ def sync_enrollment():
         bulk_create  = []
         fmt_date = lambda k: parse(k).date()
         fmt_datetime = lambda k: parse(k)
+        cast_int = lambda k: int(k) if k else None
+
 
         for row in reader:
             for key in row:
@@ -120,31 +122,31 @@ def sync_enrollment():
                 "relationship_to_head_of_household": row["RelationshipToHoH"],
                 "residence_prior": row["ResidencePrior"],
                 "other_residence_prior": row["OtherResidencePrior"],
-                "residence_prior_length_of_stay": int(row["ResidencePriorLengthOfStay"]) if row["ResidencePriorLengthOfStay"] else None,
-                "disabling_condition": int(row["DisablingCondition"]) if row["DisablingCondition"] else None,
-                "entry_from_street_essh": int(row["EntryFromStreetESSH"]) if row["EntryFromStreetESSH"] else None,
+                "residence_prior_length_of_stay": cast_int(row["ResidencePriorLengthOfStay"]) if row["ResidencePriorLengthOfStay"] else None,
+                "disabling_condition": cast_int(row["DisablingCondition"]),
+                "entry_from_street_essh": cast_int(row["EntryFromStreetESSH"]),
                 "date_to_street_essh": fmt_date(row["DateToStreetESSH"]),
-                "times_homeless_past_three_years": int(row["TimesHomelessPastThreeYears"]) if row["TimesHomelessPastThreeYears"] else None,
-                "month_homeless_past_three_years": int(row["MonthsHomelessPastThreeYears"]) if row["MonthsHomelessPastThreeYears"] else None,
-                "housing_status": int(row["HousingStatus"]) if row["HousingStatus"] else None,
+                "times_homeless_past_three_years": cast_int(row["TimesHomelessPastThreeYears"]) ,
+                "month_homeless_past_three_years": cast_int(row["MonthsHomelessPastThreeYears"]) ,
+                "housing_status": cast_int(row["HousingStatus"]) ,
                 "date_of_engagement": fmt_date(row["DateOfEngagement"]),
                 "in_permanent_housing": bool (row["InPermanentHousing"]) if row["InPermanentHousing"] else None,
                 "residential_move_in_date": fmt_date(row["ResidentialMoveInDate"]),
                 "date_of_path_status": fmt_date(row["DateOfPATHStatus"]),
                 "client_enrolled_in_path": bool (row["ClientEnrolledInPATH"]) if row["ClientEnrolledInPATH"] else None,
-                "reason_not_enrolled": int (row["ReasonNotEnrolled"]) if row["ReasonNotEnrolled" else None,
-                "worst_housing_situation": int (row["WorstHousingSituation"]) if row["WorstHousingSituation"] else None,
-                "percent_ami": int (row["PercentAMI"]) if row["PercentAMI"] else None,
+                "reason_not_enrolled": cast_int (row["ReasonNotEnrolled"]),
+                "worst_housing_situation": cast_int (row["WorstHousingSituation"]) ,
+                "percent_ami": cast_int (row["PercentAMI"]) ,
                 "last_permanent_street": row["LastPermanentStreet"],
                 "last_permanent_city": row["LastPermanentCity"],
                 "last_permanent_state": row["LastPermanentState"],
                 "last_permanent_zip": row["LastPermanentZIP"],
                 "date_of_bcp_status": fmt_date(row["DateOfBCPStatus"]),
-                "reason_no_services": int(row["ReasonNoServices"]) if row["ReasonNoServices"] else None,
-                "sexual_orientation": int(row["SexualOrientation"]) if row["SexualOrientation"] else None,
-                "formar_ward_child_welfare": int(row["FormerWardChildWelfare"]) if row["FormerWardChildWelfare"] else None,
-                "juvenile_justice_years": int (row["JuvenileJusticeYears"]) if row["JuvenileJusticeYears"] else None,
-                "juvenile_justice_months": int(row["JuvenileJusticeMonths"]) if row["JuvenileJusticeMonths"] else None,
+                "reason_no_services": cast_int(row["ReasonNoServices"]) ,
+                "sexual_orientation": cast_int(row["SexualOrientation"]) ,
+                "formar_ward_child_welfare": cast_int(row["FormerWardChildWelfare"]) ,
+                "juvenile_justice_years": cast_int (row["JuvenileJusticeYears"]) ,
+                "juvenile_justice_months": cast_int(row["JuvenileJusticeMonths"]) ,
                 "houshold_dynamics": bool(row["HouseholdDynamics"]) if row["HouseholdDynamics"] else None,
                 "sexual_orientation_gender_identity_youth": bool(row["SexualOrientationGenderIDYouth"]) if row["SexualOrientationGenderIDYouth"] else None,
                 "sexual_orientation_gender_identity_family": bool(row["SexualOrientationGenderIDFam"]) if row["SexualOrientationGenderIDFam"] else None,
@@ -168,23 +170,23 @@ def sync_enrollment():
                 "insufficient_income": bool(row["InsufficientIncome"]) if row["InsufficientIncome"] else None,
                 "active_military_parent": bool(row["ActiveMilitaryParent"]) if row["ActiveMilitaryParent"] else None,
                 "incarcerated_parent": bool(row["IncarceratedParent"]) if row["IncarceratedParent"] else None,
-                "incarcerated_parent_status": int(row["IncarceratedParentStatus"]) if row["IncarceratedParentStatus"] else None,
-                "referral_source": int(row["ReferralSource"]) if row["ReferralSource" else None,
-                "exchange_for_sex": int(row["ExchangeForSex"]) if row["ExchangeForSex"] else None,
-                "exchange_for_sex_past_three_months": int(row["ExchangeForSexPastThreeMonths"]) if row["ExchangeForSexPastThreeMonths"] else None,
-                "count_of_exchange_for_sex": int (row["CountOfExchangeForSex"]) if row["CountOfExchangeForSex"] else None,
-                "asked_or_forced_to_exchange_for_sex": int(row["AskedOrForcedToExchangeForSex"]) if row["AskedOrForcedToExchangeForSex"] else None,
-                "work_place_violence_threats": int(row["WorkPlaceViolenceThreats"]) if row["WorkPlaceViolenceThreats"] else None,
-                "work_place_promise_difference": int(row["WorkplacePromiseDifference"]) if row["WorkplacePromiseDifference"] else None,
-                "coerced_to_continue_work": int(row["CoercedToContinueWork"]) if row["CoercedToContinueWork"] else None,
-                "labor_exploit_past_three_months": int(row["LaborExploitPastThreeMonths"]) if row["LaborExploitPastThreeMonths"] else None,
-                "hp_screening_score": int(row["HPScreeningScore"]) if row["HPScreeningScore"] else None,
+                "incarcerated_parent_status": cast_int(row["IncarceratedParentStatus"]) ,
+                "referral_source": cast_int(row["ReferralSource"]) ,
+                "exchange_for_sex": cast_int(row["ExchangeForSex"]) ,
+                "exchange_for_sex_past_three_months": cast_int(row["ExchangeForSexPastThreeMonths"]) ,
+                "count_of_exchange_for_sex": cast_int (row["CountOfExchangeForSex"]) ,
+                "asked_or_forced_to_exchange_for_sex": cast_int(row["AskedOrForcedToExchangeForSex"]) ,
+                "work_place_violence_threats": cast_int(row["WorkPlaceViolenceThreats"]) ,
+                "work_place_promise_difference": cast_int(row["WorkplacePromiseDifference"]),
+                "coerced_to_continue_work": cast_int(row["CoercedToContinueWork"]) ,
+                "labor_exploit_past_three_months": cast_int(row["LaborExploitPastThreeMonths"]),
+                "hp_screening_score": cast_int(row["HPScreeningScore"]),
                 "vamc_station": fmt_date(row["VAMCStation"]),
                 "date_created": fmt_date(row["DateCreated"]),
                 "date_updated": fmt_date(row["DateUpdated"])
             }
             bulk_create.append(Client(**csv2db_client))
-            
+
 def sync_exit():
     with open('sample_data/exit.csv') as csvfile:
         reader = csv.DictReader(csvfile)
