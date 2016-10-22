@@ -28,7 +28,7 @@ def search_clients(request):
         "last_name": c.last_name,
         "social_security": c.social_security,
         "date_of_birth": datetime.datetime.strftime(c.date_of_birth, '%m/%d/%Y'),
-        "ethnicity":  value_maps.ethnicity[c.ethnicity],
+        "ethnicity":  value_maps.race[c.ethnicity],
         "gender": value_maps.gender[c.gender],
         "veteran": value_maps.general_boolean_numbers[c.veteran],
         "year_entered": c.year_entered,
@@ -49,7 +49,7 @@ def get_applicants(request):
         "email": c.email,
         "address": c.address,
         "birthday": c.birthday,
-        "ethnicity": value_maps.ethnicity[c.ethnicity],
+        "ethnicity": value_maps.race[c.ethnicity],
         "gender": value_maps.gender[c.gender],
         "veteran": value_maps.general_boolean_numbers[c.veteran],
         "family": c.family,
@@ -82,8 +82,8 @@ def get_shelters(request):
 def profile(request):
     client_uuid = request.POST['id']
     cl = Client.objects.filter(uuid=client_uuid).first()
-    if c is None:
-        return {"status": "error", "message": "member not found"}
+    if cl is None:
+        return JsonResponse({"status": "error", "message": "member not found"})
     profile = {}
     profile['client_info'] = [
         {
