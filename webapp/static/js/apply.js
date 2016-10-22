@@ -66,8 +66,8 @@ hk.ApplyView = BB.View.extend({
                 url: '/api/apply/',
                 type: 'POST',
                 data: {
-                    firstName: firstName,
-                    lastName: lastName,
+                    first_name: firstName,
+                    last_name: lastName,
                     why: why,
                     phone: phone,
                     email: email,
@@ -76,9 +76,9 @@ hk.ApplyView = BB.View.extend({
                     race: race,
                     gender: gender,
                     veteran: veteran,
-                    enrolledBefore: enrolledBefore,
+                    enrolled_before: enrolledBefore,
                     family: family,
-                    domesticViolence: domesticViolence,
+                    domestic_violence: domesticViolence,
                     pregnancy: pregnancy,
                     drug: drug
                 },
