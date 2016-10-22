@@ -1,4 +1,5 @@
 import datetime
+import random
 from django.http import JsonResponse
 from dateutil.parser import parse
 from utils import value_maps
@@ -49,7 +50,7 @@ def apply(request):
     a_dict['urgency'] = app.urgency
     app.save()
 
-    return JsonResponse(ContinuumServices.objects.recomendations(c), safe=True)
+    return JsonResponse(ContinuumServices.objects.recomendations(app), safe=False)
 
 def mark_reviewed(request):
     '''
@@ -80,3 +81,22 @@ def update_shelter(request):
 
     except:
         return JsonResponse({'status': 'error'})
+
+
+def new_client(request):
+    '''
+        new client
+    '''
+    number = random.random()*1000000
+    while Client.objects.filter(uuid=number).exists():
+        number = random.random()*1000000
+
+    number = int(number)
+
+    new_client = Client(uuid=number)
+    new_client.save()
+
+    return JsonResponse({
+        'status': 'success',
+        'id': number
+    })

@@ -3,6 +3,7 @@ hk = hk || {};
 hk.ApplyView = BB.View.extend({
     el: '#apply',
     template: _.template($('#apply-template').html()),
+    submitTemplate: _.template($('#submit-template').html()),
 
     initialize: function (options) {
         this.render();
@@ -82,8 +83,8 @@ hk.ApplyView = BB.View.extend({
                     pregnancy: pregnancy,
                     drug: drug
                 },
-                success: function () {
-                    window.location.href = '/submit';
+                success: function (data) {
+                    _this.$el.empty().append(_this.submitTemplate({recommendations: data}));
                 },
                 error: function () {
                     Materialize.toast('Application submission failed.  Please try again later.', 2000);

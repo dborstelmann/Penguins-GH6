@@ -3,7 +3,7 @@
     {{# _.each(_.sortBy(shelters, 'name'), function (s) { }}
         <li>
             <div class="collapsible-header">
-                <i class="material-icons">person</i><span>{{s.name}} &nbsp; <em class="gray-text">Last Updated: {{s.last_updated}}</em></span>
+                <i class="material-icons">person</i><span>{{s.name}} &nbsp; <em class="gray-text">Last Updated: {{new Date(s.last_updated).toDateString()}}</em></span>
                 <span class="title right">{{s.occupancy}}/{{s.max_occupancy}} available</span>
             </div>
             <div class="collapsible-body">
@@ -40,7 +40,7 @@
                                 <div class="title">
                                     Last Update:
                                 </div>
-                                {{s.last_updated}}
+                                {{new Date(s.last_updated).toDateString()}}
                             </div>
                         </div>
                     </div>
