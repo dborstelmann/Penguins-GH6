@@ -1,36 +1,47 @@
 {% verbatim %}
 <div class="home-page">
-    <div class="row">
-        <div class="col s12 m6">
-            <button class="waves-effect waves-light btn logout" type="button">Logout</button>
-        </div>
-        <div class="col s12 m6">
-            <div class="new-applications">
-                <div class="title">
-                    <h5>New Applications</h5>
+    <div class="row" style="margin-bottom: 0;">
+        <div class="top-banner">
+            <div class="container">
+                <div class="row" style="margin-bottom: 0; padding-top: 10px; padding-bottom: 20px;">
+                    <div class="col s9">
+                        <div class="user-search">
+                            <div class="title white-text">
+                                Client Search
+                            </div>
+                            <div class="input-field" style="margin-top:0;">
+                                <input id="client-search" type="text">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s3">
+                        <button class="btn-flat logout" type="button">Logout</button>
+                    </div>
                 </div>
-                <ul class="collapsible" data-collapsible="accordion">
-                    {{# _.each(new_applications, function (a) { }}
-                        <li>
-                            <div class="collapsible-header"><i class="material-icons">person</i>{{a.first_name}} {{a.middle_name}} {{a.last_name}}</div>
-                            <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
-                        </li>
-                    {{# }); }}
-                    <li>
-                        <div class="collapsible-header"><i class="material-icons">person</i>flkdjg</div>
-                        <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
-                    </li>
-                    <li>
-                        <div class="collapsible-header"><i class="material-icons">place</i>Second</div>
-                        <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
-                    </li>
-                    <li>
-                        <div class="collapsible-header"><i class="material-icons">whatshot</i>Third</div>
-                        <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
-                    </li>
-                </ul>
             </div>
         </div>
     </div>
+    <div class="row">
+        <ul class="tabs">
+            <li class="tab col s6"><a class="active" href="#new-apps">New Applications</a></li>
+            <li class="tab col s6"><a href="#available">Available Space</a></li>
+        </ul>
+        <div id="new-apps" class="col s12">
+            <div class="new-applications container">
+                {{= hk.underscorePartial('user-collection-template', {users: users})}}
+            </div>
+        </div>
+        <div id="available" class="col s12">
+            <div class="available-space container">
+                {{= hk.underscorePartial('shelters-template', {shelters: shelters})}}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="search-modal-holder">
+
+</div>
+<div class="profile-modal-holder">
+
 </div>
 {% endverbatim %}

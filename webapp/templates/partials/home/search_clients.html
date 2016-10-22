@@ -1,0 +1,27 @@
+{% verbatim %}
+<div class="modal search-modal">
+    <div class="modal-content">
+        <div class="title">
+            <h5>Client Search</h5>
+        </div>
+        <!-- <div class="username-div">
+            <div class="input-field">
+                <input id="username" type="text" length="120">
+                <label for="username">Username</label>
+            </div>
+        </div>
+        <div class="password-div">
+            <div class="input-field">
+                <input id="password" type="text" length="120">
+                <label for="password">Password</label>
+            </div>
+        </div> -->
+        <div class="user-list">
+            {{= hk.underscorePartial('user-collection-template', {users: users})}}
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="close-search waves-effect btn">Close</a>
+    </div>
+</div>
+{% endverbatim %}

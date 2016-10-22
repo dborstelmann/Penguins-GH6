@@ -1,0 +1,50 @@
+{% verbatim %}
+<ul class="collapsible" data-collapsible="accordion">
+    {{# _.each(shelters, function (s) { }}
+        <li>
+            <div class="collapsible-header">
+                <i class="material-icons">person</i><span>{{s.name}} &nbsp; <em class="gray-text">Last Updated: {{s.last_updated}}</em></span>
+                <span class="title right">{{s.occupancy}}/{{s.max_occupancy}} available</span>
+            </div>
+            <div class="collapsible-body">
+                <div class="collapse-container">
+                    <div class="row">
+                        <div class="col s3">
+                            <div class="address">
+                                <div class="title">
+                                    Address:
+                                </div>
+                                {{s.address}}
+                            </div>
+                        </div>
+                        <div class="col s3">
+                            <div class="available-beds">
+                                <div class="title">
+                                    Available Beds:
+                                </div>
+                                {{s.occupancy}}
+                            </div>
+                        </div>
+                        <div class="col s3">
+                            <div class="total-beds">
+                                <div class="title">
+                                    Total Beds:
+                                </div>
+                                {{s.max_occupancy}}
+                            </div>
+                        </div>
+                        <div class="col s3">
+                            <div class="last_updated">
+                                <div class="title">
+                                    Last Update:
+                                </div>
+                                {{s.last_updated}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    {{# }); }}
+</ul>
+{% endverbatim %}

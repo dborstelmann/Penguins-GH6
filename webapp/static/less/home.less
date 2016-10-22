@@ -1,1 +1,67 @@
 @import 'base';
+
+#home {
+    .top-banner {
+        background-color: @green;
+
+        .user-search {
+            .title {
+                font-size: 0.8rem;
+            }
+
+            .input-field input, .input-field label {
+                color: #fff;
+                border-color: #fff;
+            }
+        }
+
+        .logout {
+            color: #fff;
+
+            &:focus {
+                background-color: #fff;
+            }
+        }
+    }
+
+    .tabs {
+        background-color: @green;
+        box-shadow: 0 3px 5px @box-shadow-gray;
+
+        .tab {
+            a {
+                color: #fff;
+            }
+        }
+
+        .indicator {
+            background-color: #fff;
+        }
+    }
+
+    .collapsible {
+        margin-top: 20px;
+
+        .title {
+            font-weight: bold;
+        }
+
+        .collapse-container {
+            padding: 1rem 2rem;
+
+            .right-box {
+                margin-bottom: 10px;
+            }
+            .left-box {
+                margin-bottom: 20px;
+            }
+        }
+    }
+
+    .search-modal {
+        .user-list {
+            max-height: 50vh;
+            overflow: scroll;
+        }
+    }
+}
