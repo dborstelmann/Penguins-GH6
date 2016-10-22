@@ -13,7 +13,7 @@ hk.HomeView = BB.View.extend({
     },
 
     events: {
-        'click .logout': 'logout'
+        'click .logout': 'goHome'
     },
 
     goHome: function () {

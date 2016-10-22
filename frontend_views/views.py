@@ -13,7 +13,7 @@ def apply_view(request):
     return TemplateResponse(request, 'apply.html', {})
 
 
-@login_required
+# @login_required
 def home_view(request):
     return TemplateResponse(request, 'home.html', {})
 
