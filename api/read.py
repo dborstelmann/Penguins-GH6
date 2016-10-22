@@ -132,37 +132,38 @@ def profile(request):
             "name": "veteran",
             "type": "select",
             "value": cl.veteran,
-            "options": value_maps.veteran
+            "options": value_maps.general_boolean_numbers
         }
     ]
 
 
     e = EmploymentEducation.objects.filter(personal_id=client_uuid).first()
-    profile['employment_education'] = [
-        {
-            "name":"employed",
-            "type": "select",
-            "value": e.employed,
-            "options": value_maps.general_boolean_numbers
-        },
-        {
-            "name":"employment_type",
-            "type": "select",
-            "value": e.employment_type,
-            "options": value_maps.employment_type
-        },
-        {
-            "name":"not_employed_reason",
-            "type": "select",
-            "value": e.not_employed_reason,
-            "options": value_maps.not_employed_reason
-        },
-        {
-            "name":"last_grade_completed",
-            "type": "select",
-            "value": e.last_grade_completed,
-            "options": value_maps.last_grade_completed
-        }
-    ]
+    if e:
+        profile['employment_education'] = [
+            {
+                "name":"employed",
+                "type": "select",
+                "value": e.employed,
+                "options": value_maps.general_boolean_numbers
+            },
+            {
+                "name":"employment_type",
+                "type": "select",
+                "value": e.employment_type,
+                "options": value_maps.employment_type
+            },
+            {
+                "name":"not_employed_reason",
+                "type": "select",
+                "value": e.not_employed_reason,
+                "options": value_maps.not_employed_reason
+            },
+            {
+                "name":"last_grade_completed",
+                "type": "select",
+                "value": e.last_grade_completed,
+                "options": value_maps.last_grade_completed
+            }
+        ]
 
     return JsonResponse(profile)

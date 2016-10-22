@@ -20,16 +20,6 @@ gender = {
 	99: "Data not collected"
 }
 
-war_participated = {
-    "WorldWarII":1,
-    "KoreanWar":2,
-    "VietnamWar":3,
-    "DesertStorm":4,
-    "AfghanistanOEF":5,
-    "IraqOIF":6,
-    "IraqOND":7,
-}
-
 general_boolean_numbers = {
 	0: "No",
 	1: "Yes",
