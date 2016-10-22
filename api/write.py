@@ -50,7 +50,7 @@ def apply(request):
     a_dict['urgency'] = app.urgency
     app.save()
 
-    return JsonResponse(ContinuumServices.objects.recomendations(c), safe=True)
+    return JsonResponse(ContinuumServices.objects.recomendations(app), safe=False)
 
 def mark_reviewed(request):
     '''
