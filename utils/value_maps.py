@@ -13,8 +13,8 @@ gender = {
 	1: "Male",
 	2: "Transgender male to female",
 	3: "Transgender female to male",
-	4: "Doesn’t identify as male, female, or transgender",
-	8: "Client doesn’t know",
+	4: "Does not identify as male, female, or transgender",
+	8: "Client does not know",
 	9: "Client refused",
 	99: "Data not collected"
 }
@@ -32,7 +32,7 @@ war_participated = {
 domestic_violence = {
 	0: "No",
 	1: "Yes",
-	8: "Client doesn’t know",
+	8: "Client does not know",
 	9: "Client refused",
 	99: "Data not collected"
 }
@@ -40,7 +40,7 @@ domestic_violence = {
 veteran = {
 	0: "No",
 	1: "Yes",
-	8: "Client doesn’t know",
+	8: "Client does not know",
 	9: "Client refused",
 	99: "Data not collected"
 }
