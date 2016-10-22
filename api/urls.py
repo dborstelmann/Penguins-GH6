@@ -6,5 +6,4 @@ urlpatterns = [
     url(r'^get_clients/$', read.search_clients, name='get_clients'),
     url(r'^get_applicants/$', read.get_applicants, name='get_applicants'),
     url(r'^mark_reviewed/$', write.mark_reviewed, name='mark_reviewed')
-
 ]
