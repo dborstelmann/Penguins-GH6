@@ -1,6 +1,6 @@
 {% verbatim %}
 <ul class="collapsible" data-collapsible="accordion">
-    {{# _.each(shelters, function (s) { }}
+    {{# _.each(_.sortBy(shelters, 'name'), function (s) { }}
         <li>
             <div class="collapsible-header">
                 <i class="material-icons">person</i><span>{{s.name}} &nbsp; <em class="gray-text">Last Updated: {{s.last_updated}}</em></span>
@@ -23,7 +23,7 @@
                                     Available Beds:
                                 </div>
                                 <div class="input-field" style="margin-top: 0;">
-                                    <input id="available" type="number" value="{{s.occupancy}}">
+                                    <input id="available" data-id="{{s.id}}" type="text" value="{{s.occupancy}}">
                                 </div>
                             </div>
                         </div>
@@ -32,9 +32,7 @@
                                 <div class="title">
                                     Total Beds:
                                 </div>
-                                <div class="input-field" style="margin-top: 0;">
-                                    <input id="total" type="number" value="{{s.max_occupancy}}">
-                                </div>
+                                {{s.max_occupancy}}
                             </div>
                         </div>
                         <div class="col s3">
