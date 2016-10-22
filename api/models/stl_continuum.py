@@ -32,7 +32,7 @@ class ContinuumServicesManager(models.Manager):
     def recomendations(self, a): #accept applications
         from dateutil.relativedelta import relativedelta
         import datetime
-        age = relativedelta(datetime.date.today(), c['birthday']).years
+        age = relativedelta(datetime.date.today(), a.birthday).years
 
         POSSIBLE_AILMENTS = [
             "doctor",
@@ -124,18 +124,18 @@ class ContinuumServicesManager(models.Manager):
         return [{
             "name": m.name,
             "website": m.website,
-            "description": m.description,
             "service": tag
         } for m in clist]
 
 
 class ContinuumServices(models.Model):
+    objects = ContinuumServicesManager()
     tag = models.CharField(max_length=10) # shortend name
     name = models.CharField(max_length=63)
     description = models.TextField(null=True)
 
 
 class ContinuumMembers(models.Model):
-    name = models.CharField(max_length=31)
-    website = models.CharField(max_length=63)
-    services_offered = models.CharField(max_length=31)
+    name = models.CharField(max_length=255)
+    website = models.CharField(max_length=255)
+    services_offered = models.CharField(max_length=255, null=True)

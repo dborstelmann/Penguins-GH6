@@ -59,7 +59,7 @@ def get_applicants(request):
         "urgency": c.urgency,
         "created": c.created,
         "reviewed": c.reviewed,
-        # "recommendations": ContinuumServices.objects.recommendations(c)
+        "recommendations": ContinuumServices.objects.recomendations(c)
         } for c in app_list]
 
     return JsonResponse(applicant, safe=False)
