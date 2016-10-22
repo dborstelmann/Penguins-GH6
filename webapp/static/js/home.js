@@ -97,7 +97,6 @@ hk.HomeView = BB.View.extend({
         }
 
         if (e.which == 13) {
-            e.preventDefault();
             $(e.target).blur();
 
             $.ajax({
