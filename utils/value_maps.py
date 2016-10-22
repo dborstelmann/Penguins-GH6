@@ -17,6 +17,7 @@ gender = {
 	8: "Client doesn’t know",
 	9: "Client refused",
 	99: "Data not collected"
+}
 
 war_participated = {
     "WorldWarII":1,
