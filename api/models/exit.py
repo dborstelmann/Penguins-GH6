@@ -27,6 +27,6 @@ class Exit(models.Model):
     project_completion_status = models.IntegerField(null=True)
     early_exit_reason = models.IntegerField(null=True)
     family_reunification_achieved = models.IntegerField(null=True)
-    date_created = models.DateField(null=False)
-    date_updated = models.DateField(null=False)
+    date_created = models.DateTimeField(null=False)
+    date_updated = models.DateTimeField(null=False)
     associate_id = models.CharField(max_length=15)

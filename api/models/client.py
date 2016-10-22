@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.postgres.fields import ArrayField
 
 class ClientManager(models.Manager):
   pass
@@ -16,9 +17,9 @@ class Client(models.Model):
       veteran = models.BooleanField(null=False)
       year_entered = models.IntegerField()
       year_exited = models.IntegerField()
-      war_participated = models.IntegerField() # Keys for wars
+      war_participated = ArrayField(models.IntegerField(), default=[]) # Keys for wars
       military_branch = models.IntegerField() # Keys for branches
       discharge_status = models.IntegerField() # Keys for status
-      created = models.DateField()
-      updated = models.DateField()
+      date_created = models.DateTimeField(null=False)
+      date_updated = models.DateTimeField(null=False)
       associate_id = models.CharField(max_length=15)

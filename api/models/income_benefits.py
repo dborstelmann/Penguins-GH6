@@ -74,6 +74,6 @@ class IncomeBenefits(models.Model):
     adap = models.BooleanField()
     no_adap_reason = models.CharField(max_length=126, null=True)
     data_collection_stage = models.IntegerField(null=True)
-    date_created = models.DateField(null=False)
-    date_updated = models.DateField(null=False)
+    date_created = models.DateTimeField(null=False)
+    date_updated = models.DateTimeField(null=False)
     associate_id = models.CharField(max_length=15)

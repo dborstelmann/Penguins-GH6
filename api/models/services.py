@@ -15,6 +15,6 @@ class Services(models.Model):
     sub_type_provided = models.IntegerField(null=True)
     fa_amount = models.IntegerField(null=True)
     referral_outcome = models.CharField(max_length=126)
-    date_created = models.DateField(null=False)
-    date_updated = models.DateField(null=False)
+    date_created = models.DateTimeField(null=False)
+    date_updated = models.DateTimeField(null=False)
     associate_id = models.CharField(max_length=15)

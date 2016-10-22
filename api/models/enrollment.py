@@ -73,6 +73,6 @@ class Enrollment(models.Model):
     labor_exploit_past_three_months = models.IntegerField(null=True)
     hp_screening_score = models.IntegerField(null=True)
     vamc_station = models.IntegerField(null=True)
-    date_created = models.DateField(null=False)
-    date_updated = models.DateField(null=False)
+    date_created = models.DateTimeField(null=False)
+    date_updated = models.DateTimeField(null=False)
     associate_id = models.CharField(max_length=15)
