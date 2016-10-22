@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 from dateutil.parser import parse
+from utils import value_maps
 from django.contrib.auth.decorators import login_required
 from api.models import ( Applicant, Client, Disabilities, EmploymentEducation,
     Enrollment, HealthAndDV, IncomeBenefits, Services )
@@ -54,5 +55,11 @@ def mark_reviewed(request):
         request.POST =
             applicant_id
     '''
+    try:
+        applicant = Applicant.objects.get(pk=request.POST['id'])
+        applicant.reviewed = True
+        applicant.save()
+        return JsonResponse({'status': 'success'})
 
-    return JsonResponse({'status': 'success'})
+    except:
+        return JsonResponse({'status': 'error'})
