@@ -87,9 +87,11 @@ def new_client(request):
     '''
         new client
     '''
-    number = (random.random()*1000000)
+    number = random.random()*1000000
     while Client.objects.filter(uuid=number).exists():
-        number = (random.random()*1000000)
+        number = random.random()*1000000
+
+    number = int(number)
 
     new_client = Client(uuid=number)
     new_client.save()
