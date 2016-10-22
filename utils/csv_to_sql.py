@@ -2,15 +2,16 @@ import csv
 import datetime
 from dateutil.parser import parse
 from value_maps import ethnicity, war_participated
-from api.models import Client
+from api.models import ( Client, Disabilities, EmploymentEducation, Enrollment, Exit,
+    HealthAndDV, IncomeBenefits, Services )
 from api.models import Services
 
 def sync_client():
     with open('sample_data/client.csv') as csvfile:
         reader = csv.DictReader(csvfile)
         bulk_create  = []
-        fmt_date = lambda k: parse(k).date()
-        fmt_datetime = lambda k: parse(k)
+        fmt_date = lambda k: parse(k).date() if k else datetime.date.today()
+        fmt_datetime = lambda k: parse(k) if k else datetime.datetime.now()
         ethnicity_funct = lambda k: [name for name in ethnicity.keys() if int(k[name])]
         war_participated_funct = lambda k: [war_participated[name] for name in war_participated.keys() if int(k[name])]
         for row in reader:
@@ -44,8 +45,8 @@ def sync_disabilities():
     with open('sample_data/disabilities.csv') as csvfile:
         reader = csv.DictReader(csvfile)
         bulk_create  = []
-        fmt_date = lambda k: parse(k).date()
-        fmt_datetime = lambda k: parse(k)
+        fmt_date = lambda k: parse(k).date() if k else datetime.date.today()
+        fmt_datetime = lambda k: parse(k) if k else datetime.datetime.now()
         cast_int = lambda k: int(k) if k else None
 
         for row in reader:
@@ -68,14 +69,14 @@ def sync_disabilities():
                 "date_updated":fmt_datetime(row["DateUpdated"]),
                 "associate_id":row["UserID"],
             }
-            bulk_create.append(Client(**csv2db_client))
+            bulk_create.append(Disabilities(**csv2db_client))
 
 def sync_employmenteducation():
     with open('sample_data/employmenteducation.csv') as csvfile:
         reader = csv.DictReader(csvfile)
         bulk_create  = []
-        fmt_date = lambda k: parse(k).date()
-        fmt_datetime = lambda k: parse(k)
+        fmt_date = lambda k: parse(k).date() if k else datetime.date.today()
+        fmt_datetime = lambda k: parse(k) if k else datetime.datetime.now()
         cast_int = lambda k: int(k) if k else None
 
         for row in reader:
@@ -98,14 +99,14 @@ def sync_employmenteducation():
                 "date_updated": fmt_datetime(row["DateUpdated"]),
                 "associate_id": row["UserID"],
             }
-            bulk_create.append(Client(**csv2db_client))
+            bulk_create.append(EmploymentEducation(**csv2db_client))
 
 def sync_enrollment():
     with open('sample_data/enrollment.csv') as csvfile:
         reader = csv.DictReader(csvfile)
         bulk_create  = []
-        fmt_date = lambda k: parse(k).date()
-        fmt_datetime = lambda k: parse(k)
+        fmt_date = lambda k: parse(k).date() if k else datetime.date.today()
+        fmt_datetime = lambda k: parse(k) if k else datetime.datetime.now()
 
         for row in reader:
             for key in row:
@@ -194,14 +195,14 @@ def sync_enrollment():
                 "":row["UserID"],
                 "":row["DateDeleted"]
             }
-            bulk_create.append(Client(**csv2db_client))
+            bulk_create.append(Enrollment(**csv2db_client))
 
 def sync_exit():
     with open('sample_data/exit.csv') as csvfile:
         reader = csv.DictReader(csvfile)
         bulk_create  = []
-        fmt_date = lambda k: parse(k).date()
-        fmt_datetime = lambda k: parse(k)
+        fmt_date = lambda k: parse(k).date() if k else datetime.date.today()
+        fmt_datetime = lambda k: parse(k) if k else datetime.datetime.now()
         cast_int = lambda k: int(k) if k else None
 
         for row in reader:
@@ -237,14 +238,14 @@ def sync_exit():
                 "date_updated":fmt_datetime(row["DateUpdated"]),
                 "associate_id":row["UserID"]
             }
-            bulk_create.append()
+            bulk_create.append(Exit(**csv2db_client))
 
 def sync_health_and_dv():
     with open('sample_data/healthanddv.csv') as csvfile:
         reader = csv.DictReader(csvfile)
         bulk_create  = []
-        fmt_date = lambda k: parse(k).date()
-        fmt_datetime = lambda k: parse(k)
+        fmt_date = lambda k: parse(k).date() if k else datetime.date.today()
+        fmt_datetime = lambda k: parse(k) if k else datetime.datetime.now()
         cast_int = lambda k: int(k) if k else None
 
         for row in reader:
@@ -270,15 +271,15 @@ def sync_health_and_dv():
                 "date_updated":fmt_datetime(row["DateUpdated"]),
                 "associate_id":row["UserID"]
             }
-            bulk_create.append()
+            bulk_create.append(HealthAndDV(**csv2db_client))
 
 def sync_income_benefits():
     with open('sample_data/income_benefits') as csvfile:
         reader = csv.DictReader(csvfile)
         bulk_create = []
 
-        fmt_date = lambda k: parse(k).date()
-        fmt_datetime = lambda k: parse(k)
+        fmt_date = lambda k: parse(k).date() if k else datetime.date.today()
+        fmt_datetime = lambda k: parse(k) if k else datetime.datetime.now()
         cast_int = lambda k: int(k) if k else None
         cast_bool = lambda k : bool(k) if k else None
         for row in reader:
@@ -290,7 +291,7 @@ def sync_income_benefits():
                 "income_benefits_id":row["IncomeBenefitsID"],
                 "project_entry_id":row["ProjectEntryID"],
                 "personal_id":row["PersonalID"],
-                "information_date":fmt_date(row["InformationDate"],)
+                "information_date":fmt_date(row["InformationDate"]),
                 "income_from_any_source":cast_int(row["IncomeFromAnySource"]),
                 "total_monthly_income":cast_int(row["TotalMonthlyIncome"]),
                 "earned":cast_bool(row["Earned"]),
@@ -319,8 +320,8 @@ def sync_income_benefits():
                 "pension_amount":cast_int(row["PensionAmount"]),
                 "child_support":cast_bool(row["ChildSupport"]),
                 "child_support_amount":cast_int(row["ChildSupportAmount"]),
-                "alimony":cast_bool(row["Alimony"])
-                "alimony_amount":cast_int(row["AlimonyAmount"])
+                "alimony":cast_bool(row["Alimony"]),
+                "alimony_amount":cast_int(row["AlimonyAmount"]),
                 "other_income_source":cast_bool(row["OtherIncomeSource"]),
                 "other_income_source_amount":cast_int(row["OtherIncomeAmount"]),
                 "other_income_source_identify":row["OtherIncomeSourceIdentify"],
@@ -337,7 +338,7 @@ def sync_income_benefits():
                 "insurance_from_any_source":cast_bool(row["InsuranceFromAnySource"]),
                 "medicaid":cast_bool(row["Medicaid"]),
                 "no_medicaid_reason":cast_int(row["NoMedicaidReason"]),
-                "medicare":cast_bool(row["Medicare"])
+                "medicare":cast_bool(row["Medicare"]),
                 "no_medicare_reason":cast_int(row["NoMedicareReason"]),
                 "schip":cast_bool(row["SCHIP"]),
                 "no_schip_reason":row["NoSCHIPReason"],
@@ -361,7 +362,7 @@ def sync_income_benefits():
                 "associate_id":row["UserID"]
             }
 
-            bulk_create.append(Client(**csv2db_client))
+            bulk_create.append(IncomeBenefits(**csv2db_client))
 
 
 def sync_services():
@@ -369,8 +370,9 @@ def sync_services():
         reader = csv.DictReader(csvfile)
         bulk_create = []
         #Format functions where applicable
-        fmt_date = lambda k: parse(k).date()
-        fmt_datetime = lambda k: parse(k)
+        fmt_date = lambda k: parse(k).date() if k else datetime.date.today()
+        fmt_datetime = lambda k: parse(k) if k else datetime.datetime.now()
+        cast_int = lambda k: int(k) if k else None
         for row in reader:
             for key in row:
                 if row[key] == 'NULL':
@@ -381,15 +383,14 @@ def sync_services():
                 "project_entry_id" : row["ProjectEntryID"],
                 "services_id" : row["ServicesID"],
                 "date_provided" : fmt_date(row["DateProvided"]),
-                "record_type" : int(row["RecordType"]) if row['RecordType'] else None,
-                "type_provided" : int(row["TypeProvided"]) if row['TypeProvided'] else None,
-                "other_type_provided" : int(row["OtherTypeProvided"]) if row['OtherTypeProvided'] else None,
-                "sub_type_provided" = int(row["SubTypeProvided"]) if row['SubTypeProvided'] else None,
-                "fa_amount" : int(row["FAAmount"]) if row['FAAmount'] else None,
-                "referral_outcome" = row["ReferralOutcome"],
+                "record_type" : cast_int(row['RecordType']),
+                "type_provided" : cast_int(row["TypeProvided"]),
+                "other_type_provided" : cast_int(row["OtherTypeProvided"]),
+                "sub_type_provided" : cast_int(row["SubTypeProvided"]),
+                "fa_amount" : cast_int(row["FAAmount"]),
                 "date_created" : fmt_datetime(row["DateCreated"]),
                 "date_updated" : fmt_datetime(row["DateUpdated"]),
                 "associate_id" : row["UserID"]
             }
 
-            bulk_create.append(Client(**csv2db_client))
+            bulk_create.append(Services(**csv2db_client))
