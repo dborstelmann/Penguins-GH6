@@ -53,7 +53,7 @@ def apply(request):
 def mark_reviewed(request):
     '''
         request.POST =
-            applicant_id
+            id
     '''
     try:
         applicant = Applicant.objects.get(pk=request.POST['id'])
