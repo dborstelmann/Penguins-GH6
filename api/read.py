@@ -38,4 +38,4 @@ def search_clients(request):
         "year_entered": c.year_entered,
         "year_exited": c.year_exited,
         "date_created": c.date_created
-    } for c in clients], safe=False
+    } for c in clients], safe=False)
