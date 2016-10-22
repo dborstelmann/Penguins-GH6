@@ -1,0 +1,24 @@
+<!doctype html>
+
+<head>
+    {% load staticfiles %}
+    {% include "base/links.html" %}
+    {% include "base/less_headers/apply_less.html" %}
+</head>
+
+<script id="apply-template" type="text/template">
+    {% include "partials/apply/apply_base.html" %}
+</script>
+
+<body>
+    <div id="apply">
+
+    </div>
+</body>
+
+<script type="text/javascript" src="{% static "js/apply.js" %}"></script>
+<script type="text/javascript">
+    var applyView = new hk.ApplyView();
+</script>
+
+</html>

@@ -1,5 +1,5 @@
 from django.template.response import TemplateResponse
-from django.contrib.auth.models import User
+from utils.custom_decorators import login_required
 
 
 def base_view(request):
@@ -7,3 +7,12 @@ def base_view(request):
     #     return TemplateResponse(request, 'base/404.html', {})
 
     return TemplateResponse(request, 'hello.html', {})
+
+
+def apply_view(request):
+    return TemplateResponse(request, 'apply.html', {})
+
+
+@login_required
+def home_view(request):
+    return TemplateResponse(request, 'home.html', {})
