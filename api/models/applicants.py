@@ -46,9 +46,9 @@ class Applicant(models.Model):
     objects = ApplicantManager()
     first_name = models.CharField(max_length=63, null=True)
     last_name = models.CharField(max_length=63, null=True)
-    why = models.CharField(max_length=255, null=True)
-    phone = models.CharField(max_length=15, null=True)
-    email = models.CharField(max_length=63, null=True)
+    why = models.CharField(max_length=1025, null=True)
+    phone = models.CharField(max_length=63, null=True)
+    email = models.CharField(max_length=255, null=True)
     address = models.CharField(max_length=63, null=True)
     birthday = models.DateField()
     ethnicity = models.IntegerField(null=False, default=99) # Keys for races
