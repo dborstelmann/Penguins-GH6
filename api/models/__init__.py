@@ -1,4 +1,4 @@
-from test import Test
+from applicants import Applicant
 from client import Client
 from disabilities import Disabilities
 from employment_education import EmploymentEducation

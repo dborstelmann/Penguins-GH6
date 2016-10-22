@@ -5,6 +5,7 @@ ethnicity = {
   "NativeHIOtherPacific":4,
   "White":5,
   "RaceNone":0,
+  "Hispanic":6
 }
 
 war_participated = {

@@ -1,3 +1,4 @@
+DisabilitiesID,ProjectEntryID,PersonalID,InformationDate,DisabilityType,DisabilityResponse,IndefiniteAndImpairs,DocumentationOnFile,ReceivingServices,PATHHowConfirmed,PATHSMIInformation,TCellCountAvailable,TCellCount,TCellSource,ViralLoadAvailable,ViralLoad,ViralLoadSource,DataCollectionStage,DateCreated,DateUpdated,UserID,DateDeleted,ExportID
 P356265,187986,249588,1/14/2016,5,0,,,,,,,,,,,,1,1/14/16 12:00,1/14/16 9:52,248351,,8094
 D356265,187986,249588,1/14/2016,6,0,,,,,,,,,,,,1,1/14/16 12:00,1/14/16 9:52,248351,,8094
 C356265,187986,249588,1/14/2016,7,0,,,,,,,,,,,,1,1/14/16 12:00,1/14/16 9:52,248351,,8094

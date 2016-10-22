@@ -1,5 +1,8 @@
 from django.http import JsonResponse
+from dateutil.parser import parse
 from django.contrib.auth.decorators import login_required
+from api.models import ( Applicant, Client, Disabilities, EmploymentEducation,
+    Enrollment, HealthAndDV, IncomeBenefits, Services )
 
 
 def apply(request):
@@ -22,4 +25,25 @@ def apply(request):
             drug
         }
     """
-    return JsonResponse({'data': 'success'})
+    a_dict = dict(
+        first_name=request.POST['first_name'],
+        last_name=request.POST['last_name'],
+        why=request.POST['why'],
+        phone=request.POST['phone'],
+        email=request.POST['email'],
+        address=request.POST['address'],
+        birthday=parse(request.POST['birthday']),
+        ethnicity=request.POST['race'],
+        gender=request.POST['gender'],
+        veteran=request.POST['veteran'],
+        family=request.POST['family'],
+        domestic_violence=request.POST['domestic_violence'],
+        pregnancy=request.POST['pregnancy'],
+        drug=request.POST['drug'],
+    )
+    app = Applicant(**a_dict)
+    app.urgency = Applicant.objects.calculate_urgency(a_dict)
+    a_dict['urgency'] = app.urgency
+    app.save()
+
+    return JsonResponse({'status': 'success'})
