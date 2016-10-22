@@ -31,14 +31,96 @@
                         <label for="phone-number">Phone Number</label>
                     </div>
                 </div>
-                <div class="last-name-wrapper col s12 m6">
+                <div class="email-wrapper col s12 m6">
                     <div class="input-field">
-                        <input id="last-name" type="text">
-                        <label for="last-name">Last Name</label>
+                        <input id="email" type="email" class="validate">
+                        <label for="email">Email (Optional)</label>
                     </div>
+                </div>
+                <div class="address-wrapper col s12 m6">
+                    <div class="input-field">
+                        <input id="address" type="text">
+                        <label for="address">Address (Optional)</label>
+                    </div>
+                </div>
+                <div class="birthday-wrapper col s12 m6">
+                    <div class="input-field">
+                        <input id="birthday" type="date" class="datepicker">
+                        <label for="birthday">Date of Birth</label>
+                    </div>
+                </div>
+                <div class="race-wrapper col s12 m6">
+                    <label>Race/Ethnicity</label>
+                    <select id="race" class="browser-default">
+                        <option value="" disabled selected>Please choose</option>
+                        <option value="">White</option>
+                        <option value="">Black or African American</option>
+                        <option value="">Hispanic/Latino</option>
+                        <option value="">Asian</option>
+                        <option value="">American Indian</option>
+                        <option value="">Native Hawaiian or Other Pacific Islander </option>
+                    </select>
+                </div>
+                <div class="gender-wrapper col s12 m6">
+                    <label>Gender</label>
+                    <select id="gender" class="browser-default">
+                        <option value="" disabled selected>Please choose</option>
+                        <option value="">Male</option>
+                        <option value="">Female</option>
+                        <option value="">Other</option>
+                    </select>
+                </div>
+                <div class="veteran-wrapper col s12 m6">
+                    <label>Are you a veteran?</label>
+                    <select id="veteran" class="browser-default">
+                        <option value="" disabled selected>Please choose</option>
+                        <option value="">No</option>
+                        <option value="">Yes</option>
+                    </select>
+                </div>
+                <div class="enrolled-before-wrapper col s12 m6">
+                    <label>Have you been enrolled in a program before?</label>
+                    <select id="enrolled-before" class="browser-default">
+                        <option value="" disabled selected>Please choose</option>
+                        <option value="">No</option>
+                        <option value="">Yes</option>
+                    </select>
+                </div>
+                <div class="family-wrapper col s12 m6">
+                    <label>Are you applying on behalf of a family or as an individual?</label>
+                    <select id="family" class="browser-default">
+                        <option value="" disabled selected>Please choose</option>
+                        <option value="">Individual</option>
+                        <option value="">Family</option>
+                    </select>
+                </div>
+                <div class="domestic-violence-wrapper col s12 m6">
+                    <label>Have you ever been a victim of domestic violence?</label>
+                    <select id="domestic-violence" class="browser-default">
+                        <option value="" disabled selected>Please choose</option>
+                        <option value="">No</option>
+                        <option value="">Yes</option>
+                    </select>
+                </div>
+                <div class="pregnancy-wrapper col s12 m6">
+                    <label>Are you pregenant?</label>
+                    <select id="pregnancy" class="browser-default">
+                        <option value="" disabled selected>Please choose</option>
+                        <option value="">No</option>
+                        <option value="">Yes</option>
+                    </select>
+                </div>
+                <div class="drug-wrapper col s12 m6">
+                    <label>Are you seeking drug rehabilitation?</label>
+                    <select id="drug" class="browser-default">
+                        <option value="" disabled selected>Please choose</option>
+                        <option value="">No</option>
+                        <option value="">Yes</option>
+                    </select>
                 </div>
             </div>
         </div>
+        <button class="waves-effect waves-light btn home-link" type="button" style="margin-top:10px;">Submit Application</button>
     </div>
 </div>
 {% endverbatim %}

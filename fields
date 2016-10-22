@@ -8,15 +8,18 @@ Date of birth -date picker
 Race/Ethnicity -select
 Gender -select
 Veteran -yes/no
+Have you been enrolled in a program before? -yes/no
+Family/Individual -yes/no
+Domestic Violence involvement? -yes/no
+Pregnancy status? -yes/no
+Are you seeking drug rehab? -yes/no
+
 Disability (code) -rating
 Education Level (code) -rating
 Employment Status (code) -rating
 Residential Status (code) -rating
-Have you been enrolled in a program before? -yes/no
-Domestic Violence involvement? -yes/no
 Health Status? -rating
-Pregnancy status? -yes/no
-Are you seeking drug rehab? -yes/no
+
 	- Have you or an immediate family member used one of the following drugs
 // Date Created
 // User ID
