@@ -43,7 +43,25 @@ def apply(request):
     )
     app = Applicant(**a_dict)
     app.urgency = Applicant.objects.calculate_urgency(a_dict)
+    app.reviewed = False
     a_dict['urgency'] = app.urgency
     app.save()
 
     return JsonResponse({'status': 'success'})
+
+def mark_reviewed(request):
+    '''
+        request.POST =
+            applicant_id
+    '''
+
+    return JsonResponse({'status': 'success'})
+
+def get_applicants(request):
+
+    applicant = {}
+
+    return JsonResponse(applicant)
+
+def search_clients(request):
+    pass
