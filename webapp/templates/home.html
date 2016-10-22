@@ -1,0 +1,24 @@
+<!doctype html>
+
+<head>
+    {% load staticfiles %}
+    {% include "base/links.html" %}
+    {% include "base/less_headers/home_less.html" %}
+</head>
+
+<script id="home-template" type="text/template">
+    {% include "partials/home/home_base.html" %}
+</script>
+
+<body>
+    <div id="home">
+
+    </div>
+</body>
+
+<script type="text/javascript" src="{% static "js/home.js" %}"></script>
+<script type="text/javascript">
+    var homeView = new hk.HomeView();
+</script>
+
+</html>

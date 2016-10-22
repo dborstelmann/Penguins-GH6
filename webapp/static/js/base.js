@@ -17,3 +17,9 @@ hk.checkForEnter = function (e) {
         $(e.target).blur();
     }
 };
+
+hk.materializeShit = function () {
+    Materialize.updateTextFields();
+    $('ul.tabs').tabs();
+    $('select').material_select();
+};
