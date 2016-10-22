@@ -32,14 +32,14 @@ def search_clients(request):
         "last_name": c.last_name,
         "social_security": c.social_security,
         "date_of_birth": datetime.datetime.strftime(c.date_of_birth, '%m/%d/%Y'),
-        "ethnicity":  value_maps.ethnicity[c.ethnicity],
-        "gender": value_maps.gender[c.gender],
-        "veteran": value_maps.veteran[c.veteran],
+        "ethnicity":  1,
+        "gender": 1,
+        "veteran": 1,
         "year_entered": c.year_entered,
         "year_exited": c.year_exited,
-        "date_created": c.date_created,
-        "id": c.uuid
+        "date_created": c.date_created
     } for c in clients], safe=False)
+<<<<<<< Updated upstream
 
 def get_applicants(request):
     app_list = Applicant.objects.all()

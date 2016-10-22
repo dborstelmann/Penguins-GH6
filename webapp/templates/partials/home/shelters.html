@@ -22,7 +22,7 @@
                                 <div class="title">
                                     Available Beds:
                                 </div>
-                                <div class="input-field">
+                                <div class="input-field" style="margin-top: 0;">
                                     <input id="available" type="number" value="{{s.occupancy}}">
                                 </div>
                             </div>
@@ -32,7 +32,9 @@
                                 <div class="title">
                                     Total Beds:
                                 </div>
-                                {{s.max_occupancy}}
+                                <div class="input-field" style="margin-top: 0;">
+                                    <input id="total" type="number" value="{{s.max_occupancy}}">
+                                </div>
                             </div>
                         </div>
                         <div class="col s3">

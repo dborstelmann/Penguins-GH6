@@ -1,5 +1,9 @@
 hk = hk || {};
 
+hk.ClientCollection = BB.Collection.extend({
+    url: '/api/get_clients/'
+});
+
 hk.HomeView = BB.View.extend({
     el: '#home',
     template: _.template($('#home-template').html()),
@@ -56,8 +60,9 @@ hk.HomeView = BB.View.extend({
 
         this.$el.empty().append(this.template(this.model.toJSON()));
 
+        this.clientList = new hk.ClientCollection();
         this.clientSearchView = new hk.ClientSearchView({
-            model: this.model
+            collection: this.clientList
         });
 
         this.profileView = new hk.ProfileView({
@@ -66,18 +71,32 @@ hk.HomeView = BB.View.extend({
     },
 
     searchClients: function (searchString) {
-        this.clientSearchView.show();
+        this.clientList.fetch({
+            type: 'POST',
+            data: {
+                query: searchString
+            }
+        });
     },
 
     events: {
         'click .logout': 'goHome',
         'click .profile-link': 'openProfile',
+        'click .mark-reviewed': 'markReviewed',
         'keyup #client-search': 'searchStart'
     },
 
-    openProfile: function () {
+    openProfile: function (e) {
         this.clientSearchView.hide();
         this.profileView.show();
+
+        setTimeout(function () {
+            hk.materializeShit();
+        }, 500);
+    },
+
+    markReviewed: function (e) {
+        //Mark as reviewed
     },
 
     goHome: function () {
@@ -110,13 +129,13 @@ hk.ClientSearchView = BB.View.extend({
     template: _.template($('#search-template').html()),
 
     initialize: function (options) {
-        this.render();
+        this.listenTo(this.collection, 'sync', this.render);
     },
 
     render: function () {
-        this.$el.empty().append(this.template(this.model.toJSON()));
-
+        this.$el.empty().append(this.template({users: this.collection.toJSON()}));
         hk.materializeShit();
+        this.show();
     },
 
     show: function () {
@@ -151,7 +170,7 @@ hk.ProfileView = BB.View.extend({
             selectMonths: true, // Creates a dropdown to control month
             selectYears: 100 // Creates a dropdown of 15 years to control year
         });
-        
+
         hk.materializeShit();
     },
 

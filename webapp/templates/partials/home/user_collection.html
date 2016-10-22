@@ -1,18 +1,18 @@
 {% verbatim %}
 <ul class="collapsible" data-collapsible="accordion">
+    {{# debugger; if (users.length === 0) { }}
+        No matching users.
+    {{# } }}
     {{# _.each(users, function (a) { }}
         <li>
             <div class="collapsible-header">
-                <i class="material-icons">person</i><span>{{a.first_name}} {{a.last_name}}</span>
+                <i class="material-icons">person</i><span>{{a.first_name}} {{a.middle_name}} {{a.last_name}}</span>
                 <span class="title right">Applied: {{a.date_created}}</span>
             </div>
             <div class="collapsible-body">
                 <div class="collapse-container">
                     <div class="row">
                         <div class="col s9">
-                            <div class="contact left-box">
-                                <span class="title">Phone:</span> {{a.phone}} &nbsp; <span class="title">Email:</span> {{a.email}}
-                            </div>
                             {{# if (opensProfile) { }}
                                 <div class="go-to-profile">
                                     <button class="waves-effect waves-light btn profile-link" type="button">Open Profile</button>
@@ -38,11 +38,23 @@
                                 </div>
                                 {{a.veteran}}
                             </div>
-                            <div class="veteran right-box">
+                            <div class="ethnicity right-box">
                                 <div class="title">
-                                    Individual/Family:
+                                    Ethnicity:
                                 </div>
-                                {{a.family}}
+                                {{a.ethnicity}}
+                            </div>
+                            <div class="year-in right-box">
+                                <div class="title">
+                                    Year Entered:
+                                </div>
+                                {{a.year_entered}}
+                            </div>
+                            <div class="year-out right-box">
+                                <div class="title">
+                                    Year Exited:
+                                </div>
+                                {{a.year_exited}}
                             </div>
                         </div>
                     </div>
