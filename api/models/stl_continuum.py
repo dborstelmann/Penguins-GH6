@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
 import datetime
+from django.db.models import Q
 
 class SheltersManager(models.Manager):
 
@@ -131,7 +132,7 @@ class ContinuumServicesManager(models.Manager):
         return reccomendations
 
     def getMembersFromTag(self, tag, profile):
-        clist = ContinuumMembers.objects.filter(services_offered__contains=tag).exclude(criteria_required__in=profile)
+        clist = ContinuumMembers.objects.filter(services_offered__contains=tag)
         return [{
             "name": m.name,
             "website": m.website
@@ -144,9 +145,15 @@ class ContinuumServices(models.Model):
     name = models.CharField(max_length=63)
     description = models.TextField(null=True)
 
+    def __unicode__(self):
+        return u'%s' % (self.name)
+
 
 class ContinuumMembers(models.Model):
     name = models.CharField(max_length=255)
     website = models.CharField(max_length=255)
     services_offered = models.CharField(max_length=255, null=True)
     criteria_required = models.CharField(max_length=255, null=True)
+
+    def __unicode__(self):
+        return u'%s' % (self.name)
