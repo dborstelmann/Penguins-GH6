@@ -15,6 +15,7 @@ class Shelters(models.Model):
     address = models.CharField(max_length=63)
     max_occupancy = models.IntegerField()
     occupancy = models.IntegerField()
+    requirements = models.CharField(max_length=63, null=True)
     last_updated = models.DateTimeField(null=True)
 
 class ContinuumServicesManager(models.Manager):

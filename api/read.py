@@ -75,6 +75,7 @@ def get_shelters(request):
         "address": c.address,
         "max_occupancy": c.max_occupancy,
         "occupancy": c.occupancy,
+        "requirements": c.requirements,
         "last_updated": c.last_updated
         } for c in shelter_list]
 
