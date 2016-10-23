@@ -88,7 +88,7 @@ def profile(request):
     cl = Client.objects.filter(uuid=client_uuid).first()
     e = EmploymentEducation.objects.filter(personal_id=client_uuid).first()
     health = HealthAndDV.objects.filter(personal_id=client_uuid).first()
-    services = Services.objects.filter(personal_id=client_uuid).first()
+    services = Services.objects.filter(personal_id=client_uuid)
 
     if cl is None or e is None or health is None:
         Client.objects.filter(uuid=client_uuid).delete()
