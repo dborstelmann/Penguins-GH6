@@ -8,6 +8,8 @@ class ApplicantManager(models.Manager):
         import datetime
         age = relativedelta(datetime.date.today(), c['birthday']).years
 
+        client = Client.objects.filter(uuid=uuid).first()
+
         score = 0
         if c['address'] == None:
             score += 5
