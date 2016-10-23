@@ -4,6 +4,7 @@ race = {
 	3: "Black or African American",
 	4: "Native Hawaiian or Other Pacific Islander",
 	5: "White",
+	6: "Hispanic/ Latino"
 	8: "Client doesn't know",
 	9: "Client refused",
 	99: "Data not collected"
@@ -23,6 +24,17 @@ gender = {
 general_boolean_numbers = {
 	0: "No",
 	1: "Yes",
+	8: "Client does not know",
+	9: "Client refused",
+	99: "Data not collected"
+}
+
+general_status = {
+	1: "Excellent",
+	2: "Very Good",
+	3: "Good",
+	4: "Fair",
+	5: "Poor",
 	8: "Client does not know",
 	9: "Client refused",
 	99: "Data not collected"
@@ -55,5 +67,15 @@ last_grade_completed = {
 	14: "Vocational certification",
 	8: "Client does not know",
 	9: "Client refusted",
+	99: "Data not collected"
+}
+
+when_experience_occured = {
+	1: "Within past 3 months",
+	2: "Three to Six Months Ago",
+	3: "Six Months to One Year Ago",
+	4: "One year ago or more",
+	8: "Client does not know",
+	9: "Client refused",
 	99: "Data not collected"
 }

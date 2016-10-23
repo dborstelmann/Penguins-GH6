@@ -166,4 +166,59 @@ def profile(request):
             }
         ]
 
+    health = HealthAndDV.objects.filter(personal_id=client_uuid).first()
+    if health:
+        profile['health_and_dv'] = [
+            {
+                "name":"domestic_violence_victim",
+                "type":"select",
+                "value": health.domestic_violence_victim,
+                "options": value_maps.general_boolean_numbers
+            },
+            {
+                "name": "when_occured",
+                "type": "select",
+                "value": health.when_occured,
+                "options": value_maps.when_experience_occured
+            },
+            {
+                "name": "currently_fleeing",
+                "type": "select",
+                "value": health.currently_fleeing,
+                "options": value_maps.general_boolean_numbers
+            },
+            {
+                "name": "general_health_status",
+                "type": "select",
+                "value": health.general_health_status,
+                "options": value_maps.general_status
+            },
+            {
+                "name": "dental_health_status",
+                "type": "select",
+                "value": health.dental_health_status,
+                "options": value_maps.general_status
+            },
+            {
+                "name": "mental_health_status",
+                "type": "select",
+                "value": health.mental_health_status,
+                "options": value_maps.general_status
+            },
+            {
+                "name": "pregnancy_status",
+                "type": "select",
+                "value": health.pregnancy_status,
+                "options": value_maps.general_boolean_numbers
+            },
+            {
+                "name": "due_date",
+                "type": "date",
+                "value": health.due_date,
+                "options": None
+            }
+        ]
+
+
+
     return JsonResponse(profile)
