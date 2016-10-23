@@ -57,7 +57,7 @@ class ContinuumServicesManager(models.Manager):
             profile.add("homeless")
 
         if any(substring in a.why.lower() for substring in value_maps.POSSIBLE_AILMENTS):
-            profile.add("health")
+            profile.add("healthcare")
 
         if any(substring in a.why.lower() for substring in value_maps.POSSIBLE_BENEFITS):
             profile.add("benefits")

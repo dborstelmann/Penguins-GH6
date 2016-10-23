@@ -196,5 +196,45 @@ services_record_type_to_provided = {
 		4: "Assistance obtaining / coordinating other public benefits",
 		5: "Direct provision of other public benefits",
 		6: "Other (non-TFA) supportive service approved by VA"
+	},
+	151: {
+		1: "Rental Assistance",
+		2: "Security Deposits",
+		3: "Utility Deposits",
+		4: "Utility Payments",
+		7: "Mortgage Assistance"
+	},
+	152: {
+		1: "Rental Assistance",
+		2: "Security Deposits",
+		3: "Utility Deposits",
+		4: "Utility fee payments assistance",
+		5: "Moving costs",
+		8: "Transportation services: token / vouchers",
+		9: "Transportation services: vehicle repair / maintenance",
+		10: "Child Care",
+		11: "General housing stability assistance - emergency supplies",
+		12: "General housing stability assistance - other",
+		14: "Emergency housing assistance"
+	},
+	161: {
+		1: "Community mental health",
+		2: "Substance use treatments",
+		3: "Primary health services",
+		4: "Job training",
+		5: "Educational Services",
+		6: "Relevant housing services",
+		7: "Housing placement assistance",
+		8: "Income assistance",
+		9: "Employment assistance",
+		10: "Medical assistance"
+	},
+	162: {
+		1: "Child care non-TANF",
+		2: "Supplemental nutritional assistance Program (food stamps)",
+		3: "Education - liasion assistance to stay in school",
+		4: "HUD Section 8 or permanent housing assistance",
+		5: "Individual development account",
+		6: "Medicaid"
 	}
 }
