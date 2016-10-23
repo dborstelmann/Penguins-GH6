@@ -3,30 +3,35 @@
     <div class="row" style="margin-bottom: 0;">
         <div class="top-banner">
             <div class="container">
-                <div class="row" style="margin-bottom: 0; padding-top: 10px; padding-bottom: 20px;">
-                    <div class="col s9">
-                        <div class="user-search">
-                            <div class="title white-text">
-                                Client Search (Last name or ID)
-                            </div>
+                <div class="row" style="margin-bottom: 0; padding-top: 10px;">
+                    <div class="col s12 m4">
+                        <img style="margin-top: -20px;" src="http://www.stpatrickcenter.org/wp-content/themes/stpats-2013/library/images/nav-logo-stpats-pad.png" alt="St. Patrick Center">
+
+
+                    </div>
+                    <div class="col s12 m8">
+                        <button class="btn-flat bar-button logout right right-align" type="button">Logout</button>
+                        <button class="btn-flat bar-button new-user right right-align" type="button">New Client</button>
+                        <div class="user-search right">
                             <div class="input-field" style="margin-top:0;">
-                                <input id="client-search" type="text">
+                                <input id="client-search" placeholder="Search by client id or last name" type="text">
                             </div>
                         </div>
-                    </div>
-                    <div class="col s3">
-                        <button class="btn bar-button logout" type="button">Logout</button>
-                        <button class="btn bar-button new-user" type="button">New Client</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="row">
-        <ul class="tabs">
-            <li class="tab col s6"><a class="active" href="#new-apps">New Applications</a></li>
-            <li class="tab col s6"><a href="#available">Available Beds</a></li>
-        </ul>
+        <div style="height: 48px; background-color: #47a941; box-shadow: 0 3px 5px rgba(0, 0, 0, 0.26);">
+
+        </div>
+        <div class="container">
+            <ul class="tabs" style="margin-top: -48px; box-shadow: none;">
+                <li class="tab col s6"><a class="active" href="#new-apps">New Applications</a></li>
+                <li class="tab col s6"><a href="#available">Available Beds</a></li>
+            </ul>
+        </div>
         <div id="new-apps" class="col s12">
             <div class="new-applications container">
                 {{= hk.underscorePartial('application-collection-template', {applicants: applicants})}}

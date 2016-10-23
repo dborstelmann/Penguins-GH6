@@ -1,23 +1,13 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
 import datetime
+from django.db.models import Q
+from api.helpers import add_unique_demographics_to_profile
+from utils import value_maps
 
 class SheltersManager(models.Manager):
 
-    def add_client(c):
-        c.occupancy = c.occupancy + 1
-        assert c.occupancy <= c.max_occupancy
-        c.last_updated = datetime.datetime.now()
-        c.save()
-
-    def remove_client(c):
-        c.occupancy = c.occupancy - 1
-        assert c.occupancy >= 0
-        c.last_updated = datetime.datetime.now()
-        c.save()
-
-    def get_availability(c):
-        return c.max_occupancy - c.occupancy
+    pass
 
 class Shelters(models.Model):
     objects = SheltersManager()
@@ -33,34 +23,6 @@ class ContinuumServicesManager(models.Manager):
         from dateutil.relativedelta import relativedelta
         import datetime
         age = relativedelta(datetime.date.today(), a.birthday).years
-
-        POSSIBLE_AILMENTS = [
-            "doctor",
-            "sick",
-            "medicine",
-            "rehab",
-            "hospital"
-        ]
-
-        POSSIBLE_BENEFITS = [
-            "case",
-            "child",
-            "care",
-            "education",
-            "school",
-            "employment",
-            "housing",
-            "legal",
-            "mentor",
-            "support"
-        ]
-
-        POSSIBLY_HOMELESS = [
-            "homeless",
-            "street",
-            "evict",
-            "out"
-        ]
 
         profile = set({})
         if ( a.address is None ) or ( not a.address ):
@@ -90,52 +52,29 @@ class ContinuumServicesManager(models.Manager):
         if a.drug:
             profile.add("health")
 
-        if any(substring in a.why.lower() for substring in POSSIBLY_HOMELESS):
+        if any(substring in a.why.lower() for substring in value_maps.POSSIBLY_HOMELESS):
             profile.add("homeless")
 
-        if any(substring in a.why.lower() for substring in POSSIBLE_AILMENTS):
+        if any(substring in a.why.lower() for substring in value_maps.POSSIBLE_AILMENTS):
             profile.add("health")
 
-        if any(substring in a.why.lower() for substring in POSSIBLE_BENEFITS):
+        if any(substring in a.why.lower() for substring in value_maps.POSSIBLE_BENEFITS):
             profile.add("benefits")
 
-        reccomendations = []
+        if any(substring in a.why.lower() for substring in ("HIV", "AIDS")):
+            profile.add("AIDS")
 
-        if "health" in profile and "homeless" in profile:
-            reccomendations += self.getMembersFromTag("Health", profile)
-
-        if "domestic_violence" in profile:
-            reccomendations += self.getMembersFromTag("DViolence", profile)
-
-        if "single" in profile:
-            reccomendations += self.getMembersFromTag("SingleMW", profile)
-
-        if "prevention" in profile:
-            reccomendations += self.getMembersFromTag("Prevention", profile)
-
-        if "veteran" in profile:
-            reccomendations += self.getMembersFromTag("Veteran", profile)
-
-        if "benefits" in profile:
-            reccomendations += self.getMembersFromTag("Benefits", profile)
-
-        if "women" in profile and "family" in profile:
-            reccomendations += self.getMembersFromTag("WWChild", profile)
-
-        if "youth" in profile and "homeless" in profile:
-            reccomendations += self.getMembersFromTag("HYouth", profile)
-
-        if "homeless" in profile and "family" in profile:
-            reccomendations += self.getMembersFromTag("HFamilies", profile)
+        reccomendations = self.getMembersFromProfile(profile)
 
         return reccomendations
 
-    def getMembersFromTag(self, tag, profile):
-        clist = ContinuumMembers.objects.filter(services_offered__contains=tag).exclude(criteria_required__in=profile)
+    def getMembersFromProfile(self, profile):
+        profile = add_unique_demographics_to_profile(profile)
+        clist = ContinuumMembers.objects.filter(services_offered__in=profile)
         return [{
             "name": m.name,
             "website": m.website
-        } for m in clist]
+        } for m in clist if (m.criteria_required in profile or not m.criteria_required)]
 
 
 class ContinuumServices(models.Model):
@@ -144,9 +83,15 @@ class ContinuumServices(models.Model):
     name = models.CharField(max_length=63)
     description = models.TextField(null=True)
 
+    def __unicode__(self):
+        return u'%s' % (self.name)
+
 
 class ContinuumMembers(models.Model):
     name = models.CharField(max_length=255)
     website = models.CharField(max_length=255)
     services_offered = models.CharField(max_length=255, null=True)
     criteria_required = models.CharField(max_length=255, null=True)
+
+    def __unicode__(self):
+        return u'%s' % (self.name)

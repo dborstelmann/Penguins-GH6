@@ -1,0 +1,35 @@
+{% verbatim %}
+<div class="id">
+    <strong>UUID: </strong>{{id}}
+</div>
+<div class="associate" style="margin-bottom: 20px;">
+    <strong>Associate Id: </strong>{{associate_id}}
+</div>
+
+{{# _.each(data, function (c) { }}
+    {{# if (c.type === 'text') { }}
+        <div class="input-wrapper col s12">
+            <div class="input-field">
+                <input class="profile-update" data-id="{{c.name}}" data-client-id="{{id}}" id="{{c.name}}" type="text" value="{{c.value}}">
+                <label for="{{c.name}}">{{hk.titleify(c.name)}}</label>
+            </div>
+        </div>
+    {{# } else if (c.type === 'select') { }}
+        <div class="input-wrapper col s12">
+            <label>{{hk.titleify(c.name)}}</label>
+            <select class="profile-update-select browser-default" data-id="{{c.name}}" data-client-id="{{id}}" id="{{c.name}}">
+                {{# _.each(_.keys(c.options), function (o) { }}
+                    <option value="{{o}}" {{# if (o == c.value) { }}selected{{# } }}>{{hk.titleify(c.options[o])}}</option>
+                {{# }); }}
+            </select>
+        </div>
+    {{# } else if (c.type === 'date') { }}
+        <div class="input-wrapper col s12">
+            <div class="input-field">
+                <input class="profile-update-select datepicker" data-id="{{c.name}}" data-client-id="{{id}}" id="{{c.name}}" type="date" value="{{c.value}}">
+                <label for="{{c.name}}">{{hk.titleify(c.name)}}</label>
+            </div>
+        </div>
+    {{# } }}
+{{# }); }}
+{% endverbatim %}

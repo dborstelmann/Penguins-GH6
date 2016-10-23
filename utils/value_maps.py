@@ -43,13 +43,15 @@ general_status = {
 employment_type = {
 	1: "Full-time",
 	2: "Part-time",
-	3: "Seasonal / sporadic (including day labor)"
+	3: "Seasonal / sporadic (including day labor)",
+	99: "Data not Collected"
 }
 
 not_employed_reason = {
 	1: "Looking For Work",
 	2: "Unable to Work",
-	3: "Not Looking for Work"
+	3: "Not Looking for Work",
+	99: "Data not Collected"
 }
 
 last_grade_completed = {
@@ -79,3 +81,31 @@ when_experience_occured = {
 	9: "Client refused",
 	99: "Data not collected"
 }
+
+POSSIBLE_AILMENTS = [
+    "doctor",
+    "sick",
+    "medicine",
+    "rehab",
+    "hospital"
+]
+
+POSSIBLE_BENEFITS = [
+    "case",
+    "child",
+    "care",
+    "education",
+    "school",
+    "employment",
+    "housing",
+    "legal",
+    "mentor",
+    "support"
+]
+
+POSSIBLY_HOMELESS = [
+    "homeless",
+    "street",
+    "evict",
+    "out"
+]

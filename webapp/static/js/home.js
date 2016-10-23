@@ -80,6 +80,8 @@ hk.HomeView = BB.View.extend({
     newUser: function () {
         var _this = this;
 
+        Materialize.toast('Loading...', 1000);
+
         $.ajax({
             url: '/api/new_client',
             type: 'GET',
@@ -216,10 +218,15 @@ hk.ProfileView = BB.View.extend({
 
         this.$('.datepicker').pickadate({
             selectMonths: true, // Creates a dropdown to control month
-            selectYears: 100 // Creates a dropdown of 15 years to control year
+            selectYears: 200 // Creates a dropdown of 15 years to control year
         });
 
+        this.show();
+
         hk.materializeShit();
+        setTimeout(function () {
+            hk.materializeShit();
+        }, 300);
     },
 
     show: function () {
@@ -231,10 +238,45 @@ hk.ProfileView = BB.View.extend({
     },
 
     events: {
-        'click .close-profile': 'closeProfile'
+        'click .close-profile': 'closeProfile',
+        'keyup .profile-update': 'keyupEnter',
+        'blur .profile-update': 'updateProfile',
+        'change .profile-update-select': 'updateProfile',
     },
 
     closeProfile: function () {
         this.hide();
     },
+
+    keyupEnter: function (e) {
+        if (e.which == 13) {
+            e.preventDefault();
+            $(e.target).blur();
+        }
+    },
+
+    updateProfile: function (e) {
+        var _this = this,
+            $this = $(e.target),
+            $id = $this.attr('data-client-id'),
+            $name = $this.attr('data-id'),
+            $val = $this.val();
+
+        if ($this.hasClass('datepicker')) {
+            $val = new Date($val).toISOString().substring(0, 10);
+        }
+
+        $.ajax({
+            url: '/api/update_user/',
+            type: 'POST',
+            data: {
+                id: $id,
+                name: $name,
+                value: $val
+            },
+            success: function () {
+
+            }
+        });
+    }
 });
