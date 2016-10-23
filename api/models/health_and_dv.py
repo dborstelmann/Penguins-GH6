@@ -18,6 +18,6 @@ class HealthAndDV(models.Model):
     pregnancy_status = models.IntegerField(null=True)
     due_date = models.DateField(null=True)
     data_collection_stage = models.IntegerField(null=True)
-    date_created = models.DateTimeField(null=False)
-    date_updated = models.DateTimeField(null=False)
+    date_created = models.DateTimeField(null=True)
+    date_updated = models.DateTimeField(null=True)
     associate_id = models.CharField(max_length=15)
