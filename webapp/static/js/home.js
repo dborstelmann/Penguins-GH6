@@ -259,7 +259,7 @@ hk.ProfileView = BB.View.extend({
             type: 'POST',
             data: {
                 id: this.model.get('id'),
-                tab: 'services_recieved'
+                tab: 'service_received'
             }
         });
 
@@ -305,7 +305,7 @@ hk.ProfileView = BB.View.extend({
     servicesRender: function () {
         this.$('#services').empty().append(
             hk.underscorePartial('profile-inner-template', {
-                data: this.servicesModel.get('services_recieved'),
+                data: this.servicesModel.get('service_received'),
                 id: this.servicesModel.get('id'),
                 associate_id: this.servicesModel.get('associate_id'),
                 urgency: this.servicesModel.get('urgency')
