@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 race = {
 	1: "American Indian or Alaska Native",
 	2: "Asian",
@@ -5,7 +7,7 @@ race = {
 	4: "Native Hawaiian or Other Pacific Islander",
 	5: "White",
 	6: "Hispanic/ Latino",
-	8: "Client doesn't know",
+	8: "Client does not know",
 	9: "Client refused",
 	99: "Data not collected"
 }
@@ -186,5 +188,13 @@ services_record_type_to_provided = {
 		12: "Substance abuse services/treatment",
 		13: "Transportation",
 		14: "Other HOPWA funded service"
+	},
+	144: {
+		1: "Outreach services",
+		2: "Case management service",
+		3: "Assistance obtaining VA benefits",
+		4: "Assistance obtaining / coordinating other public benefits",
+		5: "Direct provision of other public benefits",
+		6: "Other (non-TFA) supportive service approved by VA"
 	}
 }

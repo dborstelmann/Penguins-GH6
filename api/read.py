@@ -239,11 +239,10 @@ def profile(request):
                     profile['services_recieved'].append({
                         "name": value_maps.services_record_type[s.record_type]
                         "type": "read-only",
-                        "value": value_maps.services_record_type_to_provided[s.record_type][s.type_provided]
+                        "value": value_maps.services_record_type_to_provided[s.record_type][s.type_provided],
+                        "date": s.date_provided
                     })
                 except:
                     continue
-
-
 
     return JsonResponse(profile)
