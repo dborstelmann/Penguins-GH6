@@ -80,6 +80,8 @@ hk.HomeView = BB.View.extend({
     newUser: function () {
         var _this = this;
 
+        Materialize.toast('Loading...', 1000);
+
         $.ajax({
             url: '/api/new_client',
             type: 'GET',
@@ -218,6 +220,8 @@ hk.ProfileView = BB.View.extend({
             selectMonths: true, // Creates a dropdown to control month
             selectYears: 100 // Creates a dropdown of 15 years to control year
         });
+
+        this.show();
 
         hk.materializeShit();
     },
