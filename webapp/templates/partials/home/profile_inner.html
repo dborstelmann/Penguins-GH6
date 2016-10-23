@@ -36,15 +36,19 @@
         </div>
     {{# } else if (c.type === 'read-only') { }}
         <div class="input-wrapper col s12">
-            <div class="service-name">
-                {{c.name}}
-            </div>
-            <div class="service-provided">
-                {{c.value}}
-            </div>
-            <div class="service-provided">
-                {{c.date}}
-            </div>
+            <ul class="collection">
+                <li class="collection-item">
+                    <div class="title">
+                        {{c.name}}
+                    </div>
+                    <div class="">
+                        {{c.value}}
+                    </div>
+                    <div class="">
+                        {{c.date}}
+                    </div>
+                </li>
+            </ul>
         </div>
     {{# } }}
 {{# }); }}
