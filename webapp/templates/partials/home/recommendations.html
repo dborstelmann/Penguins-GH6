@@ -1,0 +1,13 @@
+{% verbatim %}
+<div class="resources">
+    <h6 class="collection-header">Recommended resources for this client:</h6>
+    <div class="collection">
+        {{# _.each(recommendations, function (r) { }}
+            <a class="collection-item" href="{{r.website}}">{{r.name}}</a>
+        {{# }); }}
+        {{# if (recommendations.length === 0) { }}
+            <a class="collection-item" style="cursor: default;">No recommendations based off profile.</a>
+        {{# } }}
+    </div>
+</div>
+{% endverbatim %}

@@ -24,15 +24,15 @@
 
         </div>
         <div id="legend"><h6>Legend</h6></div>
-        <style> 
-         #legend {
-        background: #fff;
-        padding: 10px;
-        margin-right: 39px;
-        margin-bottom: -104px;
-        border: 3px solid #000;
+        <style>
+            #legend {
+                background: #fff;
+                padding: 10px;
+                margin-right: 39px;
+                margin-bottom: -104px;
+                border: 3px solid #000;
+            }
         </style>
-      }
     </div>
 </body>
 
@@ -305,7 +305,8 @@
     var update_info_window = function(name, data){
         var shelt = _.findWhere(sheltersCollection.toJSON(), {name: name_hash_table[name]});
     var content_string = '<div class="center-align"><h5 class="green-text">'+name_hash_table[name]+'</h5>';
-    content_string += '<strong> <span>' + shelt.occupancy + '</span>/' + shelt.max_occupancy + ' beds available</strong></div>';
+    content_string += '<strong> <span>' + shelt.occupancy + '</span>/' + shelt.max_occupancy + ' beds available</strong>';
+    content_string += '<p> Accepts: ' + shelt.requirements + '</p></div>';
     info_window.setContent(content_string);
     }
     }

@@ -16,7 +16,12 @@
                     </div>
                 </div>
                 <div class="card-action">
-                    <span style="font-weight: bold; font-size: 1.2rem;"><span class="green-text">{{s.occupancy}}</span>/{{s.max_occupancy}} beds available</span>
+                    <div style="margin-bottom: 4px;">
+                        <span style="font-weight: bold; font-size: 1.2rem;"><span class="green-text">{{s.occupancy}}</span>/{{s.max_occupancy}} beds available</span>
+                    </div>
+                    <div class="">
+                        <span style="font-weight: bold; font-size: 1.2rem;"><span>Accepts {{s.requirements}}</span>
+                    </div>
                 </div>
             </div>
           {{# }); }}

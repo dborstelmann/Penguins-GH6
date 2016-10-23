@@ -17,7 +17,7 @@
                                 {{s.address}}
                             </div>
                         </div>
-                        <div class="col s3">
+                        <div class="col s2">
                             <div class="available-beds">
                                 <div class="title">
                                     Available Beds:
@@ -27,7 +27,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col s3">
+                        <div class="col s2">
                             <div class="total-beds">
                                 <div class="title">
                                     Total Beds:
@@ -35,12 +35,20 @@
                                 {{s.max_occupancy}}
                             </div>
                         </div>
-                        <div class="col s3">
+                        <div class="col s2">
                             <div class="last_updated">
                                 <div class="title">
                                     Last Update:
                                 </div>
                                 {{new Date(s.last_updated).toDateString()}}
+                            </div>
+                        </div>
+                        <div class="col s3">
+                            <div class="requirements">
+                                <div class="title">
+                                    Requirements:
+                                </div>
+                                {{s.requirements}}
                             </div>
                         </div>
                     </div>
