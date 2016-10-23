@@ -19,7 +19,7 @@ def search_clients(request):
         if q.isdigit():
             clients = clients.filter(uuid=q)
         else:
-            clients = clients.filter(last_name__contains=q)
+            clients = clients.filter(last_name__icontains=q)
 
 
     return JsonResponse([{
@@ -84,6 +84,17 @@ def profile(request):
     cl = Client.objects.filter(uuid=client_uuid).first()
     if cl is None:
         return JsonResponse({"status": "error", "message": "member not found"})
+
+    e = EmploymentEducation.objects.filter(personal_id=client_uuid).first()
+    if e is None:
+        e = EmploymentEducation(personal_id=client_uuid, associate_id='245092')
+        e.save()
+
+    health = HealthAndDV.objects.filter(personal_id=client_uuid).first()
+    if health is None:
+        health = HealthAndDV(personal_id=client_uuid, associate_id='245092')
+        health.save()
+
     profile = {}
     profile = {
         "id": client_uuid,
@@ -140,89 +151,171 @@ def profile(request):
         }
     ]
 
+    profile['employment_education'] = [
+        {
+            "name":"employed",
+            "type": "select",
+            "value": e.employed,
+            "options": value_maps.general_boolean_numbers
+        },
+        {
+            "name":"employment_type",
+            "type": "select",
+            "value": e.employment_type,
+            "options": value_maps.employment_type
+        },
+        {
+            "name":"not_employed_reason",
+            "type": "select",
+            "value": e.not_employed_reason,
+            "options": value_maps.not_employed_reason
+        },
+        {
+            "name":"last_grade_completed",
+            "type": "select",
+            "value": e.last_grade_completed,
+            "options": value_maps.last_grade_completed
+        }
+    ]
 
-    e = EmploymentEducation.objects.filter(personal_id=client_uuid).first()
-    if e:
-        profile['employment_education'] = [
-            {
-                "name":"employed",
-                "type": "select",
-                "value": e.employed,
-                "options": value_maps.general_boolean_numbers
-            },
-            {
-                "name":"employment_type",
-                "type": "select",
-                "value": e.employment_type,
-                "options": value_maps.employment_type
-            },
-            {
-                "name":"not_employed_reason",
-                "type": "select",
-                "value": e.not_employed_reason,
-                "options": value_maps.not_employed_reason
-            },
-            {
-                "name":"last_grade_completed",
-                "type": "select",
-                "value": e.last_grade_completed,
-                "options": value_maps.last_grade_completed
-            }
-        ]
 
-    health = HealthAndDV.objects.filter(personal_id=client_uuid).first()
-    if health:
-        profile['health_and_dv'] = [
-            {
-                "name":"domestic_violence_victim",
-                "type":"select",
-                "value": health.domestic_violence_victim,
-                "options": value_maps.general_boolean_numbers
-            },
-            {
-                "name": "when_occured",
-                "type": "select",
-                "value": health.when_occured,
-                "options": value_maps.when_experience_occured
-            },
-            {
-                "name": "currently_fleeing",
-                "type": "select",
-                "value": health.currently_fleeing,
-                "options": value_maps.general_boolean_numbers
-            },
-            {
-                "name": "general_health_status",
-                "type": "select",
-                "value": health.general_health_status,
-                "options": value_maps.general_status
-            },
-            {
-                "name": "dental_health_status",
-                "type": "select",
-                "value": health.dental_health_status,
-                "options": value_maps.general_status
-            },
-            {
-                "name": "mental_health_status",
-                "type": "select",
-                "value": health.mental_health_status,
-                "options": value_maps.general_status
-            },
-            {
-                "name": "pregnancy_status",
-                "type": "select",
-                "value": health.pregnancy_status,
-                "options": value_maps.general_boolean_numbers
-            },
-            {
-                "name": "due_date",
-                "type": "date",
-                "value": health.due_date,
-                "options": None
-            }
-        ]
+    profile['health_and_dv'] = [
+        {
+            "name":"domestic_violence_victim",
+            "type":"select",
+            "value": health.domestic_violence_victim,
+            "options": value_maps.general_boolean_numbers
+        },
+        {
+            "name": "when_occured",
+            "type": "select",
+            "value": health.when_occured,
+            "options": value_maps.when_experience_occured
+        },
+        {
+            "name": "currently_fleeing",
+            "type": "select",
+            "value": health.currently_fleeing,
+            "options": value_maps.general_boolean_numbers
+        },
+        {
+            "name": "general_health_status",
+            "type": "select",
+            "value": health.general_health_status,
+            "options": value_maps.general_status
+        },
+        {
+            "name": "dental_health_status",
+            "type": "select",
+            "value": health.dental_health_status,
+            "options": value_maps.general_status
+        },
+        {
+            "name": "mental_health_status",
+            "type": "select",
+            "value": health.mental_health_status,
+            "options": value_maps.general_status
+        },
+        {
+            "name": "pregnancy_status",
+            "type": "select",
+            "value": health.pregnancy_status,
+            "options": value_maps.general_boolean_numbers
+        },
+        {
+            "name": "due_date",
+            "type": "date",
+            "value": health.due_date,
+            "options": None
+        }
+    ]
 
 
 
     return JsonResponse(profile)
+
+def reccomendations(request):
+    '''
+        request.POST =
+            id
+    '''
+    return JsonResponse(get_reccomendations(request.POST['id']))
+
+def get_reccomendations(id):
+    from dateutil.relativedelta import relativedelta
+    import datetime
+
+    c = Client.objects.filter(uuid=id).first()
+    if c is None:
+        return {"status": "error", "message": "Client does not exist"}
+
+    e = EmploymentEducation.objects.filter(personal_id=id).first()
+    if e is None:
+        return {"status": "error", "message": "Employment Education does not exist"}
+
+    h = HealthAndDV.objects.filter(personal_id=id).first()
+    if h is None:
+        return {"status": "error", "message": "Health and DV does not exist"}
+
+    age = relativedelta(datetime.date.today(), client.date_of_birth).years
+
+    POSSIBLE_AILMENTS = [
+        "doctor",
+        "sick",
+        "medicine",
+        "rehab",
+        "hospital"
+    ]
+
+    POSSIBLE_BENEFITS = [
+        "case",
+        "child",
+        "care",
+        "education",
+        "school",
+        "employment",
+        "housing",
+        "legal",
+        "mentor",
+        "support"
+    ]
+
+    POSSIBLY_HOMELESS = [
+        "homeless",
+        "street",
+        "evict",
+        "out"
+    ]
+
+    profile = set({})
+
+    reccomendations = []
+
+    if "health" in profile and "homeless" in profile:
+        reccomendations += ContinuumServices.objects.getMembersFromProfile("Health", profile)
+
+    if "domestic_violence" in profile:
+        reccomendations += ContinuumServices.objects.getMembersFromProfile("DViolence", profile)
+
+    if "single" in profile:
+        reccomendations += ContinuumServices.objects.getMembersFromProfile("SingleMW", profile)
+
+    if "prevention" in profile:
+        reccomendations += ContinuumServices.objects.getMembersFromProfile("Prevention", profile)
+
+    if "veteran" in profile:
+        reccomendations += ContinuumServices.objects.getMembersFromProfile("Veteran", profile)
+
+    if "benefits" in profile:
+        reccomendations += ContinuumServices.objects.getMembersFromProfile("Benefits", profile)
+
+    if "women" in profile and "family" in profile:
+        reccomendations += ContinuumServices.objects.getMembersFromProfile("WWChild", profile)
+
+    if "youth" in profile and "homeless" in profile:
+        reccomendations += ContinuumServices.objects.getMembersFromProfile("HYouth", profile)
+
+    if "homeless" in profile and "family" in profile:
+        reccomendations += ContinuumServices.objects.getMembersFromProfile("HFamilies", profile)
+
+    return reccomendations

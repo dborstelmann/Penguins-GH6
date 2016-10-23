@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.postgres.fields import ArrayField
 import datetime
 from django.db.models import Q
+from api.helpers import add_unique_demographics_to_profile
 
 class SheltersManager(models.Manager):
 
@@ -100,43 +101,20 @@ class ContinuumServicesManager(models.Manager):
         if any(substring in a.why.lower() for substring in POSSIBLE_BENEFITS):
             profile.add("benefits")
 
-        reccomendations = []
+        if any(substring in a.why.lower() for substring in ("HIV", "AIDS")):
+            profile.add("AIDS")
 
-        if "health" in profile and "homeless" in profile:
-            reccomendations += self.getMembersFromTag("Health", profile)
-
-        if "domestic_violence" in profile:
-            reccomendations += self.getMembersFromTag("DViolence", profile)
-
-        if "single" in profile:
-            reccomendations += self.getMembersFromTag("SingleMW", profile)
-
-        if "prevention" in profile:
-            reccomendations += self.getMembersFromTag("Prevention", profile)
-
-        if "veteran" in profile:
-            reccomendations += self.getMembersFromTag("Veteran", profile)
-
-        if "benefits" in profile:
-            reccomendations += self.getMembersFromTag("Benefits", profile)
-
-        if "women" in profile and "family" in profile:
-            reccomendations += self.getMembersFromTag("WWChild", profile)
-
-        if "youth" in profile and "homeless" in profile:
-            reccomendations += self.getMembersFromTag("HYouth", profile)
-
-        if "homeless" in profile and "family" in profile:
-            reccomendations += self.getMembersFromTag("HFamilies", profile)
+        reccomendations = self.getMembersFromProfile(profile)
 
         return reccomendations
 
-    def getMembersFromTag(self, tag, profile):
-        clist = ContinuumMembers.objects.filter(services_offered__contains=tag)
+    def getMembersFromProfile(self, profile):
+        profile = add_unique_demographics_to_profile(profile)
+        clist = ContinuumMembers.objects.filter(services_offered__in=profile)
         return [{
             "name": m.name,
             "website": m.website
-        } for m in clist]
+        } for m in clist if (m.criteria_required in profile or not m.criteria_required)]
 
 
 class ContinuumServices(models.Model):

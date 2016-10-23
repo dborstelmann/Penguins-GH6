@@ -90,11 +90,8 @@ def new_client(request):
         number = int(random.random()*1000000)
 
     Client(uuid=number, associate_id='245092').save()
-    Disabilities(personal_id=number, associate_id='245092').save()
     EmploymentEducation(personal_id=number, associate_id='245092').save()
-    Enrollment(personal_id=number, associate_id='245092').save()
     HealthAndDV(personal_id=number, associate_id='245092').save()
-    IncomeBenefits(personal_id=number, associate_id='245092').save()
 
 
 

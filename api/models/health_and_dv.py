@@ -6,8 +6,8 @@ class HealthAndDVManager(models.Manager):
 class HealthAndDV(models.Model):
     objects = HealthAndDVManager()
     personal_id = models.CharField(max_length=15)
-    project_entry_id = models.CharField(max_length=15)
-    health_and_dv_id = models.CharField(max_length=15)
+    project_entry_id = models.CharField(null=True, max_length=15)
+    health_and_dv_id = models.CharField(null=True, max_length=15)
     information_date = models.DateField(null=True)
     domestic_violence_victim = models.IntegerField(null=True)
     when_occured = models.IntegerField(null=True)
