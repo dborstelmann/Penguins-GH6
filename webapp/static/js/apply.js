@@ -14,7 +14,7 @@ hk.ApplyView = BB.View.extend({
 
         this.$('.datepicker').pickadate({
             selectMonths: true, // Creates a dropdown to control month
-            selectYears: 100 // Creates a dropdown of 15 years to control year
+            selectYears: 200 // Creates a dropdown of 15 years to control year
         });
         hk.materializeShit();
     },

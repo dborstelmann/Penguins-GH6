@@ -218,7 +218,7 @@ hk.ProfileView = BB.View.extend({
 
         this.$('.datepicker').pickadate({
             selectMonths: true, // Creates a dropdown to control month
-            selectYears: 100 // Creates a dropdown of 15 years to control year
+            selectYears: 200 // Creates a dropdown of 15 years to control year
         });
 
         this.show();
@@ -239,7 +239,8 @@ hk.ProfileView = BB.View.extend({
 
     events: {
         'click .close-profile': 'closeProfile',
-        'keyup .profile-update': 'updateProfile',
+        'keyup .profile-update': 'keyupEnter',
+        'blur .profile-update': 'updateProfile',
         'change .profile-update-select': 'updateProfile',
     },
 
@@ -247,19 +248,23 @@ hk.ProfileView = BB.View.extend({
         this.hide();
     },
 
-    updateProfile: function (e) {
-        if (e.which != 13) {
-            return;
+    keyupEnter: function (e) {
+        if (e.which == 13) {
+            e.preventDefault();
+            $(e.target).blur();
         }
+    },
 
-        e.preventDefault();
-        $(e.target).blur();
-
+    updateProfile: function (e) {
         var _this = this,
             $this = $(e.target),
             $id = $this.attr('data-client-id'),
             $name = $this.attr('data-id'),
             $val = $this.val();
+
+        if ($this.hasClass('datepicker')) {
+            $val = new Date($val).toISOString().substring(0, 10);
+        }
 
         $.ajax({
             url: '/api/update_user/',
@@ -267,7 +272,7 @@ hk.ProfileView = BB.View.extend({
             data: {
                 id: $id,
                 name: $name,
-                val: $val
+                value: $val
             },
             success: function () {
 
