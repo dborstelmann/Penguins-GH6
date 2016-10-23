@@ -51,8 +51,6 @@ hk.ApplyView = BB.View.extend({
             lastName &&
             why &&
             phone &&
-            email &&
-            address &&
             birthday &&
             race &&
             gender &&
