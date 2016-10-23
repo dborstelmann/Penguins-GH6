@@ -238,10 +238,40 @@ hk.ProfileView = BB.View.extend({
     },
 
     events: {
-        'click .close-profile': 'closeProfile'
+        'click .close-profile': 'closeProfile',
+        'keyup .profile-update': 'updateProfile',
+        'change .profile-update-select': 'updateProfile',
     },
 
     closeProfile: function () {
         this.hide();
     },
+
+    updateProfile: function (e) {
+        if (e.which != 13) {
+            return;
+        }
+
+        e.preventDefault();
+        $(e.target).blur();
+
+        var _this = this,
+            $this = $(e.target),
+            $id = $this.attr('data-client-id'),
+            $name = $this.attr('data-id'),
+            $val = $this.val();
+
+        $.ajax({
+            url: '/api/update_user/',
+            type: 'POST',
+            data: {
+                id: $id,
+                name: $name,
+                val: $val
+            },
+            success: function () {
+
+            }
+        });
+    }
 });
