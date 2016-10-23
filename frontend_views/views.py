@@ -20,3 +20,7 @@ def home_view(request):
 
 def submit_view(request):
     return TemplateResponse(request, 'submit.html', {})
+
+
+def beds_view(request):
+    return TemplateResponse(request, 'beds.html', {})

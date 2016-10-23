@@ -19,6 +19,22 @@ body {
                     }
                 }
             }
+
+            .application-link {
+                margin-top: 40vh;
+            }
+
+            img {
+                margin-top: 10vh;
+            }
+
+            .front-page-button {
+                min-width: 200px;
+            }
+
+            .beds-link {
+                display: none;
+            }
         }
     }
 
@@ -26,5 +42,19 @@ body {
         .input-field input, .input-field label {
             left: 0;
         }
+    }
+}
+
+@media (max-width: 600px) {
+    #map {
+        display: none;
+    }
+
+    .admin-login {
+        display: none;
+    }
+
+    .beds-link {
+        display: inline-block !important;
     }
 }

@@ -16,7 +16,8 @@ hk.HelloView = BB.View.extend({
 
     events: {
         'click .application-link': 'goToApplication',
-        'click .admin-login': 'adminLogin'
+        'click .admin-login': 'adminLogin',
+        'click .beds-link': 'openBeds'
     },
 
     goToApplication: function () {
@@ -25,6 +26,10 @@ hk.HelloView = BB.View.extend({
 
     adminLogin: function () {
         this.adminLoginView.show();
+    },
+
+    openBeds: function () {
+        window.location.href = '/beds';
     }
 });
 

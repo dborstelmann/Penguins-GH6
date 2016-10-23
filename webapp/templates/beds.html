@@ -1,0 +1,24 @@
+<!doctype html>
+
+<head>
+    {% load staticfiles %}
+    {% include "base/links.html" %}
+    {% include "base/less_headers/beds_less.html" %}
+</head>
+
+<script id="beds-template" type="text/template">
+    {% include "partials/beds/beds_base.html" %}
+</script>
+
+<body>
+    <div id="beds">
+
+    </div>
+</body>
+
+<script type="text/javascript" src="{% static "js/beds.js" %}"></script>
+<script type="text/javascript">
+    var bedsView = new hk.BedsView();
+</script>
+
+</html>
