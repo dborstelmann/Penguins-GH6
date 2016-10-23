@@ -4,7 +4,7 @@
         <li>
             <div class="collapsible-header">
                 <i class="material-icons">person</i><span>{{a.first_name}} {{a.last_name}}</span>
-                <span class="title right">Applied: {{new Date(a.created).toDateString()}}</span>
+                <span class="right">Urgency: <span style="font-weight:bold;">{{a.urgency / 40 * 100}}%</stspanrong></span>
             </div>
             <div class="collapsible-body">
                 <div class="collapse-container">
@@ -64,9 +64,9 @@
                             </div>
                             <div class="urgency right-box">
                                 <div class="title">
-                                    Urgency:
+                                    Applied:
                                 </div>
-                                <progress class="progress-bar-danger" id="progressbar" value="{{a.urgency / 40 * 100}}" max="100"></progress>
+                                {{new Date(a.created).toDateString()}}
                             </div>
                         </div>
                     </div>

@@ -276,7 +276,7 @@ hk.ProfileView = BB.View.extend({
                 value: $val
             },
             success: function () {
-
+                //UPDATE RECOMMENDATIONS
             }
         });
     }
