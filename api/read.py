@@ -83,19 +83,14 @@ def get_shelters(request):
 
 def profile(request):
     client_uuid = request.POST['id']
+    tab = request.POST['tab']
     cl = Client.objects.filter(uuid=client_uuid).first()
-    if cl is None:
-        return JsonResponse({"status": "error", "message": "member not found"})
-
     e = EmploymentEducation.objects.filter(personal_id=client_uuid).first()
-    if e is None:
-        e = EmploymentEducation(personal_id=client_uuid, associate_id='245092')
-        e.save()
-
     health = HealthAndDV.objects.filter(personal_id=client_uuid).first()
-    if health is None:
-        health = HealthAndDV(personal_id=client_uuid, associate_id='245092')
-        health.save()
+
+    if cl is None or e is None or health is None:
+        Client.objects.filter(uuid=client_uuid).delete()
+        return JsonResponse({"status": "error", "message": "member not found"})
 
     profile = {}
     profile = {
@@ -104,135 +99,136 @@ def profile(request):
         "urgency": helpers.urgency(client_uuid),
         "recomendations": helpers.recomendations(client_uuid)
     }
-    profile['client_info'] = [
-        {
-            "name": "first_name",
-            "type": "text",
-            "value": cl.first_name,
-            "options": None
-        },
-        {
-            "name": "last_name",
-            "type": "text",
-            "value": cl.last_name,
-            "options": None
-        },
-        {
-            "name": "middle_name",
-            "type": "text",
-            "value": cl.middle_name,
-            "options": None
-        },
-        {
-            "name": "social_security",
-            "type": "text",
-            "value": cl.social_security,
-            "options": None
-        },
-        {
-            "name": "date_of_birth",
-            "type": "date",
-            "value": cl.date_of_birth,
-            "options": None
-        },
-        {
-            "name": "ethnicity",
-            "type": "select",
-            "value": cl.ethnicity,
-            "options": value_maps.race
-        },
-        {
-            "name": "gender",
-            "type": "select",
-            "value": cl.gender,
-            "options": value_maps.gender
-        },
-        {
-            "name": "veteran",
-            "type": "select",
-            "value": cl.veteran,
-            "options": value_maps.general_boolean_numbers
-        }
-    ]
+    if tab == 'client_info':
+        profile['client_info'] = [
+            {
+                "name": "first_name",
+                "type": "text",
+                "value": cl.first_name,
+                "options": None
+            },
+            {
+                "name": "last_name",
+                "type": "text",
+                "value": cl.last_name,
+                "options": None
+            },
+            {
+                "name": "middle_name",
+                "type": "text",
+                "value": cl.middle_name,
+                "options": None
+            },
+            {
+                "name": "social_security",
+                "type": "text",
+                "value": cl.social_security,
+                "options": None
+            },
+            {
+                "name": "date_of_birth",
+                "type": "date",
+                "value": cl.date_of_birth,
+                "options": None
+            },
+            {
+                "name": "ethnicity",
+                "type": "select",
+                "value": cl.ethnicity,
+                "options": value_maps.race
+            },
+            {
+                "name": "gender",
+                "type": "select",
+                "value": cl.gender,
+                "options": value_maps.gender
+            },
+            {
+                "name": "veteran",
+                "type": "select",
+                "value": cl.veteran,
+                "options": value_maps.general_boolean_numbers
+            }
+        ]
+    if tab == "employment_education":
+        profile['employment_education'] = [
+            {
+                "name":"employed",
+                "type": "select",
+                "value": e.employed,
+                "options": value_maps.general_boolean_numbers
+            },
+            {
+                "name":"employment_type",
+                "type": "select",
+                "value": e.employment_type,
+                "options": value_maps.employment_type
+            },
+            {
+                "name":"not_employed_reason",
+                "type": "select",
+                "value": e.not_employed_reason,
+                "options": value_maps.not_employed_reason
+            },
+            {
+                "name":"last_grade_completed",
+                "type": "select",
+                "value": e.last_grade_completed,
+                "options": value_maps.last_grade_completed
+            }
+        ]
 
-    profile['employment_education'] = [
-        {
-            "name":"employed",
-            "type": "select",
-            "value": e.employed,
-            "options": value_maps.general_boolean_numbers
-        },
-        {
-            "name":"employment_type",
-            "type": "select",
-            "value": e.employment_type,
-            "options": value_maps.employment_type
-        },
-        {
-            "name":"not_employed_reason",
-            "type": "select",
-            "value": e.not_employed_reason,
-            "options": value_maps.not_employed_reason
-        },
-        {
-            "name":"last_grade_completed",
-            "type": "select",
-            "value": e.last_grade_completed,
-            "options": value_maps.last_grade_completed
-        }
-    ]
-
-
-    profile['health_and_dv'] = [
-        {
-            "name":"domestic_violence_victim",
-            "type":"select",
-            "value": health.domestic_violence_victim,
-            "options": value_maps.general_boolean_numbers
-        },
-        {
-            "name": "when_occured",
-            "type": "select",
-            "value": health.when_occured,
-            "options": value_maps.when_experience_occured
-        },
-        {
-            "name": "currently_fleeing",
-            "type": "select",
-            "value": health.currently_fleeing,
-            "options": value_maps.general_boolean_numbers
-        },
-        {
-            "name": "general_health_status",
-            "type": "select",
-            "value": health.general_health_status,
-            "options": value_maps.general_status
-        },
-        {
-            "name": "dental_health_status",
-            "type": "select",
-            "value": health.dental_health_status,
-            "options": value_maps.general_status
-        },
-        {
-            "name": "mental_health_status",
-            "type": "select",
-            "value": health.mental_health_status,
-            "options": value_maps.general_status
-        },
-        {
-            "name": "pregnancy_status",
-            "type": "select",
-            "value": health.pregnancy_status,
-            "options": value_maps.general_boolean_numbers
-        },
-        {
-            "name": "due_date",
-            "type": "date",
-            "value": health.due_date,
-            "options": None
-        }
-    ]
+    if tab == 'health_and_dv':
+        profile['health_and_dv'] = [
+            {
+                "name":"domestic_violence_victim",
+                "type":"select",
+                "value": health.domestic_violence_victim,
+                "options": value_maps.general_boolean_numbers
+            },
+            {
+                "name": "when_occured",
+                "type": "select",
+                "value": health.when_occured,
+                "options": value_maps.when_experience_occured
+            },
+            {
+                "name": "currently_fleeing",
+                "type": "select",
+                "value": health.currently_fleeing,
+                "options": value_maps.general_boolean_numbers
+            },
+            {
+                "name": "general_health_status",
+                "type": "select",
+                "value": health.general_health_status,
+                "options": value_maps.general_status
+            },
+            {
+                "name": "dental_health_status",
+                "type": "select",
+                "value": health.dental_health_status,
+                "options": value_maps.general_status
+            },
+            {
+                "name": "mental_health_status",
+                "type": "select",
+                "value": health.mental_health_status,
+                "options": value_maps.general_status
+            },
+            {
+                "name": "pregnancy_status",
+                "type": "select",
+                "value": health.pregnancy_status,
+                "options": value_maps.general_boolean_numbers
+            },
+            {
+                "name": "due_date",
+                "type": "date",
+                "value": health.due_date,
+                "options": None
+            }
+        ]
 
 
 

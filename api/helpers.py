@@ -4,9 +4,9 @@ def add_unique_demographics_to_profile(profile):
 
     return profile
 
-def recomendations(id): #accept applications
+def build_profile(id):
     from dateutil.relativedelta import relativedelta
-    from api.models import Client, EmploymentEducation, HealthAndDV, ContinuumServices
+    from api.models import Client, EmploymentEducation, HealthAndDV
     import datetime
 
     c = Client.objects.filter(uuid=id).first()
@@ -42,7 +42,7 @@ def recomendations(id): #accept applications
         pfofile.add("transgender")
 
     if e.last_grade_completed < 4:
-        profile.add("eduction")
+        profile.add("education")
 
     if e.employed == 0:
         profile.add("unemployed")
@@ -66,28 +66,44 @@ def recomendations(id): #accept applications
     if "pregnant" in profile and relativedelta(datetime.date.today(), h.due_date).days < 30:
         profile.add("general_health")
 
+    return profile
 
-    reccomendations = ContinuumServices.objects.getMembersFromProfile(profile)
-
-    return reccomendations
+def recomendations(id): #accept applications
+    from api.models import ContinuumServices
+    return ContinuumServices.objects.getMembersFromProfile(build_profile(id))
 
 def urgency(id):
-    from dateutil.relativedelta import relativedelta
-    from api.models import Client, EmploymentEducation, HealthAndDV
-    import datetime
+    profile = build_profile(id)
+    score = 0
 
-    c = Client.objects.filter(uuid=id).first()
-    if c is None:
-        return {"status": "error", "message": "Client does not exist"}
+    if "youth" in profile:
+        score += 10
 
-    e = EmploymentEducation.objects.filter(personal_id=id).first()
-    if e is None:
-        return {"status": "error", "message": "Employment Education does not exist"}
+    if "long_term_care" in profile:
+        score += 10
 
-    h = HealthAndDV.objects.filter(personal_id=id).first()
-    if h is None:
-        return {"status": "error", "message": "Health and DV does not exist"}
+    if "transgender" in profile:
+        score += 5
 
-    age = relativedelta(datetime.date.today(), c.date_of_birth).years
+    if "woman" in profile:
+        score += 3
 
-    return 0
+    if "education" in profile:
+        score += 5
+
+    if "unemployed" in profile:
+        score += 10
+
+    if "underemployed" in profile:
+        score += 5
+
+    if "domestic_violence" in profile:
+        score += 15
+
+    if "general_health" in profile or "mental_health" in profile:
+        score += 5
+
+    if "pregnant" in profile:
+        score += 10
+        
+    return int( ( float(score) / 50 ) * 100 )

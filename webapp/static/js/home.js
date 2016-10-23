@@ -103,7 +103,8 @@ hk.HomeView = BB.View.extend({
         this.profileModel.fetch({
             type: 'POST',
             data: {
-                id: $id
+                id: $id,
+                tab: 'client_info'
             }
         });
     },
