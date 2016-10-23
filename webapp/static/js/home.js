@@ -224,6 +224,9 @@ hk.ProfileView = BB.View.extend({
         this.show();
 
         hk.materializeShit();
+        setTimeout(function () {
+            hk.materializeShit();
+        }, 300);
     },
 
     show: function () {

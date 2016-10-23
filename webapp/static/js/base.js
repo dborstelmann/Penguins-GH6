@@ -26,3 +26,7 @@ hk.materializeShit = function () {
       accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
     });
 };
+
+hk.titleify = function (title) {
+    return title.split('_').map(function(w){ return w.charAt(0).toUpperCase() + w.slice(1); }).join(' ');
+};
