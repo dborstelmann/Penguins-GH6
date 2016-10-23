@@ -44,7 +44,8 @@ class ContinuumServicesManager(models.Manager):
 
         POSSIBLE_BENEFITS = [
             "case",
-            "child care",
+            "child",
+            "care",
             "education",
             "school",
             "employment",
@@ -54,8 +55,15 @@ class ContinuumServicesManager(models.Manager):
             "support"
         ]
 
+        POSSIBLY_HOMELESS = [
+            "homeless",
+            "street",
+            "evict",
+            "out"
+        ]
+
         profile = set({})
-        if a.address is None or not a.address or a.address in ("None", "N/A", "Homeless"):
+        if ( a.address is None ) or ( not a.address ):
             profile.add("homeless")
 
         if a.address:
@@ -82,45 +90,48 @@ class ContinuumServicesManager(models.Manager):
         if a.drug:
             profile.add("health")
 
-        if any(substring in a.why for substring in POSSIBLE_AILMENTS):
+        if any(substring in a.why.lower() for substring in POSSIBLY_HOMELESS):
+            profile.add("homeless")
+
+        if any(substring in a.why.lower() for substring in POSSIBLE_AILMENTS):
             profile.add("health")
 
-        if any(substring in a.why for substring in POSSIBLE_BENEFITS):
+        if any(substring in a.why.lower() for substring in POSSIBLE_BENEFITS):
             profile.add("benefits")
 
         reccomendations = []
 
         if "health" in profile and "homeless" in profile:
-            reccomendations += self.getMembersFromTag("Health")
+            reccomendations += self.getMembersFromTag("Health", profile)
 
         if "domestic_violence" in profile:
-            reccomendations += self.getMembersFromTag("DViolence")
+            reccomendations += self.getMembersFromTag("DViolence", profile)
 
         if "single" in profile:
-            reccomendations += self.getMembersFromTag("SingleMW")
+            reccomendations += self.getMembersFromTag("SingleMW", profile)
 
         if "prevention" in profile:
-            reccomendations += self.getMembersFromTag("Prevention")
+            reccomendations += self.getMembersFromTag("Prevention", profile)
 
         if "veteran" in profile:
-            reccomendations += self.getMembersFromTag("Veteran")
+            reccomendations += self.getMembersFromTag("Veteran", profile)
 
         if "benefits" in profile:
-            reccomendations += self.getMembersFromTag("Benefits")
+            reccomendations += self.getMembersFromTag("Benefits", profile)
 
         if "women" in profile and "family" in profile:
-            reccomendations += self.getMembersFromTag("WWChild")
+            reccomendations += self.getMembersFromTag("WWChild", profile)
 
         if "youth" in profile and "homeless" in profile:
-            reccomendations += self.getMembersFromTag("HYouth")
+            reccomendations += self.getMembersFromTag("HYouth", profile)
 
         if "homeless" in profile and "family" in profile:
-            reccomendations += self.getMembersFromTag("HFamilies")
+            reccomendations += self.getMembersFromTag("HFamilies", profile)
 
         return reccomendations
 
-    def getMembersFromTag(self, tag):
-        clist = ContinuumMembers.objects.filter(services_offered__contains=tag)
+    def getMembersFromTag(self, tag, profile):
+        clist = ContinuumMembers.objects.filter(services_offered__contains=tag).exclude(criteria_required__in=profile)
         return [{
             "name": m.name,
             "website": m.website
@@ -138,3 +149,4 @@ class ContinuumMembers(models.Model):
     name = models.CharField(max_length=255)
     website = models.CharField(max_length=255)
     services_offered = models.CharField(max_length=255, null=True)
+    criteria_required = models.CharField(max_length=255, null=True)
