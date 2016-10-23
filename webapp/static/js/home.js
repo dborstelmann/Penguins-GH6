@@ -136,16 +136,27 @@ hk.HomeView = BB.View.extend({
 
     markReviewed: function (e) {
         var _this = this,
-            $id = $(e.target).attr('data-id');
+            $id = $(e.target).attr('data-id'),
+            $uuid = $('[data-uuid-id="' + $id + '"]').val();
+
+        if ($uuid === '') {
+            Materialize.toast('Please input UUID for client.', 2000);
+            return;
+        }
 
         $.ajax({
             url: '/api/mark_reviewed/',
             type: 'POST',
             data: {
-                id: $id
+                id: $id,
+                uuid: $uuid
             },
-            success: function () {
-                _this.applicationsCollection.fetch();
+            success: function (data) {
+                if (data.status === 'error') {
+                    alert('Client ID not in system.');
+                } else {
+                    _this.applicationsCollection.fetch();
+                }
             }
         });
     },
