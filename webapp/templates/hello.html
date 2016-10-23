@@ -4,6 +4,7 @@
     {% load staticfiles %}
     {% include "base/links.html" %}
     {% include "base/less_headers/hello_less.html" %}
+
 </head>
 
 <script id="hello-template" type="text/template">
@@ -22,6 +23,16 @@
         <div id="map" class="col s12 m9" style="height: 100vh;">
 
         </div>
+        <div id="legend"><h6>Legend</h6></div>
+        <style> 
+         #legend {
+        background: #fff;
+        padding: 10px;
+        margin-right: 39px;
+        margin-bottom: -103px;
+        border: 3px solid #000;
+        </style>
+      }
     </div>
 </body>
 
@@ -68,14 +79,16 @@
     "grace_and_peace" : "Grace & Peace",
     "assisi_house" : "Assisi House",
     };
+
+   	var map;
     function initMap() {
-    var map = new google.maps.Map(document.getElementById('map'), {
+    map = new google.maps.Map(document.getElementById('map'), {
     zoom: 12,
     center: {lat: 38.651500, lng: -90.314928}
     });
 
 
-    var pinColorBlue = "4147a9";
+    var pinColorBlue = "6991FD";
     var pinColorGreen = "47a941";
     var pinImageBlue = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColorBlue,
         new google.maps.Size(21, 34),
@@ -90,8 +103,29 @@
         new google.maps.Point(0, 0),
         new google.maps.Point(12, 35));
 
+    var icons = {
+    	shelters: {
+	    	name : 'Shelters',
+	    	icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
+	    },
+	    winter: {
+	    	name : 'Winter-Only Shelters',
+	    	icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+	    }
+    };
 
 
+    var legend = document.getElementById('legend');
+    var div = document.createElement('div');
+    for (var key in icons) {
+      var type = icons[key];
+      var name = type.name;
+      var icon = type.icon;
+      div.innerHTML += '<img src="' + icon + '"> ' + name;
+      legend.appendChild(div);
+    }
+
+    map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
 
 
     // 12th & Park
