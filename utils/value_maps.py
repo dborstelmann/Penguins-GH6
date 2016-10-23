@@ -4,7 +4,7 @@ race = {
 	3: "Black or African American",
 	4: "Native Hawaiian or Other Pacific Islander",
 	5: "White",
-	6: "Hispanic/ Latino"
+	6: "Hispanic/ Latino",
 	8: "Client doesn't know",
 	9: "Client refused",
 	99: "Data not collected"
