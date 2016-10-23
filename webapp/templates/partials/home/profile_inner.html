@@ -1,9 +1,13 @@
 {% verbatim %}
 <div class="id">
-    <strong>UUID: </strong>{{id}}
+    <span>UUID: </span><span style="font-weight: bold;">{{id}}</span>
 </div>
-<div class="associate" style="margin-bottom: 20px;">
-    <strong>Associate Id: </strong>{{associate_id}}
+<div class="associate">
+    <span>Associate Id: </span><span style="font-weight: bold;">{{associate_id}}</span>
+</div>
+
+<div class="urgency" style="margin-bottom: 20px;">
+    <span>Urgency: </span><span style="font-weight: bold;">{{urgency}}%</span>
 </div>
 
 {{# _.each(data, function (c) { }}

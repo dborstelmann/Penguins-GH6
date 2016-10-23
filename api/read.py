@@ -97,7 +97,7 @@ def profile(request):
         "id": client_uuid,
         "associate_id": cl.associate_id,
         "urgency": helpers.urgency(client_uuid),
-        "recomendations": helpers.recomendations(client_uuid)
+        "recommendations": helpers.recomendations(client_uuid)
     }
     if tab == 'client_info':
         profile['client_info'] = [
