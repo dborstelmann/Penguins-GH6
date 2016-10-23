@@ -30,198 +30,210 @@
     var helloView = new hk.HelloView();
 </script>
 
+<script type="text/javascript">
+    hk = hk || {};
+    hk.SheltersCollection = BB.Collection.extend({
+        url: '/api/get_shelters/',
+        modelId: function(attrs) {
+            return attrs.id;
+        }
+    });
 
+    var sheltersCollection = new hk.SheltersCollection();
+    sheltersCollection.fetch();
+</script>
 
 <script>
-var loc_hash_table = {
-'38.637727' : "twelve_and_park",
-'38.637573' : "gateway_180",
-'38.721888' : "loaves_and_fishes",
-'38.579836' : "our_lady_inn",
-'38.60717' : "peter_and_paul",
-'38.746417' : "room_at_the_inn",
-'38.633397' : "st_patrick_center_women_night",
-'38.692047' : "salvation_army_family_haven",
-'38.653251' : "grace_and_peace",
-'38.746786' : "assisi_house",
-};
-var name_hash_table = {
-"twelve_and_park" : "12th & Park",
-"gateway_180" : "Gateway 180",
-"loaves_and_fishes" : "Loaves and Fishes",
-"our_lady_inn" : "Our Lady Inn",
-"peter_and_paul" : "Peter & Paul",
-"room_at_the_inn" : "Room at the Inn",
-"st_patrick_center_women_night" : "St. Patrick Center Women's Night",
-"salvation_army_family_haven" : "Salvation Army Family Haven",
-"grace_and_peace" : "Grace & Peace",
-"assisi_house" : "Assissi House",
-};
-function initMap() {
-var map = new google.maps.Map(document.getElementById('map'), {
-zoom: 12,
-center: {lat: 38.651500, lng: -90.314928}
-});
-// 12th & Park
-var twelve_and_park = {lat: 38.637727, lng: -90.194910};
-var twelve_and_park_marker = new google.maps.Marker({
-position: twelve_and_park,
-map: map
-});
-twelve_and_park_marker.addListener('click', function(a) {
-var name = loc_hash_table[a.latLng.lat()];
-// Make api call for name of shelter to get updated information on resources and return this as a json object
-var json_resp = {"twelve_and_park" : [
-					{"available_beds" : 1}
-				   ]};
-update_info_window(name, json_resp);
-	info_window.open(map, twelve_and_park_marker);
-});
-//Gateway 180
-var gateway_180 = {lat: 38.637573, lng: -90.204669};
-var gateway_180_marker = new google.maps.Marker({
-position: gateway_180,
-map: map
-});
-gateway_180_marker.addListener('click', function(a) {
-var name = loc_hash_table[a.latLng.lat()];
-// Make api call for name of shelter to get updated information on resources and return this as a json object
-var json_resp = {"gateway_180" : [
-					{"available_beds" : 2}
-				   ]};
-update_info_window(name, json_resp);
-	info_window.open(map, gateway_180_marker);
-});
-//Loaves & Fishes
-var loaves_and_fishes = {lat: 38.721888, lng: -90.448353};
-var loaves_and_fishes_marker = new google.maps.Marker({
-position: loaves_and_fishes,
-map: map
-});
-loaves_and_fishes_marker.addListener('click', function(a) {
-var name = loc_hash_table[a.latLng.lat()];
-// Make api call for name of shelter to get updated information on resources and return this as a json object
-var json_resp = {"loaves_and_fishes" : [
-					{"available_beds" : 3}
-				   ]};
-update_info_window(name, json_resp);
-	info_window.open(map, loaves_and_fishes_marker);
-});
-// Our Lady Inn
-var our_lady_inn = {lat: 38.579836, lng: -90.240260};
-var our_lady_inn_marker = new google.maps.Marker({
-position: our_lady_inn,
-map: map
-});
-our_lady_inn_marker.addListener('click', function(a) {
-var name = loc_hash_table[a.latLng.lat()];
-// Make api call for name of shelter to get updated information on resources and return this as a json object
-var json_resp = {"our_lady_inn" : [
-					{"available_beds" : 4}
-				   ]};
-update_info_window(name, json_resp);
-	info_window.open(map, our_lady_inn_marker);
-});
-// Peter & Paul
-var peter_and_paul = {lat: 38.607170, lng: -90.203692};
-var peter_and_paul_marker = new google.maps.Marker({
-position: peter_and_paul,
-map: map
-});
-peter_and_paul_marker.addListener('click', function(a) {
-var name = loc_hash_table[a.latLng.lat()];
-// Make api call for name of shelter to get updated information on resources and return this as a json object
-var json_resp = {"peter_and_paul" : [
-					{"available_beds" : 5}
-				   ]};
-update_info_window(name, json_resp);
-	info_window.open(map, peter_and_paul_marker);
-});
-// Room at the Inn
-var room_at_the_inn = {lat: 38.746417, lng: -90.429554};
-var room_at_the_inn_marker = new google.maps.Marker({
-position: room_at_the_inn,
-map: map
-});
-room_at_the_inn_marker.addListener('click', function(a) {
-var name = loc_hash_table[a.latLng.lat()];
-// Make api call for name of shelter to get updated information on resources and return this as a json object
-var json_resp = {"room_at_the_inn" : [
-					{"available_beds" : 6}
-				   ]};
-update_info_window(name, json_resp);
-	info_window.open(map, room_at_the_inn_marker);
-});
-// St. Patrick Center Women's Night
-var st_patrick_center_women_night_content_string = 'Available Beds:';
-var info_window = new google.maps.InfoWindow({
-content: st_patrick_center_women_night_content_string
-});
-var st_patrick_center_women_night = {lat: 38.633397, lng: -90.195599};
-var st_patrick_center_women_night_marker = new google.maps.Marker({
-position: st_patrick_center_women_night,
-map: map
-});
-st_patrick_center_women_night_marker.addListener('click', function(a) {
-var name = loc_hash_table[a.latLng.lat()];
-// Make api call for name of shelter to get updated information on resources and return this as a json object
-var json_resp = {"st_patrick_center_women_night" : [
-					{"available_beds" : 7}
-				   ]};
-update_info_window(name, json_resp);
-	info_window.open(map, st_patrick_center_women_night_marker);
-});
-// Salvation Army Family Haven
-var salvation_army_family_haven = {lat: 38.692047, lng: -90.398727};
-var salvation_army_family_haven_marker = new google.maps.Marker({
-position: salvation_army_family_haven,
-map: map
-});
-salvation_army_family_haven_marker.addListener('click', function(a) {
-var name = loc_hash_table[a.latLng.lat()];
-// Make api call for name of shelter to get updated information on resources and return this as a json object
-var json_resp = {"salvation_army_family_haven" : [
-					{"available_beds" : 8}
-				   ]};
-update_info_window(name, json_resp);
-info_window.open(map, salvation_army_family_haven_marker);
-});
-// Grace & Peace
-var grace_and_peace = {lat: 38.653251, lng: -90.281894};
-var grace_and_peace_marker = new google.maps.Marker({
-position: grace_and_peace,
-map: map
-});
-grace_and_peace_marker.addListener('click', function(a) {
-var name = loc_hash_table[a.latLng.lat()];
-// Make api call for name of shelter to get updated information on resources and return this as a json object
-var json_resp = {"grace_and_peace" : [
-        {"available_beds" : 8}
-         ]};
-update_info_window(name, json_resp);
-info_window.open(map, grace_and_peace_marker);
-});
-// Salvation Army Family Haven
-var assisi_house = {lat: 38.746786, lng: -90.231147};
-var assisi_house_marker = new google.maps.Marker({
-position: assisi_house,
-map: map
-});
-assisi_house_marker.addListener('click', function(a) {
-var name = loc_hash_table[a.latLng.lat()];
-// Make api call for name of shelter to get updated information on resources and return this as a json object
-var json_resp = {"assisi_house" : [
-        {"available_beds" : 8}
-         ]};
-update_info_window(name, json_resp);
-info_window.open(map, assisi_house_marker);
-});
-var update_info_window = function(name, data){
-var content_string = '<h2>'+name_hash_table[name]+'</h2>';
-content_string += '<p> Available Beds : ' + data[name][0].available_beds + '</p>';
-info_window.setContent(content_string);
-}
-}
+    var loc_hash_table = {
+    '38.637727' : "twelve_and_park",
+    '38.637573' : "gateway_180",
+    '38.721888' : "loaves_and_fishes",
+    '38.579836' : "our_lady_inn",
+    '38.60717' : "peter_and_paul",
+    '38.746417' : "room_at_the_inn",
+    '38.633397' : "st_patrick_center_women_night",
+    '38.692047' : "salvation_army_family_haven",
+    '38.653251' : "grace_and_peace",
+    '38.746786' : "assisi_house",
+    };
+    var name_hash_table = {
+    "twelve_and_park" : "12th & Park",
+    "gateway_180" : "Gateway 180",
+    "loaves_and_fishes" : "Loaves and Fishes",
+    "our_lady_inn" : "Our Lady Inn",
+    "peter_and_paul" : "Peter & Paul",
+    "room_at_the_inn" : "Room at the Inn",
+    "st_patrick_center_women_night" : "St. Patrick Center Women's Night",
+    "salvation_army_family_haven" : "Salvation Army Family Haven",
+    "grace_and_peace" : "Grace & Peace",
+    "assisi_house" : "Assissi House",
+    };
+    function initMap() {
+    var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 12,
+    center: {lat: 38.651500, lng: -90.314928}
+    });
+    // 12th & Park
+    var twelve_and_park = {lat: 38.637727, lng: -90.194910};
+    var twelve_and_park_marker = new google.maps.Marker({
+    position: twelve_and_park,
+    map: map
+    });
+    twelve_and_park_marker.addListener('click', function(a) {
+    var name = loc_hash_table[a.latLng.lat()];
+    // Make api call for name of shelter to get updated information on resources and return this as a json object
+    var json_resp = {"twelve_and_park" : [
+    					{"available_beds" : 0}
+    				   ]};
+    update_info_window(name, json_resp);
+    	info_window.open(map, twelve_and_park_marker);
+    });
+    //Gateway 180
+    var gateway_180 = {lat: 38.637573, lng: -90.204669};
+    var gateway_180_marker = new google.maps.Marker({
+    position: gateway_180,
+    map: map
+    });
+    gateway_180_marker.addListener('click', function(a) {
+    var name = loc_hash_table[a.latLng.lat()];
+    // Make api call for name of shelter to get updated information on resources and return this as a json object
+    var json_resp = {"gateway_180" : [
+    					{"available_beds" : 0}
+    				   ]};
+    update_info_window(name, json_resp);
+    	info_window.open(map, gateway_180_marker);
+    });
+    //Loaves & Fishes
+    var loaves_and_fishes = {lat: 38.721888, lng: -90.448353};
+    var loaves_and_fishes_marker = new google.maps.Marker({
+    position: loaves_and_fishes,
+    map: map
+    });
+    loaves_and_fishes_marker.addListener('click', function(a) {
+    var name = loc_hash_table[a.latLng.lat()];
+    // Make api call for name of shelter to get updated information on resources and return this as a json object
+    var json_resp = {"loaves_and_fishes" : [
+    					{"available_beds" : 0}
+    				   ]};
+    update_info_window(name, json_resp);
+    	info_window.open(map, loaves_and_fishes_marker);
+    });
+    // Our Lady Inn
+    var our_lady_inn = {lat: 38.579836, lng: -90.240260};
+    var our_lady_inn_marker = new google.maps.Marker({
+    position: our_lady_inn,
+    map: map
+    });
+    our_lady_inn_marker.addListener('click', function(a) {
+    var name = loc_hash_table[a.latLng.lat()];
+    // Make api call for name of shelter to get updated information on resources and return this as a json object
+    var json_resp = {"our_lady_inn" : [
+    					{"available_beds" : 0}
+    				   ]};
+    update_info_window(name, json_resp);
+    	info_window.open(map, our_lady_inn_marker);
+    });
+    // Peter & Paul
+    var peter_and_paul = {lat: 38.607170, lng: -90.203692};
+    var peter_and_paul_marker = new google.maps.Marker({
+    position: peter_and_paul,
+    map: map
+    });
+    peter_and_paul_marker.addListener('click', function(a) {
+    var name = loc_hash_table[a.latLng.lat()];
+    // Make api call for name of shelter to get updated information on resources and return this as a json object
+    var json_resp = {"peter_and_paul" : [
+    					{"available_beds" : 0}
+    				   ]};
+    update_info_window(name, json_resp);
+    	info_window.open(map, peter_and_paul_marker);
+    });
+    // Room at the Inn
+    var room_at_the_inn = {lat: 38.746417, lng: -90.429554};
+    var room_at_the_inn_marker = new google.maps.Marker({
+    position: room_at_the_inn,
+    map: map
+    });
+    room_at_the_inn_marker.addListener('click', function(a) {
+    var name = loc_hash_table[a.latLng.lat()];
+    // Make api call for name of shelter to get updated information on resources and return this as a json object
+    var json_resp = {"room_at_the_inn" : [
+    					{"available_beds" : 0}
+    				   ]};
+    update_info_window(name, json_resp);
+    	info_window.open(map, room_at_the_inn_marker);
+    });
+    // St. Patrick Center Women's Night
+    var st_patrick_center_women_night_content_string = 'Available Beds:';
+    var info_window = new google.maps.InfoWindow({
+    content: st_patrick_center_women_night_content_string
+    });
+    var st_patrick_center_women_night = {lat: 38.633397, lng: -90.195599};
+    var st_patrick_center_women_night_marker = new google.maps.Marker({
+    position: st_patrick_center_women_night,
+    map: map
+    });
+    st_patrick_center_women_night_marker.addListener('click', function(a) {
+    var name = loc_hash_table[a.latLng.lat()];
+    // Make api call for name of shelter to get updated information on resources and return this as a json object
+    var json_resp = {"st_patrick_center_women_night" : [
+    					{"available_beds" : 0}
+    				   ]};
+    update_info_window(name, json_resp);
+    	info_window.open(map, st_patrick_center_women_night_marker);
+    });
+    // Salvation Army Family Haven
+    var salvation_army_family_haven = {lat: 38.692047, lng: -90.398727};
+    var salvation_army_family_haven_marker = new google.maps.Marker({
+    position: salvation_army_family_haven,
+    map: map
+    });
+    salvation_army_family_haven_marker.addListener('click', function(a) {
+    var name = loc_hash_table[a.latLng.lat()];
+    // Make api call for name of shelter to get updated information on resources and return this as a json object
+    var json_resp = {"salvation_army_family_haven" : [
+    					{"available_beds" : 0}
+    				   ]};
+    update_info_window(name, json_resp);
+    info_window.open(map, salvation_army_family_haven_marker);
+    });
+    // Grace & Peace
+    var grace_and_peace = {lat: 38.653251, lng: -90.281894};
+    var grace_and_peace_marker = new google.maps.Marker({
+    position: grace_and_peace,
+    map: map
+    });
+    grace_and_peace_marker.addListener('click', function(a) {
+    var name = loc_hash_table[a.latLng.lat()];
+    // Make api call for name of shelter to get updated information on resources and return this as a json object
+    var json_resp = {"grace_and_peace" : [
+            {"available_beds" : 0}
+             ]};
+    update_info_window(name, json_resp);
+    info_window.open(map, grace_and_peace_marker);
+    });
+    // Salvation Army Family Haven
+    var assisi_house = {lat: 38.746786, lng: -90.231147};
+    var assisi_house_marker = new google.maps.Marker({
+    position: assisi_house,
+    map: map
+    });
+    assisi_house_marker.addListener('click', function(a) {
+    var name = loc_hash_table[a.latLng.lat()];
+    // Make api call for name of shelter to get updated information on resources and return this as a json object
+    var json_resp = {"assisi_house" : [
+            {"available_beds" : 0}
+             ]};
+    update_info_window(name, json_resp);
+    info_window.open(map, assisi_house_marker);
+    });
+    var update_info_window = function(name, data){
+        var shelt = _.findWhere(sheltersCollection.toJSON(), {name: name_hash_table[name]});
+    var content_string = '<div class="center-align"><h5 class="green-text">'+name_hash_table[name]+'</h5>';
+    content_string += '<strong> <span>' + shelt.occupancy + '</span>/' + shelt.max_occupancy + ' beds available</strong></div>';
+    info_window.setContent(content_string);
+    }
+    }
 </script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB8DFy9_nmpb79F6aC2HlDorhyj4YhxVJY&callback=initMap"></script>
 
