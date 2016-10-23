@@ -85,6 +85,10 @@ def profile(request):
     if cl is None:
         return JsonResponse({"status": "error", "message": "member not found"})
     profile = {}
+    profile = {
+        "id": client_uuid,
+        "associate_id": cl.associate_id
+    }
     profile['client_info'] = [
         {
             "name": "first_name",

@@ -73,10 +73,33 @@
     zoom: 12,
     center: {lat: 38.651500, lng: -90.314928}
     });
+
+
+    var pinColorBlue = "4147a9";
+    var pinColorGreen = "47a941";
+    var pinImageBlue = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColorBlue,
+        new google.maps.Size(21, 34),
+        new google.maps.Point(0,0),
+        new google.maps.Point(10, 34));
+    var pinImageGreen = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColorGreen,
+        new google.maps.Size(21, 34),
+        new google.maps.Point(0,0),
+        new google.maps.Point(10, 34));
+    var pinShadow = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_shadow",
+        new google.maps.Size(40, 37),
+        new google.maps.Point(0, 0),
+        new google.maps.Point(12, 35));
+
+
+
+
+
     // 12th & Park
     var twelve_and_park = {lat: 38.637727, lng: -90.194910};
     var twelve_and_park_marker = new google.maps.Marker({
     position: twelve_and_park,
+    icon: pinImageGreen,
+    shadow: pinShadow,
     map: map
     });
     twelve_and_park_marker.addListener('click', function(a) {
@@ -92,6 +115,8 @@
     var gateway_180 = {lat: 38.637573, lng: -90.204669};
     var gateway_180_marker = new google.maps.Marker({
     position: gateway_180,
+    icon: pinImageGreen,
+    shadow: pinShadow,
     map: map
     });
     gateway_180_marker.addListener('click', function(a) {
@@ -107,6 +132,8 @@
     var loaves_and_fishes = {lat: 38.721888, lng: -90.448353};
     var loaves_and_fishes_marker = new google.maps.Marker({
     position: loaves_and_fishes,
+    icon: pinImageGreen,
+    shadow: pinShadow,
     map: map
     });
     loaves_and_fishes_marker.addListener('click', function(a) {
@@ -122,6 +149,8 @@
     var our_lady_inn = {lat: 38.579836, lng: -90.240260};
     var our_lady_inn_marker = new google.maps.Marker({
     position: our_lady_inn,
+    icon: pinImageGreen,
+    shadow: pinShadow,
     map: map
     });
     our_lady_inn_marker.addListener('click', function(a) {
@@ -137,6 +166,8 @@
     var peter_and_paul = {lat: 38.607170, lng: -90.203692};
     var peter_and_paul_marker = new google.maps.Marker({
     position: peter_and_paul,
+    icon: pinImageGreen,
+    shadow: pinShadow,
     map: map
     });
     peter_and_paul_marker.addListener('click', function(a) {
@@ -152,6 +183,8 @@
     var room_at_the_inn = {lat: 38.746417, lng: -90.429554};
     var room_at_the_inn_marker = new google.maps.Marker({
     position: room_at_the_inn,
+    icon: pinImageGreen,
+    shadow: pinShadow,
     map: map
     });
     room_at_the_inn_marker.addListener('click', function(a) {
@@ -171,6 +204,8 @@
     var st_patrick_center_women_night = {lat: 38.633397, lng: -90.195599};
     var st_patrick_center_women_night_marker = new google.maps.Marker({
     position: st_patrick_center_women_night,
+    icon: pinImageGreen,
+    shadow: pinShadow,
     map: map
     });
     st_patrick_center_women_night_marker.addListener('click', function(a) {
@@ -186,6 +221,8 @@
     var salvation_army_family_haven = {lat: 38.692047, lng: -90.398727};
     var salvation_army_family_haven_marker = new google.maps.Marker({
     position: salvation_army_family_haven,
+    icon: pinImageGreen,
+    shadow: pinShadow,
     map: map
     });
     salvation_army_family_haven_marker.addListener('click', function(a) {
@@ -201,6 +238,8 @@
     var grace_and_peace = {lat: 38.653251, lng: -90.281894};
     var grace_and_peace_marker = new google.maps.Marker({
     position: grace_and_peace,
+    icon: pinImageBlue,
+    shadow: pinShadow,
     map: map
     });
     grace_and_peace_marker.addListener('click', function(a) {
@@ -216,6 +255,8 @@
     var assisi_house = {lat: 38.746786, lng: -90.231147};
     var assisi_house_marker = new google.maps.Marker({
     position: assisi_house,
+    icon: pinImageBlue,
+    shadow: pinShadow,
     map: map
     });
     assisi_house_marker.addListener('click', function(a) {
