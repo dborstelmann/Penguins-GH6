@@ -109,3 +109,82 @@ POSSIBLY_HOMELESS = [
     "evict",
     "out"
 ]
+
+services_record_type = {
+	12: "Contact",
+	141: "Services Provided - PATH",
+	142: "Services Provided - RHY",
+	143: "Services Provided - HOPWA",
+	144: "Services Provided - SSVF",
+	151: "Financial Assistance - HOPWA",
+	152: "Financial Assistance - SSVF",
+	161: "Referrals Provided - PATH",
+	162: "Referrals Provided - RHY",
+	200: "Bed Night"
+}
+
+services_record_type_to_provided = {
+	12: {
+		1: "Place not meant for habitation",
+		2: "Service setting, non-residential",
+		3: "Service setting, residential"
+	},
+	141: {
+		1: "Outreach",
+		2: "Screening / assessment",
+		3: "Habilitation / rehabilitation",
+		4: "Community mental health",
+		5: "Substance use treatment",
+		6: "Case management",
+		7: "Residential supportive services",
+		8: "Housing minor renovation",
+		9: "Housing moving assistance",
+		10: "Housing technical assistance",
+		11: "Security deposits",
+		12: "One-time rent for eviction prevention",
+		13: "Other PATH funded service"
+	},
+	142: {
+		1: "Basic support services",
+		2: "Community service / service learning (CSL)",
+		3: "Counseling / therapy",
+		4: "Dental care",
+		5: "Education",
+		6: "Employment and training services",
+		7: "Criminal justice / legal services",
+		8: "Life skills training",
+		9: "Parenting education of parent of youth",
+		10: "Parenting education for youth with children",
+		11: "Peer (youth) counseling",
+		12: "Post-natal care",
+		13: "Pre-natal care",
+		14: "Pre-natal care",
+		15: "Psychological or psychiatric care",
+		16: "Recreational activities",
+		17: "Substance abuse assessment and/or treatment",
+		18: "Substance abuse prevention",
+		19: "Support group",
+		20: "Preventative – overnight interim, respite",
+		21: "Preventative – formal placement in an alternative setting outside of BCP",
+		22: "Preventative – entry into BCP after preventative services",
+		23: "Street outreach – health and hygiene products distributed",
+		24: "Street outreach – food and drink items",
+		25: "Street outreach – services information/brochures"
+	},
+	143: {
+		1: "Adult day care and personal assistance",
+		2: "Case management",
+		3: "Child care",
+		4: "Criminal justice/legal services",
+		5: "Education",
+		6: "Employment and training services",
+		7: "Food/meals/nutritional services",
+		8: "Health/medical care",
+		9: "Life skills training",
+		10: "Mental health care/counseling",
+		11: "Outreach and/or engagement",
+		12: "Substance abuse services/treatment",
+		13: "Transportation",
+		14: "Other HOPWA funded service"
+	}
+}

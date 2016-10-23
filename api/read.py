@@ -88,6 +88,7 @@ def profile(request):
     cl = Client.objects.filter(uuid=client_uuid).first()
     e = EmploymentEducation.objects.filter(personal_id=client_uuid).first()
     health = HealthAndDV.objects.filter(personal_id=client_uuid).first()
+    services = Services.objects.filter(personal_id=client_uuid).first()
 
     if cl is None or e is None or health is None:
         Client.objects.filter(uuid=client_uuid).delete()
@@ -230,6 +231,18 @@ def profile(request):
                 "options": None
             }
         ]
+
+        if tab == 'service_recieved':
+            profile['service_recieved'] = []
+            for s in services:
+                try:
+                    profile['services_recieved'].append({
+                        "name": value_maps.services_record_type[s.record_type]
+                        "type": "read-only",
+                        "value": value_maps.services_record_type_to_provided[s.record_type][s.type_provided]
+                    })
+                except:
+                    continue
 
 
 
