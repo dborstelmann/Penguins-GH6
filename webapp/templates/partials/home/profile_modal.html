@@ -2,29 +2,22 @@
 <div class="modal profile-modal modal-fixed-footer">
     <div class="modal-content" style="padding: 0;">
         <ul class="tabs">
+            <li class="tab col s6"><a href="#recommendations">Resources</a></li>
             <li class="tab col s6"><a class="active" href="#basic">Client Info</a></li>
             <li class="tab col s6"><a href="#eande">Employment & Education</a></li>
             <li class="tab col s6"><a href="#health">Health</a></li>
-            <li class="tab col s6"><a href="#hearecommendationslth">Recommendations</a></li>
         </ul>
+        <div id="recommendations" class="col s12" style="padding: 20px;">
+            {{= hk.underscorePartial('recommendations-template', {recommendations: recommendations})}}
+        </div>
         <div id="basic" class="col s12" style="padding: 20px;">
-            {{= hk.underscorePartial('profile-inner-template', {data: client_info, id: id, associate_id: associate_id})}}
+            {{= hk.underscorePartial('profile-inner-template', {data: client_info, id: id, associate_id: associate_id, urgency: urgency})}}
         </div>
         <div id="eande" class="col s12" style="padding: 20px;">
-            {{= hk.underscorePartial('profile-inner-template', {data: employment_education, id: id, associate_id: associate_id})}}
+
         </div>
         <div id="health" class="col s12" style="padding: 20px;">
-            {{= hk.underscorePartial('profile-inner-template', {data: health_and_dv, id: id, associate_id: associate_id})}}
-        </div>
-        <div id="recommendations" class="col s12" style="padding: 20px;">
-            <div class="resources">
-                <h6>Resources recommended for this user:</h6>
-                {{# _.each(recommendations, function (r) { }}
-                    <div class="">
-                        <a href="{{r.website}}">{{r.name}}</a>
-                    </div>
-                {{# }); }}
-            </div>
+
         </div>
     </div>
     <div class="modal-footer">

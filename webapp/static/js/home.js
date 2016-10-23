@@ -89,7 +89,8 @@ hk.HomeView = BB.View.extend({
                 _this.profileModel.fetch({
                     type: 'POST',
                     data: {
-                        id: data.id
+                        id: data.id,
+                        tab: 'client_info'
                     }
                 });
             }
@@ -228,17 +229,67 @@ hk.ProfileView = BB.View.extend({
     render: function () {
         this.$el.empty().append(this.template(this.model.toJSON()));
 
-        this.$('.datepicker').pickadate({
-            selectMonths: true, // Creates a dropdown to control month
-            selectYears: 200 // Creates a dropdown of 15 years to control year
-        });
-
         this.show();
 
+        this.employmentModel = new hk.ProfileModel();
+        this.healthModel = new hk.ProfileModel();
+
+        this.listenTo(this.employmentModel, 'sync', this.employmentRender);
+        this.listenTo(this.healthModel, 'sync', this.healthRender);
+
+        this.employmentModel.fetch({
+            type: 'POST',
+            data: {
+                id: this.model.get('id'),
+                tab: 'employment_education'
+            }
+        });
+
+        this.healthModel.fetch({
+            type: 'POST',
+            data: {
+                id: this.model.get('id'),
+                tab: 'health_and_dv'
+            }
+        });
+
+        this.postRender();
+    },
+
+    postRender: function () {
         hk.materializeShit();
         setTimeout(function () {
             hk.materializeShit();
         }, 300);
+
+        this.$('.datepicker').pickadate({
+            selectMonths: true, // Creates a dropdown to control month
+            selectYears: 200 // Creates a dropdown of 15 years to control year
+        });
+    },
+
+    employmentRender: function () {
+        this.$('#eande').empty().append(
+            hk.underscorePartial('profile-inner-template', {
+                data: this.employmentModel.get('employment_education'),
+                id: this.employmentModel.get('id'),
+                associate_id: this.employmentModel.get('associate_id'),
+                urgency: this.employmentModel.get('urgency')
+            })
+        );
+        this.postRender();
+    },
+
+    healthRender: function () {
+        this.$('#health').empty().append(
+            hk.underscorePartial('profile-inner-template', {
+                data: this.healthModel.get('health_and_dv'),
+                id: this.healthModel.get('id'),
+                associate_id: this.healthModel.get('associate_id'),
+                urgency: this.healthModel.get('urgency')
+            })
+        );
+        this.postRender();
     },
 
     show: function () {
@@ -286,8 +337,10 @@ hk.ProfileView = BB.View.extend({
                 name: $name,
                 value: $val
             },
-            success: function () {
-                //UPDATE RECOMMENDATIONS
+            success: function (data) {
+                _this.$('#recommendations').empty().append(
+                    hk.underscorePartial('recommendations-template', {recommendations: data})
+                );
             }
         });
     }
