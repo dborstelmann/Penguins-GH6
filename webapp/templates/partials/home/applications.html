@@ -4,7 +4,7 @@
         <li>
             <div class="collapsible-header">
                 <i class="material-icons">person</i><span>{{a.first_name}} {{a.last_name}}</span>
-                <span class="right">Urgency: <span style="font-weight:bold;">{{a.urgency / 40 * 100}}%</stspanrong></span>
+                <span class="right">Urgency: <span style="font-weight:bold;">{{a.urgency}}%</stspanrong></span>
             </div>
             <div class="collapsible-body">
                 <div class="collapse-container">
@@ -22,6 +22,12 @@
                                 <span class="title">Phone:</span> {{a.phone}} &nbsp; <span class="title">Email:</span> {{a.email}}
                             </div>
                             <div class="review-marking">
+                                <div class="title">
+                                    Client UUID:
+                                </div>
+                                <div class="input-field" style="width: 150px; margin-top: 0;">
+                                    <input data-uuid-id="{{a.id}}" type="text" value="">
+                                </div>
                                 <button class="waves-effect waves-light btn mark-reviewed" type="button" data-id="{{a.id}}">Mark Reviewed</button>
                             </div>
                             <div class="recommendations" style="margin-top:10px;">
