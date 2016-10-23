@@ -233,9 +233,11 @@ hk.ProfileView = BB.View.extend({
 
         this.employmentModel = new hk.ProfileModel();
         this.healthModel = new hk.ProfileModel();
+        this.servicesModel = new hk.ProfileModel();
 
         this.listenTo(this.employmentModel, 'sync', this.employmentRender);
         this.listenTo(this.healthModel, 'sync', this.healthRender);
+        this.listenTo(this.servicesModel, 'sync', this.servicesRender);
 
         this.employmentModel.fetch({
             type: 'POST',
@@ -250,6 +252,14 @@ hk.ProfileView = BB.View.extend({
             data: {
                 id: this.model.get('id'),
                 tab: 'health_and_dv'
+            }
+        });
+
+        this.servicesModel.fetch({
+            type: 'POST',
+            data: {
+                id: this.model.get('id'),
+                tab: 'services_recieved'
             }
         });
 
@@ -287,6 +297,18 @@ hk.ProfileView = BB.View.extend({
                 id: this.healthModel.get('id'),
                 associate_id: this.healthModel.get('associate_id'),
                 urgency: this.healthModel.get('urgency')
+            })
+        );
+        this.postRender();
+    },
+
+    servicesRender: function () {
+        this.$('#services').empty().append(
+            hk.underscorePartial('profile-inner-template', {
+                data: this.servicesModel.get('services_recieved'),
+                id: this.servicesModel.get('id'),
+                associate_id: this.servicesModel.get('associate_id'),
+                urgency: this.servicesModel.get('urgency')
             })
         );
         this.postRender();

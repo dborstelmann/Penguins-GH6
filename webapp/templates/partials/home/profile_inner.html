@@ -34,6 +34,18 @@
                 <label for="{{c.name}}">{{hk.titleify(c.name)}}</label>
             </div>
         </div>
+    {{# } else if (c.type === 'read-only') { }}
+        <div class="input-wrapper col s12">
+            <div class="service-name">
+                {{c.name}}
+            </div>
+            <div class="service-provided">
+                {{c.value}}
+            </div>
+            <div class="service-provided">
+                {{c.date}}
+            </div>
+        </div>
     {{# } }}
 {{# }); }}
 {% endverbatim %}
