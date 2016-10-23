@@ -3,7 +3,7 @@
     {{# if (users.length === 0) { }}
         No matching users.
     {{# } }}
-    {{# _.each(users, function (a) { }}
+    {{# _.each(_.sortBy(users, 'last_name'), function (a) { }}
         <li>
             <div class="collapsible-header">
                 <i class="material-icons">person</i><span>{{a.first_name}} {{a.middle_name}} {{a.last_name}}</span>
