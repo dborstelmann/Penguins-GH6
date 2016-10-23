@@ -1,5 +1,6 @@
 import datetime
 import random
+import helpers
 from django.http import JsonResponse
 from dateutil.parser import parse
 from utils import value_maps
@@ -45,7 +46,6 @@ def apply(request):
         drug=request.POST['drug'],
     )
     app = Applicant(**a_dict)
-    app.urgency = Applicant.objects.calculate_urgency(a_dict)
     app.reviewed = False
     a_dict['urgency'] = app.urgency
     app.save()
@@ -56,15 +56,17 @@ def mark_reviewed(request):
     '''
         request.POST =
             id
+            uuid
     '''
-    try:
-        applicant = Applicant.objects.get(pk=request.POST['id'])
+    applicant = Applicant.objects.get(pk=request.POST['id'])
+    if Client.objects.filter(uuid=request.POST['uuid']).exists():
         applicant.reviewed = True
+        applicant.uuid = request.POST['uuid']
         applicant.save()
         return JsonResponse({'status': 'success'})
+    else:
+        return JsonResponse({"status": "error", "message": "Invalid Client ID"})
 
-    except:
-        return JsonResponse({'status': 'error'})
 
 def update_shelter(request):
     '''
@@ -119,20 +121,20 @@ def profile(request):
         client.date_updated = datetime.datetime.now()
         client.associate_id = '245092'
         client.save()
-        return JsonResponse({"status": "success"})
+        return JsonResponse(helpers.recomendations(client_uuid), safe=False)
 
     if e is not None and hasattr(e, request.POST['name']):
         setattr(e, request.POST['name'], request.POST['value'])
         e.date_updated = datetime.datetime.now()
         e.associate_id = '245092'
         e.save()
-        return JsonResponse({"status": "success"})
+        return JsonResponse(helpers.recomendations(client_uuid), safe=False)
 
     if health is not None and hasattr(health, request.POST['name']):
         setattr(health, request.POST['name'], request.POST['value'])
         health.date_updated = datetime.datetime.now()
         health.associate_id = '245092'
         health.save()
-        return JsonResponse({"status": "success"})
+        return JsonResponse(helpers.recomendations(client_uuid), safe=False)
 
     return JsonResponse({"status": "error", "message": "attribute not found"})

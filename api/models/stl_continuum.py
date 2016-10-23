@@ -3,23 +3,11 @@ from django.contrib.postgres.fields import ArrayField
 import datetime
 from django.db.models import Q
 from api.helpers import add_unique_demographics_to_profile
+from utils import value_maps
 
 class SheltersManager(models.Manager):
 
-    def add_client(c):
-        c.occupancy = c.occupancy + 1
-        assert c.occupancy <= c.max_occupancy
-        c.last_updated = datetime.datetime.now()
-        c.save()
-
-    def remove_client(c):
-        c.occupancy = c.occupancy - 1
-        assert c.occupancy >= 0
-        c.last_updated = datetime.datetime.now()
-        c.save()
-
-    def get_availability(c):
-        return c.max_occupancy - c.occupancy
+    pass
 
 class Shelters(models.Model):
     objects = SheltersManager()
@@ -35,34 +23,6 @@ class ContinuumServicesManager(models.Manager):
         from dateutil.relativedelta import relativedelta
         import datetime
         age = relativedelta(datetime.date.today(), a.birthday).years
-
-        POSSIBLE_AILMENTS = [
-            "doctor",
-            "sick",
-            "medicine",
-            "rehab",
-            "hospital"
-        ]
-
-        POSSIBLE_BENEFITS = [
-            "case",
-            "child",
-            "care",
-            "education",
-            "school",
-            "employment",
-            "housing",
-            "legal",
-            "mentor",
-            "support"
-        ]
-
-        POSSIBLY_HOMELESS = [
-            "homeless",
-            "street",
-            "evict",
-            "out"
-        ]
 
         profile = set({})
         if ( a.address is None ) or ( not a.address ):
@@ -92,13 +52,13 @@ class ContinuumServicesManager(models.Manager):
         if a.drug:
             profile.add("health")
 
-        if any(substring in a.why.lower() for substring in POSSIBLY_HOMELESS):
+        if any(substring in a.why.lower() for substring in value_maps.POSSIBLY_HOMELESS):
             profile.add("homeless")
 
-        if any(substring in a.why.lower() for substring in POSSIBLE_AILMENTS):
+        if any(substring in a.why.lower() for substring in value_maps.POSSIBLE_AILMENTS):
             profile.add("health")
 
-        if any(substring in a.why.lower() for substring in POSSIBLE_BENEFITS):
+        if any(substring in a.why.lower() for substring in value_maps.POSSIBLE_BENEFITS):
             profile.add("benefits")
 
         if any(substring in a.why.lower() for substring in ("HIV", "AIDS")):

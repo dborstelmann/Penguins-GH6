@@ -81,3 +81,31 @@ when_experience_occured = {
 	9: "Client refused",
 	99: "Data not collected"
 }
+
+POSSIBLE_AILMENTS = [
+    "doctor",
+    "sick",
+    "medicine",
+    "rehab",
+    "hospital"
+]
+
+POSSIBLE_BENEFITS = [
+    "case",
+    "child",
+    "care",
+    "education",
+    "school",
+    "employment",
+    "housing",
+    "legal",
+    "mentor",
+    "support"
+]
+
+POSSIBLY_HOMELESS = [
+    "homeless",
+    "street",
+    "evict",
+    "out"
+]

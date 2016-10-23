@@ -6,30 +6,28 @@ class ApplicantManager(models.Manager):
     def calculate_urgency(self, c):
         from dateutil.relativedelta import relativedelta
         import datetime
-        age = relativedelta(datetime.date.today(), c['birthday']).years
-
-        client = Client.objects.filter(uuid=uuid).first()
+        age = relativedelta(datetime.date.today(), c.birthday).years
 
         score = 0
-        if c['address'] == None:
-            score += 5
+        if c.address is None or c.address.lower() == 'homeless' or c.address.lower() == 'n/a':
+            score += 15
 
-        if c['gender'] == 0: #female
-            score += 5
-
-        if c['gender'] in [ 2, 3, 4 ]:
-            score += 7
-
-        if c['veteran'] == 1:
-            score += 5
-
-        if c['family'] == "family":
+        if c.gender == 0: #female
             score += 2
 
-        if c['pregnancy']:
-            score += 7
+        if c.gender in [ 2, 3, 4 ]:
+            score += 3
 
-        if c['drug']:
+        if c.veteran == 1:
+            score += 3
+
+        if c.family == "family":
+            score += 2
+
+        if c.pregnancy:
+            score += 4
+
+        if c.drug:
             score += 5
 
         if age < 25:
@@ -39,10 +37,6 @@ class ApplicantManager(models.Manager):
             score += age - 60
 
         return score
-
-
-
-
 
 class Applicant(models.Model):
     objects = ApplicantManager()
@@ -63,3 +57,4 @@ class Applicant(models.Model):
     urgency = models.FloatField(null=True)
     created = models.DateTimeField(auto_now_add=True)
     reviewed = models.BooleanField(default=False)
+    uuid = models.CharField(max_length=63, null=True)

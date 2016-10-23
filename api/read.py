@@ -6,6 +6,8 @@ from api.models import ( Applicant, Client, Disabilities, EmploymentEducation,
     Enrollment, HealthAndDV, IncomeBenefits, Services, ContinuumServices, Shelters )
 
 from utils import value_maps
+from api import helpers
+
 
 def search_clients(request):
 
@@ -56,7 +58,7 @@ def get_applicants(request):
         "domestic_violence": value_maps.general_boolean_numbers[c.domestic_violence],
         "pregnancy": c.pregnancy,
         "drug": c.drug,
-        "urgency": c.urgency,
+        "urgency": Applicant.objects.calculate_urgency(c),
         "created": c.created,
         "reviewed": c.reviewed,
         "recommendations": ContinuumServices.objects.recomendations(c)
@@ -98,7 +100,9 @@ def profile(request):
     profile = {}
     profile = {
         "id": client_uuid,
-        "associate_id": cl.associate_id
+        "associate_id": cl.associate_id,
+        "urgency": helpers.urgency(client_uuid),
+        "recomendations": helpers.recomendations(client_uuid)
     }
     profile['client_info'] = [
         {
@@ -233,89 +237,3 @@ def profile(request):
 
 
     return JsonResponse(profile)
-
-def reccomendations(request):
-    '''
-        request.POST =
-            id
-    '''
-    return JsonResponse(get_reccomendations(request.POST['id']))
-
-def get_reccomendations(id):
-    from dateutil.relativedelta import relativedelta
-    import datetime
-
-    c = Client.objects.filter(uuid=id).first()
-    if c is None:
-        return {"status": "error", "message": "Client does not exist"}
-
-    e = EmploymentEducation.objects.filter(personal_id=id).first()
-    if e is None:
-        return {"status": "error", "message": "Employment Education does not exist"}
-
-    h = HealthAndDV.objects.filter(personal_id=id).first()
-    if h is None:
-        return {"status": "error", "message": "Health and DV does not exist"}
-
-    age = relativedelta(datetime.date.today(), client.date_of_birth).years
-
-    POSSIBLE_AILMENTS = [
-        "doctor",
-        "sick",
-        "medicine",
-        "rehab",
-        "hospital"
-    ]
-
-    POSSIBLE_BENEFITS = [
-        "case",
-        "child",
-        "care",
-        "education",
-        "school",
-        "employment",
-        "housing",
-        "legal",
-        "mentor",
-        "support"
-    ]
-
-    POSSIBLY_HOMELESS = [
-        "homeless",
-        "street",
-        "evict",
-        "out"
-    ]
-
-    profile = set({})
-
-    reccomendations = []
-
-    if "health" in profile and "homeless" in profile:
-        reccomendations += ContinuumServices.objects.getMembersFromProfile("Health", profile)
-
-    if "domestic_violence" in profile:
-        reccomendations += ContinuumServices.objects.getMembersFromProfile("DViolence", profile)
-
-    if "single" in profile:
-        reccomendations += ContinuumServices.objects.getMembersFromProfile("SingleMW", profile)
-
-    if "prevention" in profile:
-        reccomendations += ContinuumServices.objects.getMembersFromProfile("Prevention", profile)
-
-    if "veteran" in profile:
-        reccomendations += ContinuumServices.objects.getMembersFromProfile("Veteran", profile)
-
-    if "benefits" in profile:
-        reccomendations += ContinuumServices.objects.getMembersFromProfile("Benefits", profile)
-
-    if "women" in profile and "family" in profile:
-        reccomendations += ContinuumServices.objects.getMembersFromProfile("WWChild", profile)
-
-    if "youth" in profile and "homeless" in profile:
-        reccomendations += ContinuumServices.objects.getMembersFromProfile("HYouth", profile)
-
-    if "homeless" in profile and "family" in profile:
-        reccomendations += ContinuumServices.objects.getMembersFromProfile("HFamilies", profile)
-
-    return reccomendations
