@@ -1,10 +1,23 @@
 @import 'base';
 
+body {
+    background-color: @green;
+}
+
 #hello {
     .container {
         .wrapper {
             div {
                 margin-bottom: 20px;
+
+                button {
+                    background-color: @white !important;
+                    color: @green !important;
+
+                    &:focus {
+                        background-color: #fff !important;
+                    }
+                }
             }
         }
     }
