@@ -121,20 +121,20 @@ def profile(request):
         client.date_updated = datetime.datetime.now()
         client.associate_id = '245092'
         client.save()
-        return JsonResponse(helpers.recomendations(client_uuid), safe=False)
+        return JsonResponse(helpers.recomendations(request.POST['id']), safe=False)
 
     if e is not None and hasattr(e, request.POST['name']):
         setattr(e, request.POST['name'], request.POST['value'])
         e.date_updated = datetime.datetime.now()
         e.associate_id = '245092'
         e.save()
-        return JsonResponse(helpers.recomendations(client_uuid), safe=False)
+        return JsonResponse(helpers.recomendations(request.POST['id']), safe=False)
 
     if health is not None and hasattr(health, request.POST['name']):
         setattr(health, request.POST['name'], request.POST['value'])
         health.date_updated = datetime.datetime.now()
         health.associate_id = '245092'
         health.save()
-        return JsonResponse(helpers.recomendations(client_uuid), safe=False)
+        return JsonResponse(helpers.recomendations(request.POST['id']), safe=False)
 
     return JsonResponse({"status": "error", "message": "attribute not found"})
