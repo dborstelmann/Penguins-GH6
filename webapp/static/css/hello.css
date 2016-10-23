@@ -1,0 +1,75 @@
+nav{
+	background-color: transparent; 
+	padding-left: 5%; 
+	padding-right: 5%;
+	height: 0;
+}
+
+nav .brand-logo img{
+	height: 50px; 
+	width: 50px
+}
+
+header {
+	position: relative;
+	width: 100%;
+	height: auto;
+	background-size: cover;
+	background-position: center;
+	background-image: url("https://globalhack.org/hack-resources/uploads/2016/07/UtahReducesHomelessness011814_web2.jpg");
+	color: white;
+	padding-bottom: 300px;
+}
+
+header .hello{
+	padding-top: 100px;
+	margin-left: 200px;
+	font-weight: 300;
+    color: white;
+    text-shadow: 0 1px 0 black;
+} 
+
+header .hello .hello-title {
+    line-height: 1.1em;
+    font-size: 3.6em;
+}
+
+header .hello .hello-sub{
+	padding-top: 10px;
+	font-size: 1.5em;
+}
+
+body{
+	background-color: white
+}
+
+section .content-title{
+	text-align: center;
+}
+
+section hr{
+	width: 50%;
+	height: 12px;
+    border: 0;
+    box-shadow: inset 0 12px 12px -12px rgba(0, 0, 0, 0.5);
+}
+
+section .content-body{
+	margin-right: 50px;
+	margin-left: 50px;
+}
+
+section .content-body .scroll{
+	width: 700px;
+    height: 500px;
+    overflow: scroll;
+}
+
+section .content-body .map{
+	padding-top: 50px;
+	height: 500px; 
+	width: 500px
+}
+
+
+

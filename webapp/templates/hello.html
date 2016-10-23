@@ -3,31 +3,82 @@
 <head>
     {% load staticfiles %}
     {% include "base/links.html" %}
-    {% include "base/less_headers/hello_less.html" %}
+    {% include "base/less_headers/beds_less.html" %}
 </head>
 
-<script id="hello-template" type="text/template">
-    {% include "partials/hello/hello_base.html" %}
-</script>
+
 
 <script id="login-template" type="text/template">
     {% include "partials/hello/admin_login.html" %}
 </script>
 
+<script id="beds-template" type="text/template">
+    {% include "partials/beds/beds_base_main.html" %}
+</script>
+
+<link rel="stylesheet" type="text/css" href="../static/css/hello.css">
+
 <body>
-    <div class="row" style="margin-bottom: 0;">
-        <div id="hello" class="col s12 m3">
-
+    <!-- nav bar -->
+    <nav>
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo">
+                <img src="http://www.stpatrickcenter.org/wp-content/themes/stpats-2013/library/images/nav-logo-stpats-pad.png" alt="St. Patrick Center">
+            </a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li>
+                    <a class="waves-effect waves-light btn application-link front-page-button" type="button">Apply for Help</a>
+                </li>
+                <li>
+                    <a class="waves-effect waves-light btn admin-login front-page-button" type="button">Login</a>
+                </li>
+            </ul>
         </div>
-        <div id="map" class="col s12 m9" style="height: 100vh;">
-
+    </nav>
+    <!-- Header -->
+    <header>
+        <div class="hello">
+            <div class="row">
+                <div class="hello-title">
+                    Seek <strong>Help</strong>
+                </div>
+                <div class="hello-title">
+                    Reach <strong>Others</strong>
+                </div>
+                <div class="hello-title">
+                    Embrace <strong>Change</strong>
+                </div>
+                <div class="hello-sub">
+                    Building a Better Community for All 
+                </div>
+                <br/>
+                <a href="#openbeds" class="button waves-effect waves-light btn beds-link front-page-button" type="button">Open Beds</a>
+            </div>
         </div>
-    </div>
+    </header>
+
+    <!-- Content -->
+    <section id="openbeds" >
+        <div class="row">
+            <div class="content-title">
+                <h3>Open Beds</h3>
+                <hr>
+            </div>
+            
+            <div class="content-body">
+                <div id="beds" class="col s12 m7 scroll">
+
+                </div>
+                <div id="map" class="map col s12 m5">
+                
+                </div>
+            </div>
+        </div>
+    </section>
 </body>
-
-<script type="text/javascript" src="{% static "js/hello.js" %}"></script>
+<script type="text/javascript" src="{% static "js/beds.js" %}"></script>
 <script type="text/javascript">
-    var helloView = new hk.HelloView();
+    var bedsView = new hk.BedsView();
 </script>
 
 <script type="text/javascript">
