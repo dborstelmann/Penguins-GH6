@@ -36,7 +36,7 @@ class ApplicantManager(models.Manager):
         if age > 60:
             score += age - 60
 
-        return score
+        return int( (float(score) / 40)  * 100 )
 
 class Applicant(models.Model):
     objects = ApplicantManager()
